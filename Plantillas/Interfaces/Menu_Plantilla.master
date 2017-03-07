@@ -1,0 +1,41 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/BarraNav_Plantilla.Master" AutoEventWireup="true" CodeBehind="Menu_Plantilla.master.cs" Inherits="Interfaces.Menu_Plantilla" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="css/estilos.css" rel="stylesheet" />
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContenidoEnlaces" runat="server">
+    <div id="abrirNav" class="enlace w3-hover-white w3-hover-text-green">
+	    <a class="">
+		    <i class="fa fa-bars" aria-hidden="true"></i>Men&uacute;
+		</a>
+	</div>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="ContenidoCuerpo" runat="server">
+    <!--EL SIDE VERTICAL-->
+	<nav id="sideVertical" class="w3-sidenav w3-large w3-deep-orange w3-animate-left">
+  		<a id="cerrarNav" class="w3-closenav w3-large"><i class="w3-xlarge fa fa-times" aria-hidden="true"></i></a>
+        <asp:ContentPlaceHolder ID="ContenidoSideNav" runat="server">
+
+        </asp:ContentPlaceHolder>
+	    <a href="index.html" class="w3-hover-white w3-hover-text-deep-orange"><i class="fa fa-sign-out"></i> Cerrar Sesion</a>
+	</nav>
+	<!--FIN DE EL SIDE VERTICAL-->
+
+	<!--DIV PARA QUE SE PONGA OPACA LA PAGINA-->
+	<div id="Opacar" class="w3-overlay w3-animate-opacity manita"></div>
+	<!--FIN DEL DIV PARA QUE SE PONGA OPACA LA PAGINA-->
+
+	<!--CUERPO DEL MENU-->
+	<section id="main" class="w3-card-12 w3-container articulo-menu">
+		<article class="">
+			<h1>BIENVENID@</h1>
+			<hr class="w3-green">
+            <asp:ContentPlaceHolder ID="ContenidoArticulos" runat="server">
+
+            </asp:ContentPlaceHolder>
+		</article>
+	</section>
+	<!--FIN DEL CUERPO DEL MENU-->
+</asp:Content>
+<asp:Content ID="Content4" ContentPlaceHolderID="ContenidoScripts" runat="server">
+    <script src="js/menu.js"></script>
+</asp:Content>

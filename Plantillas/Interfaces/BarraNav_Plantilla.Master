@@ -1,0 +1,45 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="BarraNav_Plantilla.master.cs" Inherits="Interfaces.BarraNav_Plantilla" %>
+
+<!DOCTYPE html>
+<html lang="es">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <link href="css/w3.css" rel="stylesheet" />
+    <link href="css/estilosNavBar.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <!--NAV BAR-->
+	<header id="header" class="w3-green">
+		<nav class="menu">
+			<div class="enlace w3-hover-white w3-hover-text-green">
+				<a href="MenuPrincipal.html" class="">
+					<i class="fa fa-bolt" aria-hidden="true"></i>FlashConsultas
+				</a>
+			</div>
+            <asp:ContentPlaceHolder ID="ContenidoEnlaces" runat="server">
+
+            </asp:ContentPlaceHolder>
+		</nav>
+	</header>
+    <asp:ContentPlaceHolder ID="ContenidoCuerpo" runat="server">
+
+    </asp:ContentPlaceHolder>
+	<!--FIN DEL NAV BAR-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/headroom.min.js"></script>
+    <asp:ContentPlaceHolder ID="ContenidoScripts" runat="server">
+
+    </asp:ContentPlaceHolder>
+    <script>
+        $(function () {
+            var header = document.getElementById('header');
+            var headroom = new Headroom(header);
+            headroom.init();
+        });
+    </script>
+</body>
+</html>

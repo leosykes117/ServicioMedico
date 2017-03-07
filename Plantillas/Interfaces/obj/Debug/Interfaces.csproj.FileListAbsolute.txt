@@ -1,0 +1,12 @@
+C:\Programas\Servicio-Medico\Prototipo\Interfaces\Interfaces\bin\Interfaces.dll.config
+C:\Programas\Servicio-Medico\Prototipo\Interfaces\Interfaces\bin\Interfaces.dll
+C:\Programas\Servicio-Medico\Prototipo\Interfaces\Interfaces\bin\Interfaces.pdb
+C:\Programas\Servicio-Medico\Prototipo\Interfaces\Interfaces\obj\Debug\Interfaces.csprojResolveAssemblyReference.cache
+C:\Programas\Servicio-Medico\Prototipo\Interfaces\Interfaces\obj\Debug\Interfaces.dll
+C:\Programas\Servicio-Medico\Prototipo\Interfaces\Interfaces\obj\Debug\Interfaces.pdb
+C:\Programas\ServicioMedico\Plantillas\Interfaces\bin\Interfaces.dll.config
+C:\Programas\ServicioMedico\Plantillas\Interfaces\bin\Interfaces.dll
+C:\Programas\ServicioMedico\Plantillas\Interfaces\bin\Interfaces.pdb
+C:\Programas\ServicioMedico\Plantillas\Interfaces\obj\Debug\Interfaces.csprojResolveAssemblyReference.cache
+C:\Programas\ServicioMedico\Plantillas\Interfaces\obj\Debug\Interfaces.dll
+C:\Programas\ServicioMedico\Plantillas\Interfaces\obj\Debug\Interfaces.pdb
