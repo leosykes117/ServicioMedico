@@ -1,0 +1,48 @@
+body{
+	padding-top: 53px;
+}
+
+/*ESTILOS DE LOS ARTICULOS*/
+.principal-centrado{/*para centrar contenido*/
+	max-width:700px;
+	margin:auto;
+}
+
+.articulo-menu{
+	width: 90%;
+	max-width: 10000px;
+	margin: 40px auto;
+}
+
+.articulo-menu article h1{
+	font-weight: normal;
+	margin-bottom: 0.5em;
+}
+
+.articulo-menu article hr{
+	margin-bottom: 1em;
+	height: 2px;
+	border: none;
+}
+/*FIN DE ESTILOS DE LOS ARTICULOS*/
+
+
+/*ESTILOS DEL SIDE VERTICAL*/
+.w3-sidenav{ /*mantiene oculto el side vertical*/
+	display:none;
+	z-index:5;
+}
+/*FIN DE ESTILOS DEL SIDE VERTICAL*/
+
+
+/*ESTILOS GENERALES*/
+a{
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.manita{
+	cursor: pointer;
+}
+/*FIN DE ESTILOS GENERALES*/
+
