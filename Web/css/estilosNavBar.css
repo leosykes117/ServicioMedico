@@ -1,0 +1,63 @@
+.menu{
+	width: 90%;
+	max-width: 1000px;
+	margin: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	-ms-align-items: center;
+	align-items: center;
+}
+
+/*
+.menu .logo{
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.menu .logo a{
+	display: inline-block;
+	padding: 1em;
+	text-align: center;
+	font-size: 1em;
+}
+
+.menu .logo i{
+	margin-right: 5px;
+}
+
+.menu .logo img {
+	vertical-align: top;
+	height: 22px;
+}
+*/
+.menu .enlace{
+	display: inline-block;
+	text-align: right;
+}
+
+.menu .enlace a{
+	display: inline-block;
+	padding: 1em;
+	text-align: center;
+	font-size: 1em;
+}
+
+.menu .enlace i{
+	margin-right: 5px;
+}
+
+/*clases de headroom*/
+.headroom {
+	transition: transform .3s ease;
+}
+
+.headroom--pinned{
+	transform: translateY(0%);
+}
+
+.headroom--unpinned{
+	transform: translateY(-100%);
+}
+/*fin de clases de headroom*/
+/*FIN ESTILOS DE LA BARRA DE NAVEGACION*/

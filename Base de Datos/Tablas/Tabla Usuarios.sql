@@ -1,0 +1,18 @@
+USE ServicioMedico
+GO
+
+IF OBJECT_ID('TablaUsuarios') IS NOT NULL
+DROP TABLE TablaUsuarios
+GO
+
+CREATE TABLE TablaUsuarios
+(
+ID INT PRIMARY KEY NOT NULL,
+Usuario NVARCHAR(15) NOT NULL,
+Contraseña NVARCHAR(15) NOT NULL,
+Correo NVARCHAR(70) NOT NULL,
+CONSTRAINT fk_UsuD FOREIGN KEY (ID) REFERENCES TablaDoctores ([ID Doctor]),
+)
+GO
+
+SELECT * FROM TablaUsuarios
