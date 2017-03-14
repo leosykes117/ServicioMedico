@@ -3,7 +3,7 @@ body{
 }
 
 /*ESTILOS DE LA BARRA DE NAVEGACION*/
-header{
+.header{
 	position: fixed;
 	top:0;
 	width: 100%;
