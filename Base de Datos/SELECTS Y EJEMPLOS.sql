@@ -12,3 +12,5 @@ GO
 SELECT * FROM TablaRoles
 SELECT * FROM TablaDoctores
 SELECT * FROM TablaUsuarios
+
+SELECT * FROM NuevosUsuarios
