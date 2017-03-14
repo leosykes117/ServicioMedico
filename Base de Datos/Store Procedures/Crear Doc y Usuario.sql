@@ -44,11 +44,12 @@ CREATE PROCEDURE insNuevoUsuario
 @Usuario NVARCHAR(15),
 @Contraseña NVARCHAR(15),
 @Correo NVARCHAR(70),
+@Rol INT,
 @Contador SMALLINT OUTPUT
 )
 AS
 BEGIN
-	INSERT INTO TablaUsuarios VALUES (@ID, @Usuario, @Contraseña, @Correo)
+	INSERT INTO TablaUsuarios VALUES (@ID, @Usuario, @Contraseña, @Correo, @Rol)
 	IF EXISTS (SELECT ID FROM TablaUsuarios WHERE ID = @ID)
 	BEGIN
 		SELECT @Contador = 1

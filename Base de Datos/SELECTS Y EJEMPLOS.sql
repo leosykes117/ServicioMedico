@@ -9,5 +9,6 @@ FOR || AFTER || INSTEAD OFF (SENTENCIA DONDE SE EJECUTARA)
 USE ServicioMedico
 GO
 
+SELECT * FROM TablaRoles
 SELECT * FROM TablaDoctores
 SELECT * FROM TablaUsuarios
