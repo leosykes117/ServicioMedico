@@ -44,4 +44,4 @@ BEGIN
 END
 GO
 
-EXEC selBusquedaConsultas 4,502,2
+EXEC selBusquedaConsultas 1,502,2

@@ -7,37 +7,29 @@ GO
 
 CREATE PROCEDURE insAgregarPacientes
 (
-@Tipo int,
-@Nombre NVARCHAR(60),
-@Sexo NVARCHAR(9)
+@Tipo INT,
+@Nombre NVARCHAR(50),
+@Genero NVARCHAR(9),
+@Retornado BIGINT OUTPUT
 )
 AS
 BEGIN
-	IF @Tipo=1 --AGREGAR DATOS DEL DOCENTE
+	IF @Tipo=2 --AGREGAR DATOS DEL DOCENTE
 	BEGIN
-		INSERT INTO	TablaDocentes VALUES(@Nombre,@Sexo)
+		INSERT INTO	TablaDocentes VALUES(@Nombre,@Genero)
+		SELECT @Retornado = (SELECT @@IDENTITY)
 	END --FIN DE DOCENTE
 
-	ELSE IF @Tipo=2--AGREGRA DATOS DE PAE
+	ELSE IF @Tipo=3--AGREGRA DATOS DE PAE
 	BEGIN
-		INSERT INTO	TablaPAES VALUES(@Nombre,@Sexo)
+		INSERT INTO	TablaPAES VALUES(@Nombre,@Genero)
+		SELECT @Retornado = (SELECT @@IDENTITY)
 	END--FIN DEL PAE
 
 	ELSE--AGREGAR DATOS EXTERNO
 	BEGIN
-		INSERT INTO	TablaExternos VALUES(@Nombre,@Sexo)
+		INSERT INTO	TablaExternos VALUES(@Nombre,@Genero)
+		SELECT @Retornado = (SELECT @@IDENTITY)
 	END--FIN EXTERNOS
 END--FIN DEL AS
 GO
-
-EXEC insAgregarPacientes 1,'Adrian Rodolfo Villalba Lemus','Masculino'
-EXEC insAgregarPacientes 1,'Alfredo Campos Guerrero','Masculino'
-EXEC insAgregarPacientes 2,'Alan Brito Delgado','Masculino'
-EXEC insAgregarPacientes 3,'Marcela Mrtinez Alvarado','Femenino'
-
-SELECT * FROM TablaDocentes
-SELECT * FROM TablaConsultasDocentes
-SELECT * FROM TablaPAES
-SELECT * FROM TablaConsultasPAE
-SELECT * FROM TablaExternos
-SELECT * FROM TablaConsultasExternos

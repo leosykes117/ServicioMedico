@@ -8,20 +8,9 @@ GO
 CREATE PROCEDURE selBusGenDoc
 AS
 BEGIN
-	SELECT ID,[Nombre Doctor], Usuario, Consultorio, Correo,Contraseña 
-	FROM TablaDoctores INNER JOIN TablaUsuarios ON TablaUsuarios.ID = TablaDoctores.[ID Doctor]
-	WHERE ID <> 501
+	SELECT [ID Doctor] AS 'ID', [Nombre Doctor] AS 'Nombre', Genero, Consultorio, Usuario, Correo FROM TablaDoctores INNER JOIN TablaUsuarios ON TablaUsuarios.ID = TablaDoctores.[ID Doctor]
+	WHERE Rol <> 1
 END
 GO
 
-	IF EXISTS (SELECT [ID Doctor] FROM TablaDoctores WHERE [Nombre Doctor] LIKE '%leo%')
-	BEGIN
-		SELECT ID,[Nombre Doctor], Usuario, Consultorio, Correo,Contraseña 
-		FROM TablaDoctores INNER JOIN TablaUsuarios ON TablaUsuarios.ID = TablaDoctores.[ID Doctor]
-		WHERE ID = 502
-	END
-	ELSE
-	BEGIN
-		SELECT 'No se encontro nada'
-	END
-
+EXEC selBusGenDoc

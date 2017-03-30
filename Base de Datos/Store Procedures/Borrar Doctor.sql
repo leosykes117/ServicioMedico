@@ -1,0 +1,19 @@
+USE ServicioMedico
+GO
+
+IF OBJECT_ID('dltBorrarDoc') IS NOT NULL
+DROP PROC dltBorrarDoc
+GO
+
+CREATE PROC dltBorrarDoc
+(
+@ID INT
+)
+AS
+BEGIN
+	DELETE FROM TablaDoctores WHERE [ID Doctor] = @ID
+END
+GO
+
+/*ALTERE AS TABLAS DE CONSULTAS DE LOS PACIENTES Y LA DE usuarios para que se pudiera hacer el borrado en cascada 23/03/2017*/
+/*ALETERE LA TABLAS DE CONSULTAS DE LOS PACIENTES Y LA DE USUARIOS QUITANDOLES EL ON UPDATE CASCADE*/

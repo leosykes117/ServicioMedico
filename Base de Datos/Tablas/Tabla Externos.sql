@@ -7,9 +7,9 @@ GO
 
 CREATE TABLE TablaExternos
 (
-[ID Externo] BIGINT IDENTITY(3000130001,1) PRIMARY KEY,
-[Nombre de Externo] NVARCHAR(70),
-[Sexo E] NVARCHAR(9)
+[ID Externo] BIGINT IDENTITY(40013001,1) PRIMARY KEY,
+[Nombre de Externo] NVARCHAR(50),
+[Genero E] NVARCHAR(9)
 )
 GO
 

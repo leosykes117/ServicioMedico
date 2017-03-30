@@ -1,4 +1,4 @@
-USE FlashConsultas
+USE ServicioMedico
 GO
 
 IF OBJECT_ID('insCrearConsulta') IS NOT NULL
