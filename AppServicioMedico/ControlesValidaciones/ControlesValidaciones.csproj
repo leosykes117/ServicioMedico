@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Limpiar.cs" />
     <Compile Include="PlaceHolders.cs" />
     <Compile Include="Validaciones.cs" />
     <Compile Include="PerTextBox.cs">

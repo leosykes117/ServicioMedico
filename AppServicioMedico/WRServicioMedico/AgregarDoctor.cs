@@ -43,6 +43,22 @@ namespace WRServicioMedico
                         if (respuesta == 1)
                         {
                             MessageBox.Show("El doctor se creo correctamente", "Nuevo Doctor", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            DialogResult dr = MessageBox.Show("Se ha agregado un nuevo Doctor.\n¿Desea Verlo?", "Mensaje de Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (dr == DialogResult.Yes)
+                            {
+                                frmMonitorearUsuarios monitorearUsuarios = new frmMonitorearUsuarios();
+                                this.Dispose(); this.Close(); this.Hide();
+                                monitorearUsuarios.ShowDialog();
+                            }
+                            else
+                            {
+                                this.Dispose(); this.Close(); this.Hide();
+                            }
+                        }
+                        else if (respuesta == 3)
+                        {
+                            MessageBox.Show("El doctor pudo ser guardado pero no se le envio un correo", "Nuevo Doctor", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.Close();
                         }
                         else if(respuesta == 0)
                         {
@@ -55,16 +71,26 @@ namespace WRServicioMedico
                     }
                     else if (rdbFemenino.Checked == true)
                     {
-                        Doctores nuevoDoc = new Doctores(txtNombre.Text, rdbFemenino.Text, cmbConsultorio.SelectedItem.ToString());
+                        Doctores nuevoDoc = new Doctores(txtNombre.Text, "Femenino", cmbConsultorio.SelectedItem.ToString());
                         int respuesta = nuevoDoc.AgregarDoctor(txtUsuario.Text, txtContraseña.Text, txtCorreo.Text, 2);
                         if (respuesta == 1)
                         {
                             MessageBox.Show("El doctor se creo correctamente", "Nuevo Doctor", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.Close();
+                            DialogResult dr = MessageBox.Show("Se ha agregado un nuevo Doctor.\n¿Desea Verlo?", "Mensaje de Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (dr == DialogResult.Yes)
+                            {
+                                frmMonitorearUsuarios monitorearUsuarios = new frmMonitorearUsuarios();
+                                this.Dispose(); this.Close(); this.Hide();
+                                monitorearUsuarios.ShowDialog();
+                            }
+                            else
+                            {
+                                this.Dispose(); this.Close(); this.Hide();
+                            }
                         }
                         else if (respuesta == 3)
                         {
-                            MessageBox.Show("El doctor no pude ser guardado pero no se le envio un correo", "Nuevo Doctor", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("La doctora pudo ser guardada pero no se le envio un correo", "Nuevo Doctor", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             this.Close();
                         }
                         else if (respuesta == 0)

@@ -56,39 +56,39 @@ namespace ControlesValidaciones
                 if (item is PerTextBox)
                 {
                     PerTextBox mitxt = (PerTextBox)item;
-                    if (mitxt.Text != mitxt.PlaceHolder)
+                    if (mitxt.Text == mitxt.PlaceHolder)
+                    {
+                        
+                    }
+                    else 
                     {
                         mensajes = true;
                     }
-                    else
-                    {
-                        mensajes = false;
-                    }
                 }
 
-                if (item is ComboBox)
+                else if (item is ComboBox)
                 {
                     ComboBox cmb = (ComboBox)item;
-                    if (cmb.SelectedIndex != 0)
+                    if (cmb.SelectedIndex > 0)
                     {
-                        mensajes = true;
+                        
                     }
                     else
                     {
-                        mensajes = false;
+                        
                     }
                 }
 
-                if(item is RadioButton)
+                else if (item is RadioButton)
                 {
                     RadioButton rdb = (RadioButton)item;
-                    if (rdb.Checked == true)
+                    if(rdb.Checked == true)
                     {
-                        mensajes = true;
+
                     }
                     else
                     {
-                        mensajes = false;
+                        mensajes = true;
                     }
                 }
             }

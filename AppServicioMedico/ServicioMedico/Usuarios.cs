@@ -54,12 +54,23 @@ namespace ServicioMedico
             contraseña = contra;
             correoElectronico = mail;
             rol = r;
-        }
+        }//CONTRUCTOR PARA INSERTAR
 
         public Usuarios(string usu, string contra)//CONTRUCTOR PARA LOGIN
         {
             usuario = usu;
             contraseña = contra;
+        }
+
+        public Usuarios(int id)
+        {
+            idUsuario = id;
+        }
+
+        public Usuarios(int id, string password)//CONTRUCTOR PARA CAMBIAR CONTRASEÑA
+        {
+            idUsuario = id;
+            contraseña = password;
         }
 
         public int AgregarUsuario(string doc)
@@ -149,6 +160,135 @@ namespace ServicioMedico
             }
             conexion.Close();
             return respuesta;
+        }
+
+        /*public int BuscarDoctor()
+        {
+            int respuesta = 0;
+            DataTable tb = new DataTable();
+            SqlConnection conexion = Conexion.ObtenerConexion();
+            SqlCommand busqueda = new SqlCommand("selDocById", conexion);
+            DataSet ds = new DataSet();
+            SqlDataAdapter da;
+            try
+            {
+                busqueda.CommandType = CommandType.StoredProcedure;
+                da = new SqlDataAdapter(busqueda);
+                busqueda.Parameters.Add("@ID", SqlDbType.Int).Value = IdUsuario;
+                da.Fill(ds, "Fila");
+                tb = ds.Tables["fila"];
+                Doctores doc = new Doctores();
+                doc.NombreDoctor = tb.Rows[0]["Nombre"].ToString();
+                usuario = tb.Rows[0]["Usuario"].ToString();
+                correoElectronico = tb.Rows[0]["Correo"].ToString();
+                if(usuario != string.Empty)
+                {
+                    respuesta = 1;
+                }
+                else
+                {
+                    respuesta = 0;
+                }
+            }
+            catch (SqlException)
+            {
+                conexion.Close();
+                respuesta = 2;
+            }
+            conexion.Close();
+            return respuesta;
+        }*/
+
+        public int CambiarContraseña(string nueva)
+        {
+            int respuesta = 0;
+            SqlConnection conexion = Conexion.ObtenerConexion();
+            SqlCommand modificar = new SqlCommand("updCambioContraseña", conexion);
+            try
+            {
+                modificar.CommandType = CommandType.StoredProcedure;
+                modificar.Parameters.Add("@ID", SqlDbType.Int).Value = idUsuario;
+                modificar.Parameters.Add("@Actual", SqlDbType.NVarChar, 15).Value = Contraseña;
+                modificar.Parameters.Add("@Nueva", SqlDbType.NVarChar, 15).Value = nueva;
+
+                SqlParameter pcorreo = new SqlParameter("@Correo",SqlDbType.NVarChar,70);
+                pcorreo.Direction = ParameterDirection.Output;
+                modificar.Parameters.Add(pcorreo);
+
+                SqlParameter pnombre = new SqlParameter("@Nombre",SqlDbType.NVarChar,50);
+                pnombre.Direction = ParameterDirection.Output;
+                modificar.Parameters.Add(pnombre);
+                modificar.ExecuteNonQuery();
+                correoElectronico = modificar.Parameters["@Correo"].Value.ToString();
+                string nombre = modificar.Parameters["@Nombre"].Value.ToString();
+                if(CorreoElectronico == "No se pudo")
+                {
+                    respuesta = 0;
+                }
+                else if (CorreoElectronico == "Repetida")
+                {
+                    respuesta = 3;
+                }
+                else
+                {
+                    string doc = Utilerias.CambioPasswordHTML(nombre);
+                    if (EnviarCorreo(doc, "Modificacion de la contraseña") == 1)
+                    {
+                        respuesta = 1;
+                    }
+                    else
+                    {
+                        respuesta = 2;
+                    }
+                }
+            }
+            catch(SqlException)
+            {
+                respuesta = 4;
+            }
+            conexion.Close();
+            return respuesta;
+        }
+
+        public static DataTable TraerNuevosUsuarios()
+        {
+            SqlConnection conexion = Conexion.ObtenerConexion();
+            SqlCommand busqueda = new SqlCommand("selTablaNuevosUsuarios", conexion);
+            DataSet ds = new DataSet();
+            SqlDataAdapter da;
+            try
+            {
+                busqueda.CommandType = CommandType.StoredProcedure;
+                da = new SqlDataAdapter(busqueda);
+                da.Fill(ds, "Fila");
+            }
+            catch (SqlException)
+            {
+
+            }
+            conexion.Close();
+            return ds.Tables["Fila"];
+        }//FIN DE METODO BUSCA GENERAL
+
+        public static DataTable TraerRegistrosContraseñas(int clave)
+        {
+            SqlConnection conexion = Conexion.ObtenerConexion();
+            SqlCommand busqueda = new SqlCommand("selTablaCambiosContraseñas", conexion);
+            DataSet ds = new DataSet();
+            SqlDataAdapter da;
+            try
+            {
+                busqueda.CommandType = CommandType.StoredProcedure;
+                da = new SqlDataAdapter(busqueda);
+                busqueda.Parameters.Add("@ID", SqlDbType.Int).Value = clave;
+                da.Fill(ds, "Fila");
+            }
+            catch (SqlException)
+            {
+
+            }
+            conexion.Close();
+            return ds.Tables["Fila"];
         }
 
         private int EnviarCorreo(string documento, string asunto)
