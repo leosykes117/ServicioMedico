@@ -59,3 +59,10 @@ footer{
 .contacto{
     background-color: #64F2FF;
 }
+
+.form-control:focus {
+    border-color: #F7CC38;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(247, 204, 56, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(247, 204, 56, 0.6);
+}

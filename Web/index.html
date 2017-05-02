@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/font-awesome.min.css" />
     <link rel="stylesheet" href="css/estilos_login.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700" rel="stylesheet">
-    <title>Document</title>
+    <title>Servicio M&eacute;dico. - Inicio</title>
 </head>
 <body>
     <div class="fondo">
@@ -26,9 +26,9 @@
                     <div class="form-group">
                         <input type="password" id="txtContraseña" class="form-control" placeholder="Contraseña" />
                     </div>
-                    <input type="button" id="btnIniciar" class="btn btn-warning btn-lg btn-block" value="Iniciar Sesión">
+                    <input type="button" id="btnIniciar" class="btn btn-warning btn-lg btn-block" value="Iniciar Sesión" />
     			</form>
-                <p>¿No tienes una cuenta? <a href="" class="btn btn-link">Registrate</a></p>
+                <p>¿No tienes una cuenta? <a href="Registro.html" class="btn btn-link">Registrate</a></p>
             </div>
             <div id="mensajes" class="alert alert-danger alert-dismissable">
                 <a class="close">&times;</a>
@@ -44,8 +44,7 @@
             <p>Aplicacion Web Creada por <strong>Leonardo Antonio Arellano Martinez.</strong></p>
         </div>
         <div class="col-md-4">
-            <p>Correo Electronico: leo.aremtz98@gmail.com</p>
-            <p>Telefono: 30-92-62-06</p>
+            <p>Correo Electronico: leo.aremtz98@gmail.com <br> Telefono: 30-92-62-06</p>
         </div>
     </footer>
     <script src="js/jquery.min.js"></script>
@@ -59,11 +58,10 @@
                 usu = $("#txtUsuario").val();
                 pass = $("#txtContraseña").val();
                 if(usu != "" && pass != ""){
-                    $("#mensajes").show();
-                    $("#textoError").html(usu + " " + pass);
+                    $(location).attr("href","MenuPrincipal.html");
                 } else{
                     $("#mensajes").show();
-                    $("#textoError").html("Ingrese su Usuario y contraseña");    
+                    $("#textoError").html("Ingrese su Usuario y contraseña");
                 }
             });
 
