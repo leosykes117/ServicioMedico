@@ -13,19 +13,12 @@ AS
 BEGIN
 	IF(@Tipo = 1)
 	BEGIN
-		SELECT [ID Alumno] AS 'Clave', Boleta AS 'Boleta o PM', [Nombre de Alumno] AS 'Nombre', Carrera FROM TablaAlumnos
-	END
-	ELSE IF(@Tipo = 2)
-	BEGIN
-		SELECT [ID Docente] AS 'Clave', [Nombre de Docente] AS 'Nombre' FROM TablaDocentes
-	END
-	ELSE IF(@Tipo = 3)
-	BEGIN
-		SELECT [ID PAE] AS 'Clave', [Nombre de PAE] AS 'Nombre' FROM TablaPAES
+		SELECT IdPaciente AS 'Clave', NombrePaciente AS 'Nombre', ApellidosPaciente AS 'Apellidos', Boleta FROM tbPacientes INNER JOIN tbAlumnos ON				tbPacientes.IdPaciente = tbAlumnos.IdAlumno
 	END
 	ELSE
 	BEGIN
-		SELECT [ID Externo] AS 'Clave', [Nombre de Externo] AS 'Nombre' FROM TablaExternos
+		SELECT IdPaciente AS 'Clave', NombrePaciente AS 'Nombre', ApellidosPaciente AS 'Apellidos' FROM tbPacientes
+		WHERE TipoPaciente = @Tipo
 	END
 END
 GO

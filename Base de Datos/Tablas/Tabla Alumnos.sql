@@ -1,20 +1,20 @@
 USE ServicioMedico
 GO
 
-IF OBJECT_ID('TablaAlumnos') IS NOT NULL
-DROP TABLE TablaAlumnos
+IF OBJECT_ID('tbAlumnos') IS NOT NULL
+DROP TABLE tbAlumnos
 GO
 
-CREATE TABLE TablaAlumnos
+CREATE TABLE tbAlumnos
 (
-[ID Alumno] BIGINT IDENTITY(10013001,1) PRIMARY KEY NOT NULL,
+IdAlumno INT PRIMARY KEY NOT NULL,
 Boleta NVARCHAR(10) NOT NULL,
-[Nombre de Alumno] NVARCHAR(50) NOT NULL,
-[Genero A] NVARCHAR(9) NOT NULL,
-Carrera NVARCHAR(50) NOT NULL,
-Grupo NVARCHAR(5) NOT NULL
+Grupo NVARCHAR(5) NOT NULL,
+Carrera SMALLINT NOT NULL,
+CONSTRAINT fk_PacienteA FOREIGN KEY (IdAlumno) REFERENCES tbPacientes (IdPaciente),
+CONSTRAINT fk_CarreraA FOREIGN KEY (Carrera) REFERENCES tbCarreras (IdCarrera)
 )
 GO
 
-SELECT * FROM TablaAlumnos
+SELECT * FROM tbAlumnos
 GO

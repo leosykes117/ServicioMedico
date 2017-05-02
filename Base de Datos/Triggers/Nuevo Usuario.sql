@@ -5,26 +5,43 @@ IF OBJECT_ID('TR_NuevoUsuario_Insert') IS NOT NULL
 DROP TRIGGER TR_NuevoUsuario_Insert
 GO
 
-CREATE TRIGGER TR_NuevoUsuario_Insert
-ON TablaUsuarios
+CREATE TRIGGER TR_NuevoUsuario_Insert  /*TRIGGER PARA REGISTRAR CUANDO SE AREGE UN USUARIO*/
+ON TablaEmpleados
 FOR INSERT
 AS
 BEGIN
-	DECLARE @Nombre AS NVARCHAR(50)
 	DECLARE @ID AS INT
-	DECLARE @Fecha DATETIME
+	DECLARE @Rol AS INT
 	
-	SET @Nombre = (SELECT TOP(1) [Nombre Doctor] FROM TablaDoctores ORDER BY [ID Doctor] DESC)
-	SET @ID = (SELECT TOP(1) [ID Doctor] FROM TablaDoctores ORDER BY [ID Doctor] DESC)
-	SET @Fecha = (SELECT GETDATE())
+	SET @ID = (SELECT [Cve Persona (Empleados)] FROM inserted)--Guardamos el id y el rol del empleado que se aacaba de insertar
+	SET @Rol = (SELECT Rol FROM inserted)
 
-	IF((SELECT Rol FROM TablaUsuarios WHERE ID = @ID) = 1)
-	BEGIN 
-		INSERT INTO NuevosUsuarios VALUES(@Nombre, @ID, @Fecha,'SE AGREGO UN ADMINISTRADOR')
+	DECLARE @Nombre AS NVARCHAR(50)
+	
+	IF(@Rol = 1)
+	BEGIN
+		SET @Nombre = (SELECT Nombre  FROM TablaPersonas WHERE IDPersona = @ID) --Almacenamos el nombre de la persona que corresponde con el id de quien se inserto
+		INSERT INTO NuevosUsuarios VALUES(@Nombre, @ID, GETDATE(),'SE AGREGO UN ADMINISTRADOR')
 	END
+
+	ELSE IF (@Rol = 2)
+	BEGIN
+		SET @Nombre = (SELECT Nombre FROM TablaPersonas WHERE IDPersona = @ID)
+		INSERT INTO NuevosUsuarios VALUES(@Nombre, @ID, GETDATE(),'SE AGREGO UN DOCTOR')
+	END
+
 	ELSE
 	BEGIN
-		INSERT INTO NuevosUsuarios VALUES(@Nombre, @ID, @Fecha,'SE AGREGO UN USUARIO')
+		SET @Nombre = (SELECT Nombre FROM TablaPersonas WHERE IDPersona = @ID)
+		INSERT INTO NuevosUsuarios VALUES(@Nombre, @ID, GETDATE(),'SE AGREGO UN PASANTE')
 	END
 END
 GO
+
+
+/*
+SET @ID = (SELECT IdUsuario FROM inserted)--Guardamos el id y el rol del empleado que se aacaba de insertar
+SET @Rol = (SELECT Rol FROM inserted)
+SET @Nombre = (SELECT [Nombre Doctor] FROM TablaDoctores WHERE [ID Doctor] = @ID)
+INSERT INTO NuevosUsuarios VALUES(@Nombre, @ID, GETDATE(),'SE AGREGO UN DOCTOR')
+*/

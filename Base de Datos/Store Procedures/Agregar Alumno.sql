@@ -7,21 +7,44 @@ GO
 
 CREATE PROCEDURE insAgregarAlumno
 (
+@Nombre NVARCHAR(20),
+@Apellidos NVARCHAR(20),
+@Genero SMALLINT,
+@Edad SMALLINT,
 @Boleta NVARCHAR(10),
-@Nombre NVARCHAR(50),
-@Sexo NVARCHAR(9),
-@Carrera NVARCHAR(50),
 @Grupo NVARCHAR(5),
-@Retornado BIGINT OUTPUT
+@Carrera SMALLINT,
+@Mensaje AS NVARCHAR(100) OUTPUT,
+@Retornado INT OUTPUT
 )
 AS
 BEGIN
-	IF(NOT EXISTS(SELECT Boleta FROM TablaAlumnos WHERE Boleta = @Boleta))
-	BEGIN	
-		INSERT INTO TablaAlumnos VALUES(@Boleta, @Nombre, @Sexo, @Carrera, @Grupo)
-		SELECT @Retornado = (SELECT @@IDENTITY)
-	END
-	ELSE
-		SELECT @Retornado = 0
+	BEGIN TRY
+		BEGIN TRAN TInsAlumno
+			DECLARE @ID AS INT
+			INSERT INTO tbPacientes VALUES (@Nombre, @Apellidos, @Genero, @Edad, 1)
+			SET @ID = @@IDENTITY
+			INSERT INTO tbAlumnos VALUES (@ID, @Boleta, @Grupo, @Carrera)
+			SET @Mensaje = 'Registrado'
+			SET @Retornado = @ID
+		COMMIT TRAN TInsAlumno
+	END TRY
+
+	BEGIN CATCH
+		SET @Mensaje = 'Ocurrio un Error: ' + ERROR_MESSAGE() + ' de tipo ' + CONVERT(NVARCHAR(50), ERROR_NUMBER()) + '.'
+        ROLLBACK TRAN TInsAlumno
+	END CATCH
 END
+GO
+
+DECLARE @Mensaje AS NVARCHAR(100)
+DECLARE @Retornado AS INT
+EXEC insAgregarAlumno 'Dayanary Veronica','Cervantes Sanchez',2,18,'2014130120','1IM12',2,@Mensaje OUTPUT, @Retornado OUTPUT
+SELECT @Mensaje AS Mensaje, @Retornado AS Retornado
+GO
+
+DECLARE @Mensaje AS NVARCHAR(100)
+DECLARE @Retornado AS INT
+EXEC insAgregarAlumno 'Roberto Antonio','Trejo Valle',1,19,'2014132120','5IV4',2,@Mensaje OUTPUT, @Retornado OUTPUT
+SELECT @Mensaje AS Mensaje, @Retornado AS Retornado
 GO

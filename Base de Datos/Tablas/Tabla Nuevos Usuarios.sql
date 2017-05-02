@@ -7,8 +7,8 @@ GO
 
 CREATE TABLE NuevosUsuarios
 (
-NombreDoc NVARCHAR(50),
-IdDoc INT,
+NombreEmpleadp NVARCHAR(50),
+IdEmpleado INT,
 Fecha_Hora DATETIME,
 Descripcion NVARCHAR(40)
 )

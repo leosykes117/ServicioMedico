@@ -16,14 +16,13 @@ CREATE PROCEDURE selIniciarSesion
 AS
 BEGIN
 
-	SELECT @IDRetornado = ID FROM TablaUsuarios --BUSCO A EL USUARIO Y EL RESULTADO LO AMACENO EN @LOGEO
-	WHERE Usuario = @Usuario and Contraseña = @Contraseña
+	SELECT @IDRetornado = IdUsuario FROM TablaUsuarios WHERE Usuario = @Usuario and Contraseña = @Contraseña --BUSCO A EL USUARIO Y EL RESULTADO LO AMACENO EN @IDRetornado
 
 	IF(@IDRetornado > 0) 
 	BEGIN
 		DECLARE @Rol AS INT
 		DECLARE @GENERO AS NVARCHAR(9)
-		SET @Rol = (SELECT Rol FROM TablaUsuarios WHERE ID = @IDRetornado )
+		SET @Rol = (SELECT Rol FROM TablaUsuarios WHERE IdUsuario = @IDRetornado )
 		IF(@Rol = 1)
 		BEGIN
 			SET @GENERO = (SELECT Genero FROM TablaDoctores WHERE [ID Doctor] = @IDRetornado)
