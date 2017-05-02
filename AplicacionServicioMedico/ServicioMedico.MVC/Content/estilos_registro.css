@@ -1,0 +1,34 @@
+*{
+    padding: 0; margin: 0;
+}
+
+body{
+    background-color: #f1f1f1;
+}
+
+.contenido {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    margin: auto; /* 5% from the top, 15% from the bottom and centered */
+    max-width: 500px;
+}
+
+h1{
+    color: #FF9F24;
+}
+
+form{
+    padding: 15px;
+}
+
+#especificacion{
+    display: none;
+    padding: 5px 15px 5px 25px;
+}
+
+.form-control:focus {
+    border-color: #F7CC38;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(247, 204, 56, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(247, 204, 56, 0.6);
+}

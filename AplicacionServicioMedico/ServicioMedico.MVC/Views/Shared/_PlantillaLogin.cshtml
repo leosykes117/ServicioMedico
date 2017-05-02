@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    @Styles.Render("~/LogIn/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="fondo">
+        <div class="contenido">
+            <div class="texto">
+                <h2>¡Gracias por elegir Firefox!</h2>
+                <h1>Envía Firefox a tu teléfono o tableta</h1>
+            </div>
+            <div class="well texto">
+                <label>Inicia tu Sesi&oacute;n</label>
+                <form class="form-horizontal" accept-charset="UTF-8">
+                    <div class="form-group">
+                        <input type="text" id="txtUsuario" class="form-control" placeholder="Usuario" />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="txtContraseña" class="form-control" placeholder="Contraseña" />
+                    </div>
+                    <input type="button" id="btnIniciar" class="btn btn-warning btn-lg btn-block" value="Iniciar Sesión" />
+                </form>
+                <p>¿No tienes una cuenta? @Html.ActionLink("Registrate", "Registro", "Sesion")</p>
+            </div>
+            <div id="mensajes" class="alert alert-danger alert-dismissable">
+                <a class="close">&times;</a>
+                <strong>Error!</strong><p id="textoError">Indicates a successful or positive action.</p>
+            </div>
+        </div>
+    </div>
+    <footer class="row">
+        <div class="col-md-4">
+            <p>Algunos contenidos están protegidos por los derechos de autor ©1998–2017 de determinados colaboradores en mozilla.org. El resto de contenidos están disponibles bajo una licencia Creative Commons.</p>
+        </div>
+        <div class="col-md-4">
+            <p>Aplicacion Web Creada por <strong>Leonardo Antonio Arellano Martinez.</strong></p>
+        </div>
+        <div class="col-md-4">
+            <p>Correo Electronico: leo.aremtz98@gmail.com <br> Telefono: 30-92-62-06</p>
+        </div>
+    </footer>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/LogIn/scripts")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
