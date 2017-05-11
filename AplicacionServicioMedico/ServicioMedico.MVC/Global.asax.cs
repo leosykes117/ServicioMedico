@@ -16,6 +16,12 @@ namespace ServicioMedico.MVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            Application["Usuarios"] = 0;
+        }
+
+        void Application_End()
+        {
+            Application["Usuarios"] = (int) Application["Usuarios"] - 1;
         }
     }
 }

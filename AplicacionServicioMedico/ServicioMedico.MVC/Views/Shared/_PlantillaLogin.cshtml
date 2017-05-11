@@ -10,11 +10,21 @@
 
 </head>
 <body>
+    @{ var sesion = string.Empty; }
+    @if (Session.IsNewSession == true)
+    {
+        sesion = "Nueva Sesion";
+    }
+    else
+    {
+        sesion = "Sesion ya iniciada";
+    }
     <div class="fondo">
         <div class="contenido">
             <div class="texto">
                 <h2>¡Gracias por elegir Firefox!</h2>
                 <h1>Envía Firefox a tu teléfono o tableta</h1>
+                <p>@sesion</p>
             </div>
             <div class="well texto">
                 <label>Inicia tu Sesi&oacute;n</label>

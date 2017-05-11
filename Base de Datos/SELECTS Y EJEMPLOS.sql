@@ -14,3 +14,8 @@ SELECT * FROM tbAlumnos
 SELECT * FROM tbCarreras
 SELECT * FROM tbGeneros
 SELECT * FROM tbTiposPacientes
+
+SELECT * FROM tbCategorias
+SELECT * FROM tbMedicamentos
+SELECT * FROM tbDetallesConsultas
+SELECT * FROM tbConsultas

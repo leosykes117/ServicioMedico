@@ -1,0 +1,202 @@
+﻿@section HojasEstilo{
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+}
+
+@{
+    ViewBag.Title = "Consultas";
+    Layout = "~/Views/Shared/_MenuPrincipal.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Forms
+        </h1>
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
+            Agregar Paciente
+        </button>
+
+        <br><br>
+    </div>
+</div>
+<!-- <row> -->
+
+<div class="container">
+    <div class="row">
+        <h2>Basic Table</h2>
+        <form class="form-inline">
+            <div class="form-group">
+                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-users" aria-hidden="true"></i></div>
+                    <select id="cmbTipoBuscar" class="form-control">
+                        <option value="1">Alumno</option>
+                        <option value="2">Docente</option>
+                        <option value="3">PAAE</option>
+                        <option value="4">Externo</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+        <br />
+        <div class="table-responsive">
+            <table id="tbPacientes" class="table table-bordered">
+                <thead class="">
+                    <tr> 
+                        <th style='display:none;'>Clave</th> 
+                        <th>Nombre</th> 
+                        <th>Apellidos</th> 
+                        <th style='display:none;'>Edad</th> 
+                        <th style='display:none;'>Genero</th> 
+                        <th>Boleta</th>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Agregar Paciente</h4>
+            </div>
+            <div class="modal-body">
+                <form id="frmAgregarAlumno" class="form-inline" autocomplete="off">
+                    <!--COMBO BOX TIPO DE PACIENTE-->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-users" aria-hidden="true"></i></div>
+                            <select id="cmbTipo" class="form-control">
+                                <option value="1">Alumno</option>
+                                <option value="2">Docente</option>
+                                <option value="3">PAAE</option>
+                                <option value="4">Externo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br><br>
+                    <!--TEXTBOX NOMBRE Y APELLIDOS-->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-wheelchair" aria-hidden="true"></i></div>
+                            <input type="text" id="txtNombre" class="form-control" placeholder="Nombre Paciente">
+                            <br>
+                            <input type="text" id="txtApellidos" class="form-control" placeholder="Apellidos Paciente">
+                        </div>
+                    </div>
+                    <br><br>
+                    <!--COMBO BOX GENERO-->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-venus-mars" aria-hidden="true"></i></div>
+                            <select id="cmbGenero" class="form-control" autofocus>
+                                <option value="1">Masculino</option>
+                                <option value="2">Femenino</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br><br>
+                    <!--TEXTBOX EDAD-->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+                            <input type="text" id="txtEdad" class="form-control" placeholder="Edad Paciente">
+                        </div>
+                    </div>
+                    <br><br>
+                    <!--TEXTBOX CORREO-->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></div>
+                            <input type="text" id="txtCorreo" class="form-control" placeholder="Correo Electronico">
+                        </div>
+                    </div>
+                    <br><br>
+                    <!--DATOS DEL ALUMNO-->
+                    <div id="datosAlumno">
+                        <!--TEXT BOX BOLETA-->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
+                                <input type="text" id="txtBoleta" class="form-control" placeholder="Boleta o PM">
+                            </div>
+                        </div>
+                        <br><br>
+                        <!--TEXTBOX GRUPO-->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-university" aria-hidden="true"></i></div>
+                                <input type="text" id="txtGrupo" class="form-control" placeholder="Grupo">
+                            </div>
+                        </div>
+                        <br><br>
+                        <!--COMBO BOX CARRERA-->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-graduation-cap" aria-hidden="true"></i></div>
+                                <select id="cmbCarrera" class="form-control">
+                                    <option value="1">Tronco Común</option>
+                                    <option value="2">Técnico en Informática</option>
+                                    <option value="3">Técnico en Administración</option>
+                                    <option value="4">Técnico en Contabilidad</option>
+                                    <option value="5">Técnico en Administración de Empresas Turísticas</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <label id="mensajeError" style="color:firebrick;"></label>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="button" id="btnAgregarPaciente" class="btn btn-primary">Guadar Paciente</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal2">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Agregar Paciente</h4>
+            </div>
+            <form id="frmEnviarDatos" action="~/Consultas/Index" method="post" class="form-inline" autocomplete="off">
+                <div class="modal-body">
+                    <label for="txtnomEnviar" class="col-sm-6 control-label">¿Seguro(a) que deseas realizar la consulta a la paciente?</label>
+                    <input type="hidden" name="id" id="txtidEnviar" style="border:none; border-color:transparent;" readonly="readonly" />
+                    <input type="text" name="nom" id="txtnomEnviar" style="border:none; border-color:transparent;" readonly="readonly" />
+                    <input type="hidden" name="edad" id="txtedadEnviar" style="border:none; border-color:transparent;" readonly="readonly" />
+                    <input type="hidden" name="genero" id="txtgeneroEnviar" style="border:none; border-color:transparent;" readonly="readonly" />
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" id="btnMandarDatos" class="btn btn-primary">Pasar a Consulta</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/scriptsVistas/consultas.js"></script>
+}

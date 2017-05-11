@@ -12,9 +12,13 @@ CvePaciente INT,
 CveDoctor NVARCHAR(50),
 Motivo NVARCHAR(30),
 Diagnostico NVARCHAR(30),
-Tratamiento NVARCHAR(30),
 Fecha DATE,
 HoraEntrada TIME,
-HoraSalida TIME
+HoraSalida TIME,
+CONSTRAINT fk_CvePac FOREIGN KEY (CvePaciente) REFERENCES tbPacientes (IdPaciente)
 )
 GO
+
+SELECT * FROM tbConsultas
+
+SELECT Fecha, Motivo, Diagnostico, CveDoctor FROM tbConsultas

@@ -1,0 +1,257 @@
+﻿@model List<ServicioMedico.BO.Consultas>
+
+@section HojasEstilo{
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/snackbar.css" rel="stylesheet" />
+}
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MenuPrincipal.cshtml";
+}
+ 
+<div class="row">
+    <div class="col-lg-9">
+        <h1 class="page-header">
+            @ViewBag.nompaciente
+        </h1>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 text-center">
+        <img src="~/Content/img/ipn.png" class="img-responsive img-thumbnail" />
+    </div>
+</div>
+
+<form>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="col-lg-4 text-center">
+                            <p style="border:0;border-bottom: 3px solid #71BCC8;margin-bottom:2px;">@ViewBag.nompaciente</p>
+                            <strong>Nombre del Paciente</strong>
+                        </div>
+                        <div class="col-lg-4 text-center">
+                            <p style="border:0;border-bottom: 3px solid #71BCC8;margin-bottom:2px;">@ViewBag.edadpaciente años</p>
+                            <strong>Edad del Paciente</strong>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label class="radio-inline">
+                                <div class="switch">
+                                    <input type="radio" id="rdbMasculino" name="grpGenero" />
+                                    <div class="slider round"></div>
+                                </div>
+                                <i class="fa fa-mars fa-3x"></i>
+                            </label>
+                            <label class="radio-inline">
+                                <div class="switch">
+                                    <input type="radio" id="rdbFemenino" name="grpGenero" />
+                                    <div class="slider mujer round"></div>
+                                </div>
+                                <i class="fa fa-venus fa-3x"></i>
+                            </label>
+                            <p id="genero" style="display:none;">@ViewBag.generopaciente</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+    <!-- /.row -->
+
+        <div class="row">
+            <div class="col-lg-3 text-center">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class='input-group date'>
+                                <input type='text' id="dtpFecha" class="form-control" placeholder="Fecha" />
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class='input-group date'>
+                                <input type='text' id="dtpHoraEntrada" class="form-control" placeholder="Hora de Inicio" />
+                                <span class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class='input-group'>
+                                <span class="input-group-addon">
+                                    <i class="fa fa-thermometer-quarter"></i>
+                                </span>
+                                <input type='text' id="txtMotivo" class="form-control" placeholder="Motivo" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class='input-group'>
+                                <span class="input-group-addon">
+                                    <i class="fa fa-medkit"></i>
+                                </span>
+                                <select id="cmbMedicamentos" class="form-control"></select>
+                                <div class="collapse">
+                                    <input type="number" id="txtCantidad" class="form-control" value="0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h2>Consultas Anteriores</h2>
+                            @if (Model.Count == 0)
+                            {
+                                <ul class="list-group">
+                                    No hay Registros
+                                </ul>
+                            }
+                            else
+                            {
+                                <ul class="list-group">
+                                    @foreach (var objConsulta in Model)
+                                    {
+                                        <li class="list-group-item">
+                                            <strong>El</strong> @objConsulta.Fecha.ToString("dd/MM/yyy")  
+                                            <strong>Se presento por:</strong>  @objConsulta.Motivo
+                                            <strong>Diagnostico:</strong> @objConsulta.Diagnostico 
+                                            <strong>Se le administro</strong> @objConsulta.NombreMedicamento 
+                                            <strong>Atendio:</strong> @objConsulta.CveDoctor
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="txtDiagnostico"><i class="fa fa-heartbeat"></i>  Diagnostico:</label>
+                            <textarea class="form-control" id="txtDiagnostico" placeholder="Escribe el diagnostico" style="min-width:100%; max-width:100%; min-height:100px; max-height:100px;"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtAtendio"><i class="fa fa-user-md"></i>  Atendio:</label>
+                            <input type="text" id="txtAtendio" class="form-control" placeholder="Escribe tu nombre" />
+                        </div>
+                        <div class="form-group">
+                            <input type="button" id="btnRegistrarConsulta" class="btn btn-block btn-primary" value="Terminar Consulta" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- /.row -->
+    </div>
+</form>
+<div class="alert-danger" id="snackbar">Faltan Campos por llenar</div>
+<p id="pushi" style="display:none;">@ViewBag.idpaciente</p>
+@section scripts{
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Scripts/scriptsVistas/snackbar.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.getJSON("/Medicamentos/ListadoMedicamentos").done(function (data) {
+                $.each(data, function (id, item) {
+                    $("#cmbMedicamentos").append("<option value='" + item.Clave + "'>" + item.Nombre + "</option>");
+                });
+            }).fail(manejarErrorAjax);
+            var gen = $("#genero").text()
+            if(gen == "1"){
+                $("#rdbMasculino").prop("checked", true);
+                $("#rdbFemenino").attr('disabled', 'disabled');
+            }else{
+                $("#rdbFemenino").prop("checked", true);
+                $("#rdbMasculino").attr('disabled', 'disabled');
+            }
+            
+            $("#btnRegistrarConsulta").click(function () {
+                var clave = $("#pushi").text();
+                var mot = $("#txtMotivo").val();
+                var diag = $("#txtDiagnostico").val();
+                var trat = $("#cmbMedicamentos").val();
+                var ctd = $("#txtCantidad").val();
+                var atendio = $("#txtAtendio").val();
+                var f = $("#dtpFecha").val();
+                var entrada = $("#dtpHoraEntrada").val();
+                var salida = obtenerHora();
+
+                if (mot != "" && diag != "" && trat != "" && atendio != "" && f != "" && entrada != "") {
+                    var consultaMedica = {
+                        CvePaciente: clave,
+                        CveDoctor: atendio,
+                        Motivo: mot,
+                        Diagnostico: diag,
+                        Fecha: f,
+                        HoraEntrada: entrada,
+                        HoraSalida: salida,
+                        Tratamiento: trat,
+                        CantidadSumintrada: ctd
+                    };
+                    //alert(consultaMedica.CvePaciente + " " + consultaMedica.CveDoctor + " " + consultaMedica.Motivo + " " + consultaMedica.Fecha + " " + consultaMedica.HoraEntrada + consultaMedica.HoraSalida);
+                    $.post("/Consultas/Guardar", consultaMedica).done(function (data) {
+                        if (data == "La Consulta se Registro Correctamente") {
+                            document.location.href = "/Doctores/Index?mensaje=" + data;
+                        }
+                        else {
+                            $("#snackbar").html(data);
+                            myFunction();
+                        }
+                    }).fail(manejarErrorAjax);
+                }
+                else {
+                    myFunction();
+                }
+            });
+
+
+        });
+        $(function () {
+            var fecha = new Date();
+            $('#dtpFecha').datetimepicker({
+                format: 'DD/MM/YYYY',
+                extraFormats: ['DD/MM/YY']
+                //defaultDate: fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear()
+            });
+            $('#dtpHoraEntrada').datetimepicker({
+                format: 'LT'
+            });
+        });
+
+        function obtenerHora(){
+            var fin = new Date(),
+                    hora = fin.getHours(),
+                    ampm,
+                    minutos = fin.getMinutes();
+
+            if (hora >= 12) {
+                hora = hora - 12;
+                ampm = "PM";
+            } else {
+                ampm = "AM"
+            }
+
+            if (hora == 0) {
+                hora = 12;
+            }
+
+            if (minutos < 10) {
+                minutos = "0" + minutos;
+            }
+
+            return hora + ":" + minutos + " " + ampm;
+        }
+
+        function manejarErrorAjax(err) {
+            console.log(err.responseText);
+        }
+    </script>
+}

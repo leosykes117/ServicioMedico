@@ -16,7 +16,7 @@ body {
 #page-wrapper {
     width: 100%;
     padding: 0;
-    background-color: #f1f1f1; /*fondo del trabajo*/
+    background-color: #fff; /*fondo del trabajo*/
 }
 
 .huge {
@@ -36,23 +36,23 @@ body {
 
 /*NAV BAR*/
 .navbar {
-    background-color: #FF9F24;/*Color de todo el menu*/
+    background-color: #2A7B6C;/*Color de todo el menu*/
     border: 0;/*quita el borde del menu*/
 }
 
 .navbar-default .navbar-brand {
-    color: #2D9899;
+    color: #A0CACC;
 }
 
 .navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
-    color: #FF9F24; /*color de los <li> del menu de arriba en hover y focus*/
-    background-color: #2D9899;/*color de fondo de los <li> del menu de arriba en hover y focus*/
+    color: #fff; /*color de los <li> del menu de arriba en hover y focus*/
+    background-color: #2A7B6C;/*color de fondo de los <li> del menu de arriba en hover y focus*/
 }
 
 /*Boton Toggle*/
 .navbar-default .navbar-toggle {
-    color: #2D9899 !important;
-    border-color: #FF9F24;
+    color: #A0CACC !important;
+    border-color: #2A7B6C;
 }
 
 .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
@@ -74,7 +74,7 @@ body {
     padding-top: 15px;
     padding-bottom: 15px;
     line-height: 20px;
-    color: #2D9899; /*color de los <li> del menu de arriba*/
+    color: #A0CACC; /*color de los <li> del menu de arriba*/
 }
 
 .top-nav>li>a:hover,
@@ -82,8 +82,8 @@ body {
 .top-nav>.open>a,
 .top-nav>.open>a:hover,
 .top-nav>.open>a:focus {
-    color: #FF9F24; /*color de los <li> del menu de arriba en hover y focus*/
-    background-color: #2D9899;/*color de fondo de los <li> del menu de arriba en hover y focus*/
+    color: #fff; /*color de los <li> del menu de arriba en hover y focus*/
+    background-color: #41A497;/*color de fondo de los <li> del menu de arriba en hover y focus*/
 }
 
 .top-nav>.open>.dropdown-menu {
@@ -133,13 +133,13 @@ ul.alert-dropdown {
 }
 
 .navbar-default .navbar-nav>li>a {
-    color: #2D9899 !important;/*color de los <li>*/
+    color: #A0CACC !important;/*color de los <li>*/
 }
 
 .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
     outline: none;
-    color: #FF9F24 !important;/*color de los <li> de la barra izquierda en hover y focus*/
-    background-color: #2D9899 !important;/*fondo de los <li> de la barra izquierda en hover y focus*/
+    color: #fff !important;/*color de los <li> de la barra izquierda en hover y focus*/
+    background-color: #41A497 !important;/*fondo de los <li> de la barra izquierda en hover y focus*/
 }
 
 @media(min-width:768px) {
@@ -152,10 +152,11 @@ ul.alert-dropdown {
         border-color: transparent;
         border-radius: 0;
         overflow-y: auto;
-        background-color: #FF9F24;/*fondo de color de la barra izquierda*/
+        background-color: #2A7B6C;/*fondo de color de la barra izquierda*/
         bottom: 0;
         overflow-x: hidden;
         padding-bottom: 40px;
+        font-size: 1.3em;
     }
 
     .side-nav>li>a {
@@ -179,13 +180,13 @@ ul.alert-dropdown {
     display: block;
     padding: 10px 15px 10px 38px;
     text-decoration: none;
-    color: #2D9899; /*color de los <li> del dropdown*/
-    background-color: #F7CC38;/*fondo del dropdown*/
+    color: #A0CACC; /*color de los <li> del dropdown*/
+    background-color: #2A7B6C;/*fondo del dropdown*/
 }
 
 .side-nav>li>ul>li>a:hover {
-    color: #F7CC38;
-    background-color: #2D9899;
+    color: #fff;
+    background-color: #41A497;
 }
 
 /* Flot Chart Containers */
@@ -261,11 +262,88 @@ ul.alert-dropdown {
 }
 
 .activado{
-    background-color: #f1f1f1;
+    color: #fff !important;/*color de los <li> de la barra izquierda en hover y focus*/
+    background-color: #41A497 !important;/*fondo de los <li> de la barra izquierda en hover y focus*/
 }
 
 
-/*VENTANA MODAL*/
-/*#datosAlumno{
-    display: none;
-}*/
+/*CHECK BOX Y RADIO BUTTONS*/
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:checked + .mujer {
+    background-color: #E64C66;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/*BOTON FLOTANTE*/
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  border-radius: 35px;
+  font-size: 24px;
+  line-height: 1.33;
+}
+
+.btn-flotante {
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    cursor: pointer; /* Add a mouse pointer on hover */
+}

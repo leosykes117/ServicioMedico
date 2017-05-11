@@ -1,0 +1,299 @@
+﻿@section HojasEstilo{
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/snackbar.css" rel="stylesheet" />
+}
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MenuPrincipal.cshtml";
+}
+
+<button type="button" class="btn btn-success btn-circle btn-xl btn-flotante" data-toggle="modal" data-target="#myModal">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+</button>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Medicamentos
+        </h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <i class="fa fa-info-circle"></i>  <strong>Pocas Reservas</strong> de
+            <strong>Nombre del Medicamento</strong>
+            <a href="" class="alert-link">¿Desa volverlo a llenar?</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table id="example" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Medicamento</th>
+                        <th>Cantidad</th>
+                        <th>Fecha de Caducidad</th>
+                        <th>Categoria</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Medicamento</th>
+                        <th>Cantidad</th>
+                        <th>Fecha de Caducidad</th>   
+                        <th>Categoria</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA DECIDIR ACCION-->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <p>¿Que es lo que deseas agregrar?</p>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 text-center">
+                            <button type="button" id="NuevaCategoria" class="btn btn-warning">Categoria</button>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 text-center">
+                            <button type="button" id="NuevoMedicamento" class="btn btn-warning">Medicamento</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA AGREGAR CATEGORIAS-->
+<div class="modal fade" id="modalCategoria" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <form autocomplete="off">
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-book" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control" id="txtDescripcion" placeholder="Categoria" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnAgregarCategoria" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA AGREGAR MEDICAMENTOS-->
+<div class="modal fade" id="modalMedicamento" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Nuevo Medicamento</h4>
+            </div>
+            <form autocomplete="off">
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-medkit" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control" id="txtMedicamento" placeholder="Medicamento" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-balance-scale" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control" id="txtCantidad" placeholder="Cantidad" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar-times-o" aria-hidden="true"></i></span>
+                                <input type="text" id="dtpFecha" class="form-control" placeholder="Fecha" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-book" aria-hidden="true"></i></span>
+                                <select id="cmbCategoria" class="form-control">
+                                    <option value="0">-Seleccione un categoria-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <label class="mensajeError" style="color:firebrick;"></label>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="btnAgregarMedicamento" class="btn btn-primary">Agregar Medicamento</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="alert-danger" id="snackbar"></div>
+@section scripts{
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/scriptsVistas/snackbar.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "ajax": {
+                    "url": "ListadoMedCat",
+                    "type": "POST",
+                    "dataSrc": ""
+                },
+                "columns": [
+                    { "data": "Medicamento" },
+                    { "data": "Cantidad" },
+                    { "data": "FechaCaducidad" },
+                    { "data": "DescripcionCategoria" }
+                ],
+                /*"columnDefs": [
+                    {
+                        "targets": [ 0 ],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [ 3 ],
+                        "visible": false
+                    }
+                ],*/
+                "oLanguage": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": 'Mostrar <select>' +
+                        '<option value="10">10</option>' +
+                        '<option value="20">20</option>' +
+                        '<option value="30">30</option>' +
+                        '<option value="40">40</option>' +
+                        '<option value="50">50</option>' +
+                        '<option value="-1">All</option>' +
+                        '</select> registros',
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando del (_START_ al _END_) de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Filtrar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Por favor espere - cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });
+
+            $("tr").hover(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+
+            $.getJSON("/Categorias/ListadoCategorias").done(function (data) {
+                $.each(data, function (id, item) {
+                    $("#cmbCategoria").append("<option value='" + item.Clave + "'>" + item.Nombre + "</option>");
+                });
+            }).fail(manejarErrorAjax);
+
+            $("#NuevaCategoria").click(function () {
+                $("#myModal").modal("hide");
+                $("#modalCategoria").modal("show");
+            });
+
+            $("#NuevoMedicamento").click(function () {
+                $("#myModal").modal("hide");
+                $("#modalMedicamento").modal("show");
+            });
+
+            $("#btnAgregarMedicamento").click(function () {
+                var nomMed = $("#txtMedicamento").val();
+                var cantMed = $("#txtCantidad").val();
+                var fechaMed = $("#dtpFecha").val();
+                var catgMed = $("#cmbCategoria").val();
+                if (nomMed != "" && cantMed != "" && fechaMed != "" && catgMed > 0) {
+                    var medicamento = {
+                        NombreMedicamento: nomMed,
+                        Cantidad: cantMed,
+                        FechaCaducidad: fechaMed,
+                        Categoria: catgMed
+                    };
+
+                    $.post("AgregarMedicamento", medicamento)
+                        .done(function (data) {
+                            if (data == "El medicamento se agrego") {
+                                location.reload();
+                                $("#snackbar").html(data);
+                                myFunction();
+                            } else {
+                                $(".mensajeError").html(data);
+                            }
+                        });
+                } else {
+                    $(".mensajeError").html("complete los campos");
+                }
+            });
+        });
+
+        $(function () {
+            var fecha = new Date();
+            $('#dtpFecha').datetimepicker({
+                format: 'DD/MM/YYYY',
+                extraFormats: ['DD/MM/YY']
+                //defaultDate: fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear()
+            });
+        });
+
+        function manejarErrorAjax(err) {
+            console.log(err.responseText);
+        }
+    </script>
+}

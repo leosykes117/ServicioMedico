@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
     @Styles.Render("~/Menu/css")
+    @RenderSection("HojasEstilo", required: false)
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
@@ -138,7 +139,7 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#consulta"><i class="fa fa-stethoscope" aria-hidden="true"></i> Consultas <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="consulta" class="collapse">
                             <li>
-                                <a href="NuevaConsulta.html">Nueva Consulta</a>
+                                @Html.ActionLink("Nueva Consulta","Consultas","Doctores")
                             </li>
                             <li>
                                 <a href="#">Ver Consultas</a>
