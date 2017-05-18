@@ -261,6 +261,10 @@ ul.alert-dropdown {
     color: #df8a13;
 }
 
+#datosPersonal{
+    display: none;
+}
+
 .activado{
     color: #fff !important;/*color de los <li> de la barra izquierda en hover y focus*/
     background-color: #41A497 !important;/*fondo de los <li> de la barra izquierda en hover y focus*/
