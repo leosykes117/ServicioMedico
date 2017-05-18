@@ -1,0 +1,48 @@
+﻿@section HojasEstilo{
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/snackbar.css" rel="stylesheet" />
+}
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MenuPrincipal.cshtml";
+}
+
+<div class="container">
+<div class="row">
+    <h2>Basic Table</h2>
+    <form class="form-inline">
+        <div class="form-group">
+            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-users" aria-hidden="true"></i></div>
+                <select id="cmbTipoBuscar" class="form-control">
+                    <option value="1">Alumno</option>
+                    <option value="2">Docente</option>
+                    <option value="3">PAAE</option>
+                    <option value="4">Externo</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <br />
+    <div class="table-responsive">
+        <table id="tbPacientes" class="table table-hover" cellspacing="0" width="100%">
+            <thead class="">
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+</div>
+<div class="bg-danger" id="snackbar"></div>
+@section scripts{
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/scriptsVistas/snackbar.min.js"></script>
+    <script src="~/Scripts/scriptsVistas/pacientes.js"></script>
+}
+

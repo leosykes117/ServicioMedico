@@ -11,16 +11,8 @@ namespace ServicioMedico.DAL
     {
         string insertar(clase objeto);
 
-        void modificar(clase objeto);
+        DataTable buscar(int id);
 
-        void borrar(clase objeto);
-
-        clase buscar(clase objeto);
-
-        List<clase> BuscarTodos();
-
-        DataTable BusquedaGeneral();
-
-        DataTable BusquedaGeneral(clase objeto);
+        
     }
 }

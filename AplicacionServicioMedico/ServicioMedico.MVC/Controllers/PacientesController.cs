@@ -39,36 +39,30 @@ namespace ServicioMedico.MVC.Controllers
         }
 
         [HttpPost]
-        public JsonResult BusquedaPaciente(int tipo, string dato)
+        public JsonResult AgregarAlumno(Alumnos alumno)
         {
-            PacientesDAL objDAL = new PacientesDAL();
-            DataTable tb = objDAL.BusquedaGeneral(Convert.ToInt16(tipo), dato);
-            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-            Dictionary<string, object> row;
-            foreach (DataRow dr in tb.Rows)
-            {
-                row = new Dictionary<string, object>();
-                foreach (DataColumn col in tb.Columns)
-                {
-                    row.Add(col.ColumnName, dr[col]);
-                }
-                rows.Add(row);
-            }
-            return Json(rows, JsonRequestBehavior.AllowGet);
+            PacientesLog pacientelog = new PacientesLog();
+            string [] JsonAlum = pacientelog.AgregarAlumno(alumno);
+            JsonConvert.SerializeObject(JsonAlum);
+            return Json(JsonAlum);
         }
 
         [HttpPost]
-        public JsonResult NuevoPaciente(Pacientes paciente)
+        public JsonResult AgregarPersonal(PersonalEscolar personal)
         {
-            string [] json = new string[5];
-            PacientesDAL pacDal = new PacientesDAL();
-            json[0] = pacDal.insertar(paciente);
-            json[1] = paciente.IdPaciente.ToString();
-            json[2] = paciente.NombrePaciente + " " + paciente.ApellidosPaciente;
-            json[3] = paciente.EdadPaciente.ToString();
-            json[4] = paciente.GeneroPaciente.ToString();
-            JsonConvert.SerializeObject(json);
-            return Json(json);
+            PacientesLog pacientelog = new PacientesLog();
+            string[] JsonPersonal = pacientelog.AgregarPersonal(personal);
+            JsonConvert.SerializeObject(JsonPersonal);
+            return Json(JsonPersonal);
+        }
+
+        [HttpPost]
+        public JsonResult AgregarExterno(Pacientes pExterno)
+        {
+            PacientesLog pacientelog = new PacientesLog();
+            string[] JsonExterno = pacientelog.AgregarExterno(pExterno);
+            JsonConvert.SerializeObject(JsonExterno);
+            return Json(JsonExterno);
         }
     }
 }

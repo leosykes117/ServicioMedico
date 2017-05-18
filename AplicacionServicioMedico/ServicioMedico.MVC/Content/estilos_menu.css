@@ -266,6 +266,10 @@ ul.alert-dropdown {
     background-color: #41A497 !important;/*fondo de los <li> de la barra izquierda en hover y focus*/
 }
 
+/*VENTANA MODAL DE LAS CONSULTAS*/
+#datosPersonal{
+    display: none;
+}
 
 /*CHECK BOX Y RADIO BUTTONS*/
 .switch {

@@ -8,19 +8,25 @@ namespace ServicioMedico.BO
 {
     public class Pacientes
     {
-        //ATRIBUTOS
         private int idPaciente;
         private string nombrePaciente;
         private string apellidosPaciente;
         private short generoPaciente;
+        private DateTime fechaNac = new DateTime();
         private short edadPaciente;
+        private string curp;
+        private string calle;
+        private int numInt;
+        private int numExt;
+        private string colonia;
+        private string cp;
+        private int municipio;
+        private int estado;
+        private string celular;
+        private string telefono;
         private string correoElectronico;
-        private string boleta;
-        private string grupo;
-        private short carrera;
         private short tipoPaciente;
 
-        //PROPIEDADES
         public int IdPaciente
         {
             get
@@ -73,6 +79,19 @@ namespace ServicioMedico.BO
             }
         }
 
+        public DateTime FechaNac
+        {
+            get
+            {
+                return fechaNac;
+            }
+
+            set
+            {
+                fechaNac = value;
+            }
+        }
+
         public short EdadPaciente
         {
             get
@@ -83,6 +102,136 @@ namespace ServicioMedico.BO
             set
             {
                 edadPaciente = value;
+            }
+        }
+
+        public string Curp
+        {
+            get
+            {
+                return curp;
+            }
+
+            set
+            {
+                curp = value;
+            }
+        }
+
+        public string Calle
+        {
+            get
+            {
+                return calle;
+            }
+
+            set
+            {
+                calle = value;
+            }
+        }
+
+        public int NumInt
+        {
+            get
+            {
+                return numInt;
+            }
+
+            set
+            {
+                numInt = value;
+            }
+        }
+
+        public int NumExt
+        {
+            get
+            {
+                return numExt;
+            }
+
+            set
+            {
+                numExt = value;
+            }
+        }
+
+        public string Colonia
+        {
+            get
+            {
+                return colonia;
+            }
+
+            set
+            {
+                colonia = value;
+            }
+        }
+
+        public string Cp
+        {
+            get
+            {
+                return cp;
+            }
+
+            set
+            {
+                cp = value;
+            }
+        }
+
+        public int Municipio
+        {
+            get
+            {
+                return municipio;
+            }
+
+            set
+            {
+                municipio = value;
+            }
+        }
+
+        public int Estado
+        {
+            get
+            {
+                return estado;
+            }
+
+            set
+            {
+                estado = value;
+            }
+        }
+
+        public string Celular
+        {
+            get
+            {
+                return celular;
+            }
+
+            set
+            {
+                celular = value;
+            }
+        }
+
+        public string Telefono
+        {
+            get
+            {
+                return telefono;
+            }
+
+            set
+            {
+                telefono = value;
             }
         }
 
@@ -99,45 +248,6 @@ namespace ServicioMedico.BO
             }
         }
 
-        public string Boleta
-        {
-            get
-            {
-                return boleta;
-            }
-
-            set
-            {
-                boleta = value;
-            }
-        }
-
-        public string Grupo
-        {
-            get
-            {
-                return grupo;
-            }
-
-            set
-            {
-                grupo = value;
-            }
-        }
-
-        public short Carrera
-        {
-            get
-            {
-                return carrera;
-            }
-
-            set
-            {
-                carrera = value;
-            }
-        }
-
         public short TipoPaciente
         {
             get
@@ -151,38 +261,33 @@ namespace ServicioMedico.BO
             }
         }
 
+        public Pacientes() { }
 
-        //CONSTRUCTORES
-        public Pacientes() { } //CONSTRUCTOR VACIO
-
-        public Pacientes(int id) //CONSTRUTOR PARA BUSCAR
+        public Pacientes(int idPaciente)
         {
-            idPaciente = id;
+            this.idPaciente = idPaciente;
         }
 
-        //CONTRUCTOR PARA AGREGAR PACIENTE
-        public Pacientes(string nombre, string apellidos, short genero, short edad, string correo, short tipo)
+        public Pacientes(int idPaciente, string nombrePaciente, string apellidosPaciente, short generoPaciente, DateTime fechaNac, short edadPaciente, string curp, string calle, int numInt, int numExt, string colonia, string cp, int municipio, int estado, string celular, string telefono, string correoElectronico, short tipoPaciente)
         {
-            nombrePaciente = nombre;
-            apellidosPaciente = apellidos;
-            generoPaciente = genero;
-            edadPaciente = edad;
-            correoElectronico = correo;
-            tipoPaciente = tipo;
-        }
-
-        //CONSTRUCTOR PARA AGREGAR ALUMNO
-        public Pacientes(string nombre, string apellidos, short genero, short edad, string correo, string bol, string grp, short carr, short tipo)
-        {
-            nombrePaciente = nombre;
-            apellidosPaciente = apellidos;
-            generoPaciente = genero;
-            edadPaciente = edad;
-            correoElectronico = correo;
-            boleta = bol;
-            grupo = grp;
-            carrera = carr;
-            tipoPaciente = tipo;
+            this.idPaciente = idPaciente;
+            this.nombrePaciente = nombrePaciente;
+            this.apellidosPaciente = apellidosPaciente;
+            this.generoPaciente = generoPaciente;
+            this.fechaNac = fechaNac;
+            this.edadPaciente = edadPaciente;
+            this.curp = curp;
+            this.calle = calle;
+            this.numInt = numInt;
+            this.numExt = numExt;
+            this.colonia = colonia;
+            this.cp = cp;
+            this.municipio = municipio;
+            this.estado = estado;
+            this.celular = celular;
+            this.telefono = telefono;
+            this.correoElectronico = correoElectronico;
+            this.tipoPaciente = tipoPaciente;
         }
     }
 }
