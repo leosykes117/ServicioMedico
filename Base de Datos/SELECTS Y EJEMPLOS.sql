@@ -19,3 +19,4 @@ SELECT * FROM tbCategorias
 SELECT * FROM tbMedicamentos
 SELECT * FROM tbDetallesConsultas
 SELECT * FROM tbConsultas
+SELECT * FROM tbMotivosConsultas

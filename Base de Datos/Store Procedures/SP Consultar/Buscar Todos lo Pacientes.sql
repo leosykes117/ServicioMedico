@@ -7,50 +7,55 @@ GO
 
 CREATE PROC selGenPacientes
 (
-@Tipo SMALLINT
+@Tipo SMALLINT,
+@Estatus SMALLINT
 )
 AS
 BEGIN
 	IF(@Tipo = 1)
 	BEGIN
-		SELECT IdPaciente AS 'Clave', NombrePaciente AS 'Nombre', ApellidosPaciente AS 'Apellidos', EdadPaciente AS 'Edad', GeneroPaciente AS 'Genero',
-		Boleta, Grupo, Carrera, FechaNac AS 'Fecha', CURP, Calle, Num_Int, Num_Ext, Colonia, CP, 
-		id_Del_Mun, id_Edo, Tel_Part AS 'Telefono', CorreoPaciente AS 'Correo'
+		SELECT IdPaciente AS 'Clave', NombrePaciente AS 'Nombre', ApellidosPaciente AS 'Apellidos', EdadPaciente AS 'Edad', 
+		GeneroPaciente AS 'ClaveGenero',Generos AS 'Genero', FechaNac AS 'Fecha', EdadPaciente AS 'Edad', 
+		CURP, Colonia, Calle, Num_Int, Num_Ext, CP, DelMun, Estado, Celular, Tel_Part AS 'Telefono', 
+		CorreoPaciente AS 'Correo', Boleta, Grupo, Carreras AS 'Carrera', Carrera AS 'ClaveCarrera', TipoPaciente
 		FROM tbPacientes INNER JOIN tbAlumnos ON tbPacientes.IdPaciente = tbAlumnos.IdAlumno
+		INNER JOIN tbGeneros ON tbPacientes.GeneroPaciente = tbGeneros.IdGenero
+		INNER JOIN tbCarreras ON tbAlumnos.Carrera = tbCarreras.IdCarrera
+		WHERE EstatusPaciente = @Estatus
+
 	END
 
-	ELSE IF (@Tipo = 2)
+	ELSE IF (@Tipo = 2 OR @Tipo = 3)
 	BEGIN
-		SELECT IdPaciente AS 'Clave', NombrePaciente AS 'Nombre', ApellidosPaciente AS 'Apellidos', EdadPaciente AS 'Edad', GeneroPaciente AS 'Genero',
-		NumDocente AS 'Num_Empleado', RFC_Docente AS 'RFC', FechaNac AS 'Fecha',  CURP, Calle, Num_Int, Num_Ext, Colonia, CP, 
-		id_Del_Mun, id_Edo, Tel_Part AS 'Telefono', CorreoPaciente AS 'Correo'
-		FROM tbPacientes INNER JOIN tbDocentes ON tbPacientes.IdPaciente = tbDocentes.IdDocente
-	END
-
-	ELSE IF (@Tipo = 3)
-	BEGIN
-		SELECT IdPaciente AS 'Clave', NombrePaciente AS 'Nombre', ApellidosPaciente AS 'Apellidos', EdadPaciente AS 'Edad', GeneroPaciente AS 'Genero',
-		NumPAAE AS 'Num_Empleado', RFC_PAAE AS 'RFC', FechaNac AS 'Fecha', CURP, Calle, Num_Int, Num_Ext, Colonia, CP, 
-		id_Del_Mun, id_Edo, Tel_Part AS 'Telefono', CorreoPaciente AS 'Correo'
-		FROM tbPacientes INNER JOIN tbPAAES ON tbPacientes.IdPaciente = tbPAAES.IdPAAE
+		SELECT IdPaciente AS 'Clave', NombrePaciente AS 'Nombre', ApellidosPaciente AS 'Apellidos', EdadPaciente AS 'Edad', 
+		GeneroPaciente AS 'ClaveGenero',Generos AS 'Genero', FechaNac AS 'Fecha', EdadPaciente AS 'Edad', 
+		CURP, Colonia, Calle, Num_Int, Num_Ext, CP, DelMun, Estado, Celular, Tel_Part AS 'Telefono', 
+		CorreoPaciente AS 'Correo', Num_Personal AS 'Num_Empleado', RFC_Personal AS 'RFC', TipoPaciente
+		FROM tbPacientes INNER JOIN tbPersonalEscolar ON tbPacientes.IdPaciente = tbPersonalEscolar.IdPersonal
+		INNER JOIN tbGeneros ON tbPacientes.GeneroPaciente = tbGeneros.IdGenero
+		WHERE TipoPaciente = @Tipo AND EstatusPaciente = @Estatus
 	END
 
 	ELSE
 	BEGIN 
-		SELECT IdPaciente AS 'Clave', NombrePaciente AS 'Nombre', ApellidosPaciente AS 'Apellidos', EdadPaciente AS 'Edad', GeneroPaciente AS 'Genero',
-		FechaNac AS 'Fecha', CURP, Calle, Num_Int, Num_Ext, Colonia, CP, 
-		id_Del_Mun, id_Edo, Tel_Part AS 'Telefono', CorreoPaciente AS 'Correo'
-		FROM tbPacientes 
-		WHERE TipoPaciente = 4
+		SELECT IdPaciente AS 'Clave', NombrePaciente AS 'Nombre', ApellidosPaciente AS 'Apellidos', EdadPaciente AS 'Edad', 
+		GeneroPaciente AS 'ClaveGenero',Generos AS 'Genero', FechaNac AS 'Fecha', EdadPaciente AS 'Edad', 
+		CURP, Colonia, Calle, Num_Int, Num_Ext, CP, DelMun, Estado, Celular, Tel_Part AS 'Telefono', 
+		CorreoPaciente AS 'Correo', TipoPaciente
+		FROM tbPacientes INNER JOIN tbGeneros ON tbPacientes.GeneroPaciente = tbGeneros.IdGenero
+		WHERE TipoPaciente = 4 AND EstatusPaciente = @Estatus
 	END
 END
 GO
 
-	EXEC selGenPacientes 1
+	EXEC selGenPacientes 1, 1
 	GO
 	EXEC selGenPacientes 2
 	GO
 	EXEC selGenPacientes 3
 	GO
-	EXEC selGenPacientes 4
+	EXEC selGenPacientes 4, 1
 	GO
+
+
+	SELECT * FROM tbPacientes

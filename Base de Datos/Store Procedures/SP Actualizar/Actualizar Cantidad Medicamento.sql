@@ -17,7 +17,7 @@ BEGIN
 	BEGIN TRY
 		IF (@Accion = 1)
 		BEGIN
-			UPDATE tbMedicamentos
+			UPDATE tbMedicamentos --RESTAMOS
 			SET Cantidad =	Cantidad - @Cantidad
 			WHERE IdMedicamento = @ID
 			IF(@@ROWCOUNT > 0)
@@ -27,7 +27,7 @@ BEGIN
 		END
 		ELSE
 		BEGIN
-			UPDATE tbMedicamentos
+			UPDATE tbMedicamentos --SUMAMOS
 			SET Cantidad =	Cantidad + @Cantidad
 			WHERE IdMedicamento = @ID
 			IF(@@ROWCOUNT > 0)

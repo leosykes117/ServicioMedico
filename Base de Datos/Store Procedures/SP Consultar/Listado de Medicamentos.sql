@@ -8,7 +8,7 @@ GO
 CREATE PROC selListadoMedicamentos
 AS
 BEGIN
-	SELECT IdMedicamento AS 'Clave', NombreMedicamento AS 'Nombre' FROM tbMedicamentos
+	SELECT IdMedicamento AS 'CveMed', NombreMedicamento AS 'Medicamento' FROM tbMedicamentos
 END
 GO
 

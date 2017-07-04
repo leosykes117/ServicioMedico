@@ -7,41 +7,73 @@ GO
 
 CREATE PROCEDURE selBusquedaConsultas
 (
-@TipoPaciente INT,
-@Cve INT,
-@Mes INT
+@Tipo SMALLINT,
+@Estatus SMALLINT
+/*@Cve INT,
+@Mes INT*/
 )
 AS
 BEGIN
-	IF(@TipoPaciente = 1)
+	IF(@Tipo = 1)--CONSULTAS DE ALUMNOS
 	BEGIN
-		SELECT [Nombre de Alumno] AS 'Nombre', Boleta AS 'Boleta', [Genero A] AS 'Genero', Carrera, Grupo, [Nombre Doctor] AS 'Atendido Por', [Fecha (Alumnos)] AS 'Fecha de la Consulta', [Tratamiento (Alumnos)] AS 'Tratamiento'
-		FROM TablaAlumnos INNER JOIN TablaConsultasAlumnos ON TablaConsultasAlumnos.[CVE Alumno] = TablaAlumnos.[ID Alumno]
-		INNER JOIN TablaDoctores ON TablaDoctores.[ID Doctor] = TablaConsultasAlumnos.[CVE Doctor (Alumnos)]
-		WHERE [CVE Doctor (Alumnos)] = @Cve AND MONTH([Fecha (Alumnos)]) = @Mes
-	END
-	ELSE IF(@TipoPaciente = 2)
+		SELECT IdConsulta, IdPaciente, NombrePaciente, ApellidosPaciente, Generos, EdadPaciente,
+		CveDoctor, Diagnostico, FechaConsulta, HoraEntrada, HoraSalida, DuracionConsulta, 
+		CveMedicamento, NombreMedicamento, CveMotivo, DescripcionMotivo, CantidadSuminstrada
+		FROM tbGeneros INNER JOIN tbPacientes ON tbGeneros.IdGenero = tbPacientes.GeneroPaciente
+		INNER JOIN tbConsultas ON tbPacientes.IdPaciente = tbConsultas.CvePaciente 
+		INNER JOIN tbMedicamentos ON tbConsultas.CveMedicamento = tbMedicamentos.IdMedicamento
+		INNER JOIN tbMotivosConsultas ON tbConsultas.CveMotivo = tbMotivosConsultas.IdMotivo
+		WHERE TipoPaciente = 1 AND EstatusConsulta = @Estatus
+	END--FIN CONSULTAS DE ALUMNOS
+
+	ELSE IF(@Tipo = 2)--CONSULTAS DE DOCENTES
 	BEGIN
-		SELECT [Nombre de Docente] AS 'Nombre', [CVE Docente] AS 'ID', [Genero D] AS 'Genero', [Nombre Doctor] AS 'Atendido Por', [Fecha (Docentes)] AS 'Fecha de la Consulta', [Tratamiento (Docentes)] AS 'Tratamiento'
-		FROM TablaDocentes INNER JOIN TablaConsultasDocentes ON TablaConsultasDocentes.[CVE Docente] = TablaDocentes.[ID Docente]
-		INNER JOIN TablaDoctores ON TablaDoctores.[ID Doctor] = TablaConsultasDocentes.[CVE Doctor (Docentes)]
-		WHERE [CVE Doctor (Docentes)] = @Cve AND MONTH([Fecha (Docentes)]) = @Mes
-	END
-	ELSE IF(@TipoPaciente = 3)
+		SELECT IdConsulta, IdPaciente, NombrePaciente, ApellidosPaciente, Generos, EdadPaciente,
+		CveDoctor, Diagnostico, FechaConsulta, HoraEntrada, HoraSalida, DuracionConsulta, 
+		CveMedicamento, NombreMedicamento, CveMotivo, DescripcionMotivo, CantidadSuminstrada
+		FROM tbGeneros INNER JOIN tbPacientes ON tbGeneros.IdGenero = tbPacientes.GeneroPaciente
+		INNER JOIN tbConsultas ON tbPacientes.IdPaciente = tbConsultas.CvePaciente 
+		INNER JOIN tbMedicamentos ON tbConsultas.CveMedicamento = tbMedicamentos.IdMedicamento
+		INNER JOIN tbMotivosConsultas ON tbConsultas.CveMotivo = tbMotivosConsultas.IdMotivo
+		WHERE TipoPaciente = 2 AND EstatusConsulta = @Estatus
+	END--FIN CONSULTAS DE DOCENTES
+
+	ELSE IF(@Tipo = 3)--CONSULTAS DE PAAES
 	BEGIN
-		SELECT [Nombre de PAE] AS 'Nombre', [CVE PAE] AS 'ID',[Genero PAE] AS 'Genero', [Nombre Doctor] AS 'Atendido Por', [Fecha (PAE)] AS 'Fecha de la Consulta', [Tratamiento (PAE)] AS 'Tratamiento'
-		FROM TablaPAES INNER JOIN TablaConsultasPAE ON TablaConsultasPAE.[CVE PAE] = TablaPAES.[ID PAE]
-		INNER JOIN TablaDoctores ON TablaDoctores.[ID Doctor] = TablaConsultasPAE.[CVE Doctor (PAE)]
-		WHERE [CVE Doctor (PAE)] = @Cve AND MONTH([Fecha (PAE)]) = @Mes
-	END
-	ELSE
+		SELECT IdConsulta, IdPaciente, NombrePaciente, ApellidosPaciente, Generos, EdadPaciente,
+		CveDoctor, Diagnostico, FechaConsulta, HoraEntrada, HoraSalida, DuracionConsulta, 
+		CveMedicamento, NombreMedicamento, CveMotivo, DescripcionMotivo, CantidadSuminstrada
+		FROM tbGeneros INNER JOIN tbPacientes ON tbGeneros.IdGenero = tbPacientes.GeneroPaciente
+		INNER JOIN tbConsultas ON tbPacientes.IdPaciente = tbConsultas.CvePaciente 
+		INNER JOIN tbMedicamentos ON tbConsultas.CveMedicamento = tbMedicamentos.IdMedicamento
+		INNER JOIN tbMotivosConsultas ON tbConsultas.CveMotivo = tbMotivosConsultas.IdMotivo
+		WHERE TipoPaciente = 3 AND EstatusConsulta = @Estatus
+	END--FIN CONSULTAS DE PAAES
+
+	ELSE --CONSULTAS DE EXTERNOS
 	BEGIN
-		SELECT [Nombre de Externo] AS 'Nombre', [CVE Externos] AS 'ID',[Genero E] AS 'Genero', [Nombre Doctor] AS 'Atendido Por', [Fecha (Externos)] AS 'Fecha de la Consulta', [Tratamiento (Externos)] AS 'Tratamiento'
-		FROM TablaExternos INNER JOIN TablaConsultasExternos ON TablaConsultasExternos.[CVE Externos] = TablaExternos.[ID Externo]
-		INNER JOIN TablaDoctores ON TablaDoctores.[ID Doctor] = TablaConsultasExternos.[CVE Doctor (Externos)]
-		WHERE [CVE Doctor (Externos)] = @Cve AND MONTH([Fecha (Externos)]) = @Mes
-	END
+		SELECT IdConsulta, IdPaciente, NombrePaciente, ApellidosPaciente, Generos, EdadPaciente,
+		CveDoctor, Diagnostico, FechaConsulta, HoraEntrada, HoraSalida, DuracionConsulta, 
+		CveMedicamento, NombreMedicamento, CveMotivo, DescripcionMotivo, CantidadSuminstrada
+		FROM tbGeneros INNER JOIN tbPacientes ON tbGeneros.IdGenero = tbPacientes.GeneroPaciente
+		INNER JOIN tbConsultas ON tbPacientes.IdPaciente = tbConsultas.CvePaciente 
+		INNER JOIN tbMedicamentos ON tbConsultas.CveMedicamento = tbMedicamentos.IdMedicamento
+		INNER JOIN tbMotivosConsultas ON tbConsultas.CveMotivo = tbMotivosConsultas.IdMotivo
+		WHERE TipoPaciente = 4 AND EstatusConsulta = @Estatus
+	END --CONSULTAS DE EXTERNOS
 END
 GO
 
-EXEC selBusquedaConsultas 1,502,2
+EXEC selBusquedaConsultas 1, 1
+EXEC selBusquedaConsultas 2, 1
+EXEC selBusquedaConsultas 3, 1
+EXEC selBusquedaConsultas 4, 1
+GO
+
+EXEC selBusquedaConsultas 1, 0
+EXEC selBusquedaConsultas 2, 0
+EXEC selBusquedaConsultas 3, 0
+EXEC selBusquedaConsultas 4, 0
+GO
+
+--AND MONTH(FechaConsulta) = @Mes

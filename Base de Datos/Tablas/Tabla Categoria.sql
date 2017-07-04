@@ -8,6 +8,7 @@ GO
 CREATE TABLE tbCategorias
 (
 IdCategoria SMALLINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
-DescripcionCategoria NVARCHAR(30)
+DescripcionCategoria NVARCHAR(30),
+CONSTRAINT UQ_DesCat UNIQUE(DescripcionCategoria)
 )
 GO
