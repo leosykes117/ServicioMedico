@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/DataTable/dataTables.bootstrap.min.css" />
+	<link rel="stylesheet" href="css/DatePicker/bootstrap-datetimepicker.min.css" />
+	<link rel="stylesheet" href="css/estilos_menu.css" />
+	<link rel="stylesheet" href="css/font-awesome.min.css" />
+	<title>Editar Paciente</title>
+</head>
+<body>
+	<div id="wrapper">
+		<!-- Navigation -->
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="MenuPrincipal.html">SB Admin</a>
+            </div>
+
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu message-dropdown">
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-footer">
+                            <a href="#">Read All New Messages</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu alert-dropdown">
+                        <li>
+                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">View All</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" id="Nombre" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>  <b class="caret"></b>  Nombre</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-user"></i> Perfil</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Bandeja</a>
+                        </li>
+                        <!-- <li>
+                            <a href="#"><i class="fa fa-fw fa-gear"></i> Config</a>
+                        </li> -->
+                        <li class="divider"></li>
+                        <li>
+                            <a href="index.html"><i class="fa fa-fw fa-sign-out"></i> Salir</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="activado">
+                        <a href="MenuPrincipal.html"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#consulta"><i class="fa fa-stethoscope" aria-hidden="true"></i> Consultas <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="consulta" class="collapse">
+                            <li>
+                                <a href="NuevaConsulta.html">Nueva Consulta</a>
+                            </li>
+                            <li>
+                                <a href="ConsultasDAL.html">Ver Consultas</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#pacientes"><i class="fa fa-wheelchair" aria-hidden="true"></i> Pacientes <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="pacientes" class="collapse">
+                            <li>
+                                <a href="#">Ver Pacientes</a>
+                            </li>
+                            <li>
+                                <a href="EditarPaciente.html">Editar Paciente</a>
+                            </li>
+                            <li>
+                                <a href="#">Borrar Paciente</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#reportes"><i class="fa fa-list-alt" aria-hidden="true"></i> Reportes <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="reportes" class="collapse">
+                            <li>
+                                <a href="#">Reporte Actual</a>
+                            </li>
+                            <li>
+                                <a href="#">Todos los Reportes</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+        	<div class="container-fluid">
+
+        		<div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Editar Pacientes
+                        </h1>
+                        <form action="" class="form-inline">
+                        	<div class="form-group">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+	                            <div class="input-group">
+	                                <div class="input-group-addon"><i class="fa fa-users fa-lg" aria-hidden="true"></i></div>
+		                            <select id="" class="form-control" aria-describedby="helpBlock">
+		                                <option value="1">Alumno</option>
+		                                <option value="2">Docente</option>
+		                                <option value="3">PAAE</option>
+		                                <option value="4">Externo</option>
+		                            </select>
+	                            </div>
+                               	<span id="helpBlock" class="help-block">Seleccione un tipo de paciente</span>
+                            </div>
+                       	</form>
+                    </div>
+                </div>
+
+                <div class="row">
+                	<h2>Tabla de Pacientes</h2>
+                    <div class="table-responsive">
+                        <table id="tbPacientes" class="table table-bordered table-hover">
+                            <thead>
+								<tr>
+					            	<th>Name</th>
+					                <th>Position</th>
+					                <th>Office</th>
+					                <th>Age</th>
+					                <th>Start date</th>
+					                <th>Salary</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+					            </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Tiger Nixon</td>
+					                <td>System Architect</td>
+					                <td>Edinburgh</td>
+					                <td>61</td>
+					                <td>2011/04/25</td>
+					                <td>$320,800</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Garrett Winters</td>
+					                <td>Accountant</td>
+					                <td>Tokyo</td>
+					                <td>63</td>
+					                <td>2011/07/25</td>
+					                <td>$170,750</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Ashton Cox</td>
+					                <td>Junior Technical Author</td>
+					                <td>San Francisco</td>
+					                <td>66</td>
+					                <td>2009/01/12</td>
+					                <td>$86,000</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Cedric Kelly</td>
+					                <td>Senior Javascript Developer</td>
+					                <td>Edinburgh</td>
+					                <td>22</td>
+					                <td>2012/03/29</td>
+					                <td>$433,060</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Airi Satou</td>
+					                <td>Accountant</td>
+					                <td>Tokyo</td>
+					                <td>33</td>
+					                <td>2008/11/28</td>
+					                <td>$162,700</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Brielle Williamson</td>
+					                <td>Integration Specialist</td>
+					                <td>New York</td>
+					                <td>61</td>
+					                <td>2012/12/02</td>
+					                <td>$372,000</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Herrod Chandler</td>
+					                <td>Sales Assistant</td>
+					                <td>San Francisco</td>
+					                <td>59</td>
+					                <td>2012/08/06</td>
+					                <td>$137,500</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Rhona Davidson</td>
+					                <td>Integration Specialist</td>
+					                <td>Tokyo</td>
+					                <td>55</td>
+					                <td>2010/10/14</td>
+					                <td>$327,900</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Colleen Hurst</td>
+					                <td>Javascript Developer</td>
+					                <td>San Francisco</td>
+					                <td>39</td>
+					                <td>2009/09/15</td>
+					                <td>$205,500</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Sonya Frost</td>
+					                <td>Software Engineer</td>
+					                <td>Edinburgh</td>
+					                <td>23</td>
+					                <td>2008/12/13</td>
+					                <td>$103,600</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Jena Gaines</td>
+					                <td>Office Manager</td>
+					                <td>London</td>
+					                <td>30</td>
+					                <td>2008/12/19</td>
+					                <td>$90,560</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Quinn Flynn</td>
+					                <td>Support Lead</td>
+					                <td>Edinburgh</td>
+					                <td>22</td>
+					                <td>2013/03/03</td>
+					                <td>$342,000</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Charde Marshall</td>
+					                <td>Regional Director</td>
+					                <td>San Francisco</td>
+					                <td>36</td>
+					                <td>2008/10/16</td>
+					                <td>$470,600</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Haley Kennedy</td>
+					                <td>Senior Marketing Designer</td>
+					                <td>London</td>
+					                <td>43</td>
+					                <td>2012/12/18</td>
+					                <td>$313,500</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Tatyana Fitzpatrick</td>
+					                <td>Regional Director</td>
+					                <td>London</td>
+					                <td>19</td>
+					                <td>2010/03/17</td>
+					                <td>$385,750</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Michael Silva</td>
+					                <td>Marketing Designer</td>
+					                <td>London</td>
+					                <td>66</td>
+					                <td>2012/11/27</td>
+					                <td>$198,500</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Paul Byrd</td>
+					                <td>Chief Financial Officer (CFO)</td>
+					                <td>New York</td>
+					                <td>64</td>
+					                <td>2010/06/09</td>
+					                <td>$725,000</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Gloria Little</td>
+					                <td>Systems Administrator</td>
+					                <td>New York</td>
+					                <td>59</td>
+					                <td>2009/04/10</td>
+					                <td>$237,500</td>
+					            </tr>
+
+					            <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+					                <td>Bradley Greer</td>
+					                <td>Software Engineer</td>
+					                <td>London</td>
+					                <td>41</td>
+					                <td>2012/10/13</td>
+					                <td>$132,000</td>
+					            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+        	</div>
+        </div>
+	</div>
+
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Datos a Editar</h4>
+				</div>
+				<form action="">
+					<div class="modal-body">
+						<div class="panel panel-default">
+                            <div class="panel-heading">Datos del Paciente</div>
+                            <div class="panel-body">
+                                <div class="row text-center">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-users fa-lg" aria-hidden="true"></i>
+                                                </div>
+                                                <!-- COMBO BOX TIPO DE PACIENTE -->
+                                                <select id="cmbTipo" class="form-control">
+                                                    <option value="1">Alumno</option>
+                                                    <option value="2">Docente</option>
+                                                    <option value="3">PAAE</option>
+                                                    <option value="4">Externo</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- TEXT BOX NOMBRE -->
+                                                <div class="input-group-addon"><i class="fa fa-wheelchair fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtNombre" class="form-control" placeholder="Nombre Paciente">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- TEXT BOX APELLIDOS -->
+                                                <div class="input-group-addon"><i class="fa fa-wheelchair fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtApellidos" class="form-control" placeholder="Apellidos Paciente">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- FIN DEL ROW NOMBRE Y APELLIDOS -->
+                                <div class="row text-center">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- COMBO BOX GENERO -->
+                                                <div class="input-group-addon"><i class="fa fa-venus-mars fa-lg" aria-hidden="true"></i></div>
+                                                <select id="cmbGenero" class="form-control" autofocus>
+                                                    <option value="1">Masculino</option>
+                                                    <option value="2">Femenino</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- FIN DEL ROW GENERO -->
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group date">
+                                                <!-- DATE PICKER FECHA -->
+                                                <div class="input-group-addon"><i class="fa fa-birthday-cake fa-lg"></i></div>
+                                                <input type='text' id="dtpFechaNac" class="form-control" placeholder="Fecha de Nacimiento" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- TEXT BOX EDAD -->
+                                                <div class="input-group-addon"><i class="fa fa-clock-o fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtEdad" class="form-control" placeholder="Edad del Paciente" disabled="true">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- FIN DEL ROW FECHA Y EDAD -->
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="input-group date">
+                                                <!-- TEXT BOX CURP -->
+                                                <div class="input-group-addon"><i class="fa fa-address-card fa-lg"></i></div>
+                                                <input type='text' id="txtCurp" class="form-control" placeholder="CURP" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- FIN DEL ROW CURP-->
+                            </div>
+                        </div>
+                        <!-- FIN DEL PANEL 1 -->
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Datos de Domicilio</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon"><i class="fa fa-map fa-lg" aria-hidden="true"></i></div>
+                                                <!-- COMBO BOX ESTADO -->
+                                                <select id="cmbEstado" class="form-control">
+                                                    <option value="1">Ciudad de México</option>
+                                                    <option value="2">Estado de México</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- COMBO BOX DEL O MUN -->
+                                                <div class="input-group-addon"><i class="fa fa-map-signs fa-lg" aria-hidden="true"></i></div>
+                                                <select id="cmbMunicipio" class="form-control">
+                                                    <option value="1">Álvaro Obregón</option>
+                                                    <option value="2">Azcapotzalco</option>
+                                                    <option value="3">Benito Juárez</option>
+                                                    <option value="4">Coyoacán</option>
+                                                    <option value="5">Cuajimalpa</option>
+                                                    <option value="6">Cuauhtémoc</option>
+                                                    <option value="7">Gustavo A. Madero</option>
+                                                    <option value="8">Iztacalco</option>
+                                                    <option value="9">Iztapalapa</option>
+                                                    <option value="10">Magdalena Contreras</option>
+                                                    <option value="11">Miguel Hidalgo</option>
+                                                    <option value="12">Milpa Alta</option>
+                                                    <option value="13">Tláhuac</option>
+                                                    <option value="14">Tlalpan</option>
+                                                    <option value="15">Venustiano Carranza</option>
+                                                    <option value="16">Xochimilco</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- FIN DEL ROW ESTADO-->
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- TEXT BOX COLONIA -->
+                                                <div class="input-group-addon"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtColonia" class="form-control" placeholder="Colonia" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- TEXT BOX CP -->
+                                                <div class="input-group-addon"><i class="fa fa-envelope-open fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtCP" class="form-control" placeholder="Codigo Postal" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- FIN DEL ROW COL Y CP-->
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- TEXT BOX CALLE -->
+                                                <div class="input-group-addon"><i class="fa fa-road fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtCalle" class="form-control" placeholder="Calle" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- TEXT BOX NUM INT -->
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-sort-numeric-asc fa-lg" aria-hidden="true"></i>
+                                                </div>
+                                                <input type="text" id="txtInt" class="form-control" placeholder="Num Int" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- TEXT BOX NUM EXT -->
+                                                <div class="input-group-addon"><i class="fa fa-sort-numeric-asc fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtExt" class="form-control" placeholder="Num Ext" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- FIN DEL ROW CALLE, INT, EXT -->
+                            </div>
+                        </div>
+                        <!-- FIN DEL PANEL 2 -->
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Datos de Contacto</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- TEXT BOX CEL -->
+                                                <div class="input-group-addon"><i class="fa fa-mobile fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtCelular" class="form-control" placeholder="Celular" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- TEXT BOX TEL -->
+                                                <div class="input-group-addon"><i class="fa fa-phone fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtTelefono" class="form-control" placeholder="Telefono" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- FIN DEL ROW -->
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- TEXT BOX CORREO -->
+                                                <div class="input-group-addon"><i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtCorreo" class="form-control" placeholder="Correo Electronico">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- FIN DEL ROW -->
+                            </div>
+                        </div>
+                        <!-- FIN DEL PANEL 3 -->
+
+                        <div id="datosAlumno" class="panel panel-default">
+                            <div class="panel-heading">Datos del Alumno</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- TEXBOX BOLETA-->
+                                                <div class="input-group-addon"><i class="fa fa-id-card-o fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtBoleta" class="form-control" placeholder="Boleta o PM">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- TEXT BOX GRUPO-->
+                                                <div class="input-group-addon"><i class="fa fa-university fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtGrupo" class="form-control" placeholder="Grupo">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- FIN DEL ROW BOLETA Y GRUPO -->
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- COMBO BOX CARRERA -->
+                                                <div class="input-group-addon"><i class="fa fa-graduation-cap fa-lg" aria-hidden="true"></i></div>
+                                                <select id="cmbCarrera" class="form-control">
+                                                    <option value="1">Tronco Común</option>
+                                                    <option value="2">Técnico en Informática</option>
+                                                    <option value="3">Técnico en Administración</option>
+                                                    <option value="4">Técnico en Contabilidad</option>
+                                                    <option value="5">Técnico en Administración de Empresas Turísticas</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- FIN DEL ROW CARRERA -->
+                            </div>
+                        </div>
+                        <!-- FIN PANEL ALUMNOS -->
+
+                        <div id="datosPersonal" class="panel panel-default">
+                            <div class="panel-heading">Datos del Personal Escolar</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- TEXT BOX NUM EMPLEADO -->
+                                                <div class="input-group-addon"><i class="fa fa-id-card-o fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtNumEmp" class="form-control" placeholder="Numero de Empleado">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <!-- TEXT BOX RFC -->
+                                                <div class="input-group-addon"><i class="fa fa-id-card-o fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtRFC" class="form-control" placeholder="RFC">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="btnCancelar" class="btn btn-default">Cancelar</button>
+						<button type="button" id="btnEditar" class="btn btn-primary">Editar Datos</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/DataTable/jquery.dataTables.min.js"></script>
+	<script src="js/DataTable/dataTables.bootstrap.min.js"></script>
+	<script src="js/DatePicker/moment.min.js"></script>
+	<script src="js/DatePicker/bootstrap-datetimepicker.min.js"></script>
+	<script src="js/buscarpaciente.js"></script>
+</body>
+</html>

@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/DataTable/dataTables.bootstrap.min.css" />
+    <link rel="stylesheet" href="css/DatePicker/bootstrap-datetimepicker.min.css" />
     <link rel="stylesheet" href="css/estilos_menu.css" />
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700" rel="stylesheet" />
-    <title>Document</title>
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <title>Buscar Paciente</title>
 </head>
 <body>
     <div id="wrapper">
@@ -23,7 +24,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin</a>
+                <a class="navbar-brand" href="MenuPrincipal.html">SB Admin</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -108,7 +109,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" id="Nombre" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>  <b class="caret"></b></a>
+                    <a href="#" id="Nombre" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>  <b class="caret"></b> Nombre</a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="#"><i class="fa fa-fw fa-user"></i> Perfil</a>
@@ -130,7 +131,7 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li>
-                        <a href="index.html"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>
+                        <a href="MenuPrincipal.html"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>
                     </li>
                     <li  class="activado">
                         <a href="javascript:;" data-toggle="collapse" data-target="#consulta"><i class="fa fa-stethoscope" aria-hidden="true"></i> Consultas <i class="fa fa-fw fa-caret-down"></i></a>
@@ -181,113 +182,806 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Forms
+                            Buscar Paciente
                         </h1>
-                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
-                            Launch demo modal
-                        </button>
-
-                        <br><br>
-                    </div>
-                </div>
-                <!-- <row> -->
-                <div class="row">
-                    <div class="col-md-12">
                         <form class="form-inline">
                             <div class="form-group">
-                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
-                                    <div class="input-group-addon"><i class="fa fa-users" aria-hidden="true"></i></div>
-                                    <select id="" class="form-control">
+                                    <div class="input-group-addon"><i class="fa fa-users fa-lg" aria-hidden="true"></i></div>
+                                    <select id="cmbTipoBuscar" class="form-control" aria-describedby="helpBlock">
                                         <option value="1">Alumno</option>
                                         <option value="2">Docente</option>
                                         <option value="3">PAAE</option>
                                         <option value="4">Externo</option>
                                     </select>
                                 </div>
+                                <span id="helpBlock" class="help-block">Seleccione un tipo de paciente</span>
                             </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i> ó <i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-                                    <input type="text" id="" class="form-control" placeholder="Nombre o Boleta">
-                                </div>
-                            </div>
+
                         </form>
                     </div>
                 </div>
-                <div class="row">
-                    <h2>Basic Table</h2>
+                <!-- <row> -->
+
+                <!--TABLA ALUMNOS-->
+                <div class="row" id="Alumnos">
+                    <h2>Tabla Alumnos</h2>
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table id="tbAlumnos" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Page</th>
-                                    <th>Visits</th>
-                                    <th>% New Visits</th>
-                                    <th>Revenue</th>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Alumno</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>/index.html</td>
-                                    <td>1265</td>
-                                    <td>32.3%</td>
-                                    <td>$321.33</td>
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>$320,800</td>
                                 </tr>
-                                <tr>
-                                    <td>/about.html</td>
-                                    <td>261</td>
-                                    <td>33.3%</td>
-                                    <td>$234.12</td>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Garrett Winters</td>
+                                    <td>Accountant</td>
+                                    <td>Tokyo</td>
+                                    <td>63</td>
+                                    <td>2011/07/25</td>
+                                    <td>$170,750</td>
                                 </tr>
-                                <tr>
-                                    <td>/sales.html</td>
-                                    <td>665</td>
-                                    <td>21.3%</td>
-                                    <td>$16.34</td>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Ashton Cox</td>
+                                    <td>Junior Technical Author</td>
+                                    <td>San Francisco</td>
+                                    <td>66</td>
+                                    <td>2009/01/12</td>
+                                    <td>$86,000</td>
                                 </tr>
-                                <tr>
-                                    <td>/blog.html</td>
-                                    <td>9516</td>
-                                    <td>89.3%</td>
-                                    <td>$1644.43</td>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Cedric Kelly</td>
+                                    <td>Senior Javascript Developer</td>
+                                    <td>Edinburgh</td>
+                                    <td>22</td>
+                                    <td>2012/03/29</td>
+                                    <td>$433,060</td>
                                 </tr>
-                                <tr>
-                                    <td>/404.html</td>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Airi Satou</td>
+                                    <td>Accountant</td>
+                                    <td>Tokyo</td>
+                                    <td>33</td>
+                                    <td>2008/11/28</td>
+                                    <td>$162,700</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Brielle Williamson</td>
+                                    <td>Integration Specialist</td>
+                                    <td>New York</td>
+                                    <td>61</td>
+                                    <td>2012/12/02</td>
+                                    <td>$372,000</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Herrod Chandler</td>
+                                    <td>Sales Assistant</td>
+                                    <td>San Francisco</td>
+                                    <td>59</td>
+                                    <td>2012/08/06</td>
+                                    <td>$137,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Rhona Davidson</td>
+                                    <td>Integration Specialist</td>
+                                    <td>Tokyo</td>
+                                    <td>55</td>
+                                    <td>2010/10/14</td>
+                                    <td>$327,900</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Colleen Hurst</td>
+                                    <td>Javascript Developer</td>
+                                    <td>San Francisco</td>
+                                    <td>39</td>
+                                    <td>2009/09/15</td>
+                                    <td>$205,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Sonya Frost</td>
+                                    <td>Software Engineer</td>
+                                    <td>Edinburgh</td>
                                     <td>23</td>
-                                    <td>34.3%</td>
-                                    <td>$23.52</td>
+                                    <td>2008/12/13</td>
+                                    <td>$103,600</td>
                                 </tr>
-                                <tr>
-                                    <td>/services.html</td>
-                                    <td>421</td>
-                                    <td>60.3%</td>
-                                    <td>$724.32</td>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Jena Gaines</td>
+                                    <td>Office Manager</td>
+                                    <td>London</td>
+                                    <td>30</td>
+                                    <td>2008/12/19</td>
+                                    <td>$90,560</td>
                                 </tr>
-                                <tr>
-                                    <td>/blog/post.html</td>
-                                    <td>1233</td>
-                                    <td>93.2%</td>
-                                    <td>$126.34</td>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Quinn Flynn</td>
+                                    <td>Support Lead</td>
+                                    <td>Edinburgh</td>
+                                    <td>22</td>
+                                    <td>2013/03/03</td>
+                                    <td>$342,000</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Charde Marshall</td>
+                                    <td>Regional Director</td>
+                                    <td>San Francisco</td>
+                                    <td>36</td>
+                                    <td>2008/10/16</td>
+                                    <td>$470,600</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Haley Kennedy</td>
+                                    <td>Senior Marketing Designer</td>
+                                    <td>London</td>
+                                    <td>43</td>
+                                    <td>2012/12/18</td>
+                                    <td>$313,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Tatyana Fitzpatrick</td>
+                                    <td>Regional Director</td>
+                                    <td>London</td>
+                                    <td>19</td>
+                                    <td>2010/03/17</td>
+                                    <td>$385,750</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Michael Silva</td>
+                                    <td>Marketing Designer</td>
+                                    <td>London</td>
+                                    <td>66</td>
+                                    <td>2012/11/27</td>
+                                    <td>$198,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Paul Byrd</td>
+                                    <td>Chief Financial Officer (CFO)</td>
+                                    <td>New York</td>
+                                    <td>64</td>
+                                    <td>2010/06/09</td>
+                                    <td>$725,000</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Gloria Little</td>
+                                    <td>Systems Administrator</td>
+                                    <td>New York</td>
+                                    <td>59</td>
+                                    <td>2009/04/10</td>
+                                    <td>$237,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Bradley Greer</td>
+                                    <td>Software Engineer</td>
+                                    <td>London</td>
+                                    <td>41</td>
+                                    <td>2012/10/13</td>
+                                    <td>$132,000</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
+                <!--TABLA DOCENTES-->
+                <div class="row" id="Docentes">
+                    <h2>Tabla Docentes</h2>
+                    <div class="table-responsive">
+                        <table id="tbDocentes" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>$320,800</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Garrett Winters</td>
+                                    <td>Accountant</td>
+                                    <td>Tokyo</td>
+                                    <td>63</td>
+                                    <td>2011/07/25</td>
+                                    <td>$170,750</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Ashton Cox</td>
+                                    <td>Junior Technical Author</td>
+                                    <td>San Francisco</td>
+                                    <td>66</td>
+                                    <td>2009/01/12</td>
+                                    <td>$86,000</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Cedric Kelly</td>
+                                    <td>Senior Javascript Developer</td>
+                                    <td>Edinburgh</td>
+                                    <td>22</td>
+                                    <td>2012/03/29</td>
+                                    <td>$433,060</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Airi Satou</td>
+                                    <td>Accountant</td>
+                                    <td>Tokyo</td>
+                                    <td>33</td>
+                                    <td>2008/11/28</td>
+                                    <td>$162,700</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Brielle Williamson</td>
+                                    <td>Integration Specialist</td>
+                                    <td>New York</td>
+                                    <td>61</td>
+                                    <td>2012/12/02</td>
+                                    <td>$372,000</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Herrod Chandler</td>
+                                    <td>Sales Assistant</td>
+                                    <td>San Francisco</td>
+                                    <td>59</td>
+                                    <td>2012/08/06</td>
+                                    <td>$137,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Rhona Davidson</td>
+                                    <td>Integration Specialist</td>
+                                    <td>Tokyo</td>
+                                    <td>55</td>
+                                    <td>2010/10/14</td>
+                                    <td>$327,900</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Colleen Hurst</td>
+                                    <td>Javascript Developer</td>
+                                    <td>San Francisco</td>
+                                    <td>39</td>
+                                    <td>2009/09/15</td>
+                                    <td>$205,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Sonya Frost</td>
+                                    <td>Software Engineer</td>
+                                    <td>Edinburgh</td>
+                                    <td>23</td>
+                                    <td>2008/12/13</td>
+                                    <td>$103,600</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Jena Gaines</td>
+                                    <td>Office Manager</td>
+                                    <td>London</td>
+                                    <td>30</td>
+                                    <td>2008/12/19</td>
+                                    <td>$90,560</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Quinn Flynn</td>
+                                    <td>Support Lead</td>
+                                    <td>Edinburgh</td>
+                                    <td>22</td>
+                                    <td>2013/03/03</td>
+                                    <td>$342,000</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Charde Marshall</td>
+                                    <td>Regional Director</td>
+                                    <td>San Francisco</td>
+                                    <td>36</td>
+                                    <td>2008/10/16</td>
+                                    <td>$470,600</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Haley Kennedy</td>
+                                    <td>Senior Marketing Designer</td>
+                                    <td>London</td>
+                                    <td>43</td>
+                                    <td>2012/12/18</td>
+                                    <td>$313,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Tatyana Fitzpatrick</td>
+                                    <td>Regional Director</td>
+                                    <td>London</td>
+                                    <td>19</td>
+                                    <td>2010/03/17</td>
+                                    <td>$385,750</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Michael Silva</td>
+                                    <td>Marketing Designer</td>
+                                    <td>London</td>
+                                    <td>66</td>
+                                    <td>2012/11/27</td>
+                                    <td>$198,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Paul Byrd</td>
+                                    <td>Chief Financial Officer (CFO)</td>
+                                    <td>New York</td>
+                                    <td>64</td>
+                                    <td>2010/06/09</td>
+                                    <td>$725,000</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Gloria Little</td>
+                                    <td>Systems Administrator</td>
+                                    <td>New York</td>
+                                    <td>59</td>
+                                    <td>2009/04/10</td>
+                                    <td>$237,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Bradley Greer</td>
+                                    <td>Software Engineer</td>
+                                    <td>London</td>
+                                    <td>41</td>
+                                    <td>2012/10/13</td>
+                                    <td>$132,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!--TABLA PAAES-->
+                <div class="row" id="Paaes">
+                    <h2>Tabla Personal Administrativo</h2>
+                    <div class="table-responsive">
+                        <table id="tbPaaes" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>$320,800</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Garrett Winters</td>
+                                    <td>Accountant</td>
+                                    <td>Tokyo</td>
+                                    <td>63</td>
+                                    <td>2011/07/25</td>
+                                    <td>$170,750</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Ashton Cox</td>
+                                    <td>Junior Technical Author</td>
+                                    <td>San Francisco</td>
+                                    <td>66</td>
+                                    <td>2009/01/12</td>
+                                    <td>$86,000</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Cedric Kelly</td>
+                                    <td>Senior Javascript Developer</td>
+                                    <td>Edinburgh</td>
+                                    <td>22</td>
+                                    <td>2012/03/29</td>
+                                    <td>$433,060</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Airi Satou</td>
+                                    <td>Accountant</td>
+                                    <td>Tokyo</td>
+                                    <td>33</td>
+                                    <td>2008/11/28</td>
+                                    <td>$162,700</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Brielle Williamson</td>
+                                    <td>Integration Specialist</td>
+                                    <td>New York</td>
+                                    <td>61</td>
+                                    <td>2012/12/02</td>
+                                    <td>$372,000</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Herrod Chandler</td>
+                                    <td>Sales Assistant</td>
+                                    <td>San Francisco</td>
+                                    <td>59</td>
+                                    <td>2012/08/06</td>
+                                    <td>$137,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Rhona Davidson</td>
+                                    <td>Integration Specialist</td>
+                                    <td>Tokyo</td>
+                                    <td>55</td>
+                                    <td>2010/10/14</td>
+                                    <td>$327,900</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Colleen Hurst</td>
+                                    <td>Javascript Developer</td>
+                                    <td>San Francisco</td>
+                                    <td>39</td>
+                                    <td>2009/09/15</td>
+                                    <td>$205,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Sonya Frost</td>
+                                    <td>Software Engineer</td>
+                                    <td>Edinburgh</td>
+                                    <td>23</td>
+                                    <td>2008/12/13</td>
+                                    <td>$103,600</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Jena Gaines</td>
+                                    <td>Office Manager</td>
+                                    <td>London</td>
+                                    <td>30</td>
+                                    <td>2008/12/19</td>
+                                    <td>$90,560</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Quinn Flynn</td>
+                                    <td>Support Lead</td>
+                                    <td>Edinburgh</td>
+                                    <td>22</td>
+                                    <td>2013/03/03</td>
+                                    <td>$342,000</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Charde Marshall</td>
+                                    <td>Regional Director</td>
+                                    <td>San Francisco</td>
+                                    <td>36</td>
+                                    <td>2008/10/16</td>
+                                    <td>$470,600</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Haley Kennedy</td>
+                                    <td>Senior Marketing Designer</td>
+                                    <td>London</td>
+                                    <td>43</td>
+                                    <td>2012/12/18</td>
+                                    <td>$313,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Tatyana Fitzpatrick</td>
+                                    <td>Regional Director</td>
+                                    <td>London</td>
+                                    <td>19</td>
+                                    <td>2010/03/17</td>
+                                    <td>$385,750</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Michael Silva</td>
+                                    <td>Marketing Designer</td>
+                                    <td>London</td>
+                                    <td>66</td>
+                                    <td>2012/11/27</td>
+                                    <td>$198,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Paul Byrd</td>
+                                    <td>Chief Financial Officer (CFO)</td>
+                                    <td>New York</td>
+                                    <td>64</td>
+                                    <td>2010/06/09</td>
+                                    <td>$725,000</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Gloria Little</td>
+                                    <td>Systems Administrator</td>
+                                    <td>New York</td>
+                                    <td>59</td>
+                                    <td>2009/04/10</td>
+                                    <td>$237,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Bradley Greer</td>
+                                    <td>Software Engineer</td>
+                                    <td>London</td>
+                                    <td>41</td>
+                                    <td>2012/10/13</td>
+                                    <td>$132,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!--TABLA EXTERNOS-->
+                <div class="row" id="Externos">
+                    <h2>Tabla Externo</h2>
+                    <div class="table-responsive">
+                        <table id="tbExternos" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>$320,800</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Garrett Winters</td>
+                                    <td>Accountant</td>
+                                    <td>Tokyo</td>
+                                    <td>63</td>
+                                    <td>2011/07/25</td>
+                                    <td>$170,750</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Ashton Cox</td>
+                                    <td>Junior Technical Author</td>
+                                    <td>San Francisco</td>
+                                    <td>66</td>
+                                    <td>2009/01/12</td>
+                                    <td>$86,000</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Cedric Kelly</td>
+                                    <td>Senior Javascript Developer</td>
+                                    <td>Edinburgh</td>
+                                    <td>22</td>
+                                    <td>2012/03/29</td>
+                                    <td>$433,060</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Airi Satou</td>
+                                    <td>Accountant</td>
+                                    <td>Tokyo</td>
+                                    <td>33</td>
+                                    <td>2008/11/28</td>
+                                    <td>$162,700</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Brielle Williamson</td>
+                                    <td>Integration Specialist</td>
+                                    <td>New York</td>
+                                    <td>61</td>
+                                    <td>2012/12/02</td>
+                                    <td>$372,000</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Herrod Chandler</td>
+                                    <td>Sales Assistant</td>
+                                    <td>San Francisco</td>
+                                    <td>59</td>
+                                    <td>2012/08/06</td>
+                                    <td>$137,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Rhona Davidson</td>
+                                    <td>Integration Specialist</td>
+                                    <td>Tokyo</td>
+                                    <td>55</td>
+                                    <td>2010/10/14</td>
+                                    <td>$327,900</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Colleen Hurst</td>
+                                    <td>Javascript Developer</td>
+                                    <td>San Francisco</td>
+                                    <td>39</td>
+                                    <td>2009/09/15</td>
+                                    <td>$205,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Sonya Frost</td>
+                                    <td>Software Engineer</td>
+                                    <td>Edinburgh</td>
+                                    <td>23</td>
+                                    <td>2008/12/13</td>
+                                    <td>$103,600</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Jena Gaines</td>
+                                    <td>Office Manager</td>
+                                    <td>London</td>
+                                    <td>30</td>
+                                    <td>2008/12/19</td>
+                                    <td>$90,560</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Quinn Flynn</td>
+                                    <td>Support Lead</td>
+                                    <td>Edinburgh</td>
+                                    <td>22</td>
+                                    <td>2013/03/03</td>
+                                    <td>$342,000</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Charde Marshall</td>
+                                    <td>Regional Director</td>
+                                    <td>San Francisco</td>
+                                    <td>36</td>
+                                    <td>2008/10/16</td>
+                                    <td>$470,600</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Haley Kennedy</td>
+                                    <td>Senior Marketing Designer</td>
+                                    <td>London</td>
+                                    <td>43</td>
+                                    <td>2012/12/18</td>
+                                    <td>$313,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Tatyana Fitzpatrick</td>
+                                    <td>Regional Director</td>
+                                    <td>London</td>
+                                    <td>19</td>
+                                    <td>2010/03/17</td>
+                                    <td>$385,750</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Michael Silva</td>
+                                    <td>Marketing Designer</td>
+                                    <td>London</td>
+                                    <td>66</td>
+                                    <td>2012/11/27</td>
+                                    <td>$198,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Paul Byrd</td>
+                                    <td>Chief Financial Officer (CFO)</td>
+                                    <td>New York</td>
+                                    <td>64</td>
+                                    <td>2010/06/09</td>
+                                    <td>$725,000</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Gloria Little</td>
+                                    <td>Systems Administrator</td>
+                                    <td>New York</td>
+                                    <td>59</td>
+                                    <td>2009/04/10</td>
+                                    <td>$237,500</td>
+                                </tr>
+
+                                <tr data-toggle="tooltip" data-placement="top" title="Haz doble click para editarme!">
+                                    <td>Bradley Greer</td>
+                                    <td>Software Engineer</td>
+                                    <td>London</td>
+                                    <td>41</td>
+                                    <td>2012/10/13</td>
+                                    <td>$132,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <button type="button" class="btn btn-info btn-block">Recargar Tabla <i class="fa fa-refresh" aria-hidden="true"></i></button>
+                </div>
             </div>
             <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->
     </div>
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="modalDatos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Nuevo Paciente</h4>
                 </div>
                 <form class="">
                     <div class="modal-body">
@@ -299,7 +993,7 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <div class="input-group-addon">
-                                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                                    <i class="fa fa-users fa-lg" aria-hidden="true"></i> <strong>*</strong>
                                                 </div>
                                                 <!-- COMBO BOX TIPO DE PACIENTE -->
                                                 <select id="cmbTipo" class="form-control">
@@ -317,8 +1011,8 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <!-- TEXT BOX NOMBRE -->
-                                                <div class="input-group-addon"><i class="fa fa-wheelchair" aria-hidden="true"></i></div>
-                                                <input type="text" id="txtNombre" class="form-control" placeholder="Nombre Paciente">
+                                                <div class="input-group-addon"><i class="fa fa-wheelchair fa-lg" aria-hidden="true"></i> <strong>*</strong></div>
+                                                <input type="text" id="txtNombre" class="form-control text-capitalize" placeholder="Nombre Paciente" maxlength="20" requerido="si" data-toggle="popover" data-placement="bottom" data-trigger="focus" data-content="Cumpleta el campo">
                                             </div>
                                         </div>
                                     </div>
@@ -326,8 +1020,8 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <!-- TEXT BOX APELLIDOS -->
-                                                <div class="input-group-addon"><i class="fa fa-wheelchair" aria-hidden="true"></i></div>
-                                                <input type="text" id="txtApellidos" class="form-control" placeholder="Apellidos Paciente">
+                                                <div class="input-group-addon"><i class="fa fa-wheelchair fa-lg" aria-hidden="true"></i> <strong>*</strong></div>
+                                                <input type="text" id="txtApellidos" class="form-control text-capitalize" placeholder="Apellidos Paciente" maxlength="20" requerido="si" data-toggle="popover" data-placement="bottom" data-trigger="focus" data-content="Cumpleta el campo">
                                             </div>
                                         </div>
                                     </div>
@@ -338,7 +1032,7 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <!-- COMBO BOX GENERO -->
-                                                <div class="input-group-addon"><i class="fa fa-venus-mars" aria-hidden="true"></i></div>
+                                                <div class="input-group-addon"><i class="fa fa-venus-mars fa-lg" aria-hidden="true"></i></div>
                                                 <select id="cmbGenero" class="form-control" autofocus>
                                                     <option value="1">Masculino</option>
                                                     <option value="2">Femenino</option>
@@ -353,8 +1047,8 @@
                                         <div class="form-group">
                                             <div class="input-group date">
                                                 <!-- DATE PICKER FECHA -->
-                                                <div class="input-group-addon"><i class="fa fa-birthday-cake"></i></div>
-                                                <input type='text' id="dtpFechaNac" class="form-control" placeholder="Fecha de Nacimiento" />
+                                                <div class="input-group-addon"><i class="fa fa-birthday-cake fa-lg"></i></div>
+                                                <input type='text' id="dtpFechaNac" class="form-control" placeholder="Fecha de Nacimiento" maxlength="10" />
                                             </div>
                                         </div>
                                     </div>
@@ -362,8 +1056,8 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <!-- TEXT BOX EDAD -->
-                                                <div class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
-                                                <input type="text" id="txtEdad" class="form-control" placeholder="Edad Paciente">
+                                                <div class="input-group-addon"><i class="fa fa-clock-o fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtEdad" class="form-control" placeholder="Edad Paciente" maxlength="3">
                                             </div>
                                         </div>
                                     </div>
@@ -374,8 +1068,8 @@
                                         <div class="form-group">
                                             <div class="input-group date">
                                                 <!-- TEXT BOX CURP -->
-                                                <div class="input-group-addon"><i class="fa fa-address-card"></i></div>
-                                                <input type='text' id="txtCurp" class="form-control" placeholder="CURP" />
+                                                <div class="input-group-addon"><i class="fa fa-address-card fa-lg"></i></div>
+                                                <input type='text' id="txtCurp" class="form-control text-uppercase" placeholder="CURP" maxlength="18" />
                                             </div>
                                         </div>
                                     </div>
@@ -392,7 +1086,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <div class="input-group-addon"><i class="fa fa-map" aria-hidden="true"></i></div>
+                                                <div class="input-group-addon"><i class="fa fa-map fa-lg" aria-hidden="true"></i></div>
                                                 <!-- COMBO BOX ESTADO -->
                                                 <select id="cmbEstado" class="form-control">
                                                     <option value="1">Ciudad de México</option>
@@ -405,7 +1099,7 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <!-- COMBO BOX DEL O MUN -->
-                                                <div class="input-group-addon"><i class="fa fa-map-signs" aria-hidden="true"></i></div>
+                                                <div class="input-group-addon"><i class="fa fa-map-signs fa-lg" aria-hidden="true"></i></div>
                                                 <select id="cmbMunicipio" class="form-control">
                                                     <option value="1">Álvaro Obregón</option>
                                                     <option value="2">Azcapotzalco</option>
@@ -435,8 +1129,8 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <!-- TEXT BOX COLONIA -->
-                                                <div class="input-group-addon"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
-                                                <input type="text" id="txtColonia" class="form-control" placeholder="Colonia" />
+                                                <div class="input-group-addon"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtColonia" class="form-control text-capitalize" placeholder="Colonia" />
                                             </div>
                                         </div>
                                     </div>
@@ -444,8 +1138,8 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <!-- TEXT BOX CP -->
-                                                <div class="input-group-addon"><i class="fa fa-envelope-open" aria-hidden="true"></i></div>
-                                                <input type="text" id="txtCP" class="form-control" placeholder="Codigo Postal" />
+                                                <div class="input-group-addon"><i class="fa fa-envelope-open fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtCP" class="form-control" placeholder="Codigo Postal" maxlength="5" />
                                             </div>
                                         </div>
                                     </div>
@@ -457,8 +1151,8 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <!-- TEXT BOX CALLE -->
-                                                <div class="input-group-addon"><i class="fa fa-road" aria-hidden="true"></i></div>
-                                                <input type="text" id="txtCalle" class="form-control" placeholder="Calle" />
+                                                <div class="input-group-addon"><i class="fa fa-road fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtCalle" class="form-control text-capitalize" placeholder="Calle" />
                                             </div>
                                         </div>
                                     </div>
@@ -467,9 +1161,9 @@
                                             <div class="input-group">
                                                 <!-- TEXT BOX NUM INT -->
                                                 <div class="input-group-addon">
-                                                    <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i>
+                                                    <i class="fa fa-sort-numeric-asc fa-lg" aria-hidden="true"></i>
                                                 </div>
-                                                <input type="text" id="txtInt" class="form-control" placeholder="Num Int" />
+                                                <input type="text" id="txtInt" class="form-control" placeholder="Num Int" maxlength="4" />
                                             </div>
                                         </div>
                                     </div>
@@ -477,8 +1171,8 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <!-- TEXT BOX NUM EXT -->
-                                                <div class="input-group-addon"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></div>
-                                                <input type="text" id="txtExt" class="form-control" placeholder="Num Ext" />
+                                                <div class="input-group-addon"><i class="fa fa-sort-numeric-asc fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtExt" class="form-control" placeholder="Num Ext" maxlength="4" />
                                             </div>
                                         </div>
                                     </div>
@@ -496,8 +1190,8 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <!-- TEXT BOX CEL -->
-                                                <div class="input-group-addon"><i class="fa fa-mobile" aria-hidden="true"></i></div>
-                                                <input type="text" id="txtCelular" class="form-control" placeholder="Celular" />
+                                                <div class="input-group-addon"><i class="fa fa-mobile fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtCelular" class="form-control" placeholder="Celular" maxlength="10" />
                                             </div>
                                         </div>
                                     </div>
@@ -505,8 +1199,8 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <!-- TEXT BOX TEL -->
-                                                <div class="input-group-addon"><i class="fa fa-phone" aria-hidden="true"></i></div>
-                                                <input type="text" id="txtTelefono" class="form-control" placeholder="Telefono" />
+                                                <div class="input-group-addon"><i class="fa fa-phone fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtTelefono" class="form-control" placeholder="Telefono" maxlength="8" />
                                             </div>
                                         </div>
                                     </div>
@@ -517,8 +1211,8 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <!-- TEXT BOX CORREO -->
-                                                <div class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></div>
-                                                <input type="text" id="txtCorreo" class="form-control" placeholder="Correo">
+                                                <div class="input-group-addon"><i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtCorreo" class="form-control" placeholder="Correo Electronico">
                                             </div>
                                         </div>
                                     </div>
@@ -536,8 +1230,8 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <!-- TEXBOX BOLETA-->
-                                                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-                                                <input type="text" id="txtBoleta" class="form-control" placeholder="Boleta o PM">
+                                                <div class="input-group-addon"><i class="fa fa-id-card-o fa-lg" aria-hidden="true"></i> <strong>*</strong></div>
+                                                <input type="text" id="txtBoleta" class="form-control text-uppercase" placeholder="Boleta o PM" maxlength="10" >
                                             </div>
                                         </div>
                                     </div>
@@ -545,8 +1239,8 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <!-- TEXT BOX GRUPO-->
-                                                <div class="input-group-addon"><i class="fa fa-university" aria-hidden="true"></i></div>
-                                                <input type="text" id="txtGrupo" class="form-control" placeholder="Grupo">
+                                                <div class="input-group-addon"><i class="fa fa-university fa-lg" aria-hidden="true"></i> <strong>*</strong></div>
+                                                <input type="text" id="txtGrupo" class="form-control text-uppercase" placeholder="Grupo" maxlength="5" />
                                             </div>
                                         </div>
                                     </div>
@@ -557,7 +1251,7 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <!-- COMBO BOX CARRERA -->
-                                                <div class="input-group-addon"><i class="fa fa-graduation-cap" aria-hidden="true"></i></div>
+                                                <div class="input-group-addon"><i class="fa fa-graduation-cap fa-lg" aria-hidden="true"></i> <strong>*</strong></div>
                                                 <select id="cmbCarrera" class="form-control">
                                                     <option value="1">Tronco Común</option>
                                                     <option value="2">Técnico en Informática</option>
@@ -582,8 +1276,8 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <!-- TEXT BOX NUM EMPLEADO -->
-                                                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-                                                <input type="text" id="txtNumEmp" class="form-control" placeholder="Numero de Empleado">
+                                                <div class="input-group-addon"><i class="fa fa-id-card-o fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtNumEmp" class="form-control" placeholder="Numero de Empleado" maxlength="10">
                                             </div>
                                         </div>
                                     </div>
@@ -593,8 +1287,8 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <!-- TEXT BOX RFC -->
-                                                <div class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></div>
-                                                <input type="text" id="txtRFC" class="form-control" placeholder="RFC">
+                                                <div class="input-group-addon"><i class="fa fa-id-card-o fa-lg" aria-hidden="true"></i></div>
+                                                <input type="text" id="txtRFC" class="form-control" placeholder="RFC" style="text-transform:uppercase" maxlength="13">
                                             </div>
                                         </div>
                                     </div>
@@ -603,34 +1297,54 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="button" id="btnAgregarPaciente" class="btn btn-primario">Agregar Paciente</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Agregar Paciente</h4>
+                </div>
+                <form id="frmEnviarDatos" action="~/Consultas/Index" method="post" class="form-inline" autocomplete="off">
+                    <div class="modal-body">
+                        <label for="txtnomEnviar" class="col-sm-6 control-label">¿Seguro(a) que deseas realizar la consulta a la paciente?</label>
+                        <input type="hidden" name="id" id="txtidEnviar" style="border:none; border-color:transparent;" readonly="readonly" />
+                        <input type="text" name="nom" id="txtnomEnviar" style="border:none; border-color:transparent;" readonly="readonly" />
+                        <input type="hidden" name="edad" id="txtedadEnviar" style="border:none; border-color:transparent;" readonly="readonly" />
+                        <input type="hidden" name="genero" id="txtgeneroEnviar" style="border:none; border-color:transparent;" readonly="readonly" />
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <button type="button" id="btnCancelarConsulta" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" id="btnMandarDatos" class="btn btn-primary">Pasar a Consulta</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-success btn-circle btn-xl btn-flotante" data-toggle="modal" data-target="#modalDatos">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#Nombre").append(" Leonardo");
-            $("#cmbTipo").change(function () {
-                var cmbtipo = $(this).val()
-                if(cmbtipo == 1){
-                    $("#datosPersonal").slideUp("slow");
-                    $("#datosAlumno").slideDown("slow");
-                    //$("#datosPersonal").slideUp("slow");
-                } else if (cmbtipo == 2 || cmbtipo == 3) {
-                    $("#datosAlumno").slideUp("slow");
-                    $("#datosPersonal").slideDown("slow");
-                }else {
-                    $("#datosAlumno").slideUp("slow");
-                    $("#datosPersonal").slideUp("slow");
-                }
-            });
-        });
-    </script>
+    <script src="js/DataTable/jquery.dataTables.min.js"></script>
+    <script src="js/DataTable/dataTables.bootstrap.min.js"></script>
+    <script src="js/DatePicker/moment.min.js"></script>
+    <script src="js/DatePicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/buscarpaciente.js"></script>
 </body>
 </html>
