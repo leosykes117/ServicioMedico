@@ -4,40 +4,37 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <title>Servicio M&eacute;dico. - Inicio</title>
     @Styles.Render("~/LogIn/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    @{ var sesion = string.Empty; }
-    @if (Session.IsNewSession == true)
-    {
-        sesion = "Nueva Sesion";
-    }
-    else
-    {
-        sesion = "Sesion ya iniciada";
-    }
     <div class="fondo">
         <div class="contenido">
             <div class="texto">
-                <h2>¡Gracias por elegir Firefox!</h2>
-                <h1>Envía Firefox a tu teléfono o tableta</h1>
-                <p>@sesion</p>
+                <h2>Centro de Estudios Cientifos y Tecnologicos N° 13</h2>
+                <h1>Servicio Médico Escolar</h1>
             </div>
             <div class="well texto">
                 <label>Inicia tu Sesi&oacute;n</label>
-                <form class="form-horizontal" accept-charset="UTF-8">
+                <div class="form-horizontal" accept-charset="UTF-8">
                     <div class="form-group">
-                        <input type="text" id="txtUsuario" class="form-control" placeholder="Usuario" />
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-user-md fa-lg" aria-hidden="true"></i></div>
+                            <input type="text" id="txtUsuario" class="form-control" placeholder="Usuario" />
+                        </div>
                     </div>
                     <div class="form-group">
-                        <input type="password" id="txtContraseña" class="form-control" placeholder="Contraseña" />
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></div>
+                            <input type="password" id="txtContraseña" class="form-control" placeholder="Contraseña" />
+                        </div>
                     </div>
-                    <input type="button" id="btnIniciar" class="btn btn-warning btn-lg btn-block" value="Iniciar Sesión" />
-                </form>
-                <p>¿No tienes una cuenta? @Html.ActionLink("Registrate", "Registro", "Sesion")</p>
+
+                    <button id="btnIniciar" class="btn btn-primario btn-lg btn-block">Iniciar Sesión</button>
+                </div>
+                <p>¿No tienes una cuenta? @Html.ActionLink("Registrate", "Registro", "Sesion", null, new {@class = "btn btn-link" })</p>
             </div>
             <div id="mensajes" class="alert alert-danger alert-dismissable">
                 <a class="close">&times;</a>
@@ -46,15 +43,25 @@
         </div>
     </div>
     <footer class="row">
-        <div class="col-md-4">
-            <p>Algunos contenidos están protegidos por los derechos de autor ©1998–2017 de determinados colaboradores en mozilla.org. El resto de contenidos están disponibles bajo una licencia Creative Commons.</p>
+        <div class="col-xs-12 col-md-4">
+            <p class="text-justify">Algunos contenidos están protegidos por los derechos de autor ©1998–2017 de determinados colaboradores en mozilla.org. El resto de contenidos están disponibles bajo una licencia Creative Commons.</p>
         </div>
-        <div class="col-md-4">
-            <p>Aplicacion Web Creada por <strong>Leonardo Antonio Arellano Martinez.</strong></p>
+        <div class="col-xs-12 col-md-4">
+            <p class="text-justify">Aplicacion Web Creada por <strong>Leonardo Antonio Arellano Martinez.</strong></p>
         </div>
-        <div class="col-md-4">
-            <p>Correo Electronico: leo.aremtz98@gmail.com <br> Telefono: 30-92-62-06</p>
-        </div>
+        <address class="col-xs-12 col-md-4">
+            <p>
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <strong> Correo: </strong>
+                leo.aremtz98@mail.com
+
+                <br>
+
+                <i class="fa fa-mobile fa-lg" aria-hidden="true"></i>
+                <strong> Celular: </strong>
+                55-14-67-04-31
+            </p>
+        </address>
     </footer>
     <div class="container body-content">
         @RenderBody()

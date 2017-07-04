@@ -1,0 +1,170 @@
+﻿@section HojasEstilo{
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/snackbar.css" rel="stylesheet" />
+}
+
+@{
+    ViewBag.Title = "PacientesEliminados";
+    Layout = "~/Views/Shared/_MenuPrincipal.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 id="encabezadoPagina" class="page-header">Pacientes Eliminados</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-9">
+        <form action="" class="form-inline">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-users fa-lg" aria-hidden="true"></i></div>
+                    <select id="cmbTipoBuscar" class="form-control" aria-describedby="helpBlock">
+                        <option value="1">Alumno</option>
+                        <option value="2">Docente</option>
+                        <option value="3">PAAE</option>
+                        <option value="4">Externo</option>
+                    </select>
+                </div>
+                <span id="helpBlock" class="help-block">Seleccione un tipo de paciente</span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--TABLA ALUMNOS-->
+<div class="row" id="Alumnos">
+    <h2>Tabla Alumnos</h2>
+    <div class="table-responsive">
+        <table id="tbAlumnos" class="table table-bordered table-hover" cellspacing="50">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Edad</th>
+                    <th>Genero</th>
+                    <th>Boleta &oacute; PM</th>
+                    <th>Grupo</th>
+                    <th>Carrera</th>
+                    <th>Telefono</th>
+                    <th>Correo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<!--TABLA DOCENTES-->
+<div class="row" id="Docentes">
+    <h2>Tabla Docentes</h2>
+    <div class="table-responsive">
+        <table id="tbDocentes" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Edad</th>
+                    <th>Genero</th>
+                    <th>Numero de Docente</th>
+                    <th>RFC</th>
+                    <th>Telefono</th>
+                    <th>Correo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<!--TABLA PAAES-->
+<div class="row" id="Paaes">
+    <h2>Tabla Personal Administrativo</h2>
+    <div class="table-responsive">
+        <table id="tbPaaes" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Edad</th>
+                    <th>Genero</th>
+                    <th>Numero de Docente</th>
+                    <th>RFC</th>
+                    <th>Telefono</th>
+                    <th>Correo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<!--TABLA EXTERNOS-->
+<div class="row" id="Externos">
+    <h2>Tabla Externo</h2>
+    <div class="table-responsive">
+        <table id="tbExternos" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Edad</th>
+                    <th>Genero</th>
+                    <th>CURP</th>
+                    <th>Telefono</th>
+                    <th>Correo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <button type="button" class="btn btn-info btn-block recargartb">Recargar Tabla <i class="fa fa-refresh" aria-hidden="true"></i></button>
+</div>
+
+<div class="bg-primary" id="snackbar"></div>
+
+<div class="modal fade" id="modalBorrar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Eliminar Paciente</h4>
+            </div>
+            <form id="frmEliminarPaciente" class="form-horizontal" autocomplete="off">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="form-group">
+                            <h4>¿Seguro(a) que deseas eliminar a el paciente <u><strong id="nomEnviar"></strong></u>?</h4>
+                            <h4>Si lo eliminas no lo podras volver a recuperar.</h4>
+                        </div>
+                        <input type="hidden" name="IdPaciente" id="txtidEnviar" readonly="readonly" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="btnEliminarPaciente" class="btn btn-primario">Eliminar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <!--script src="~/Scripts/moment.min.js"></script-->
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/scriptsVistas/snackbar.min.js"></script>
+    <script src="~/Scripts/scriptsVistas/pacEliminados.js"></script>
+}
+

@@ -594,13 +594,18 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\scriptsVistas\consultas.js" />
+    <Content Include="Scripts\scriptsVistas\buscarpaciente.js" />
+    <Content Include="Scripts\scriptsVistas\consultamedica.js" />
+    <Content Include="Scripts\scriptsVistas\editarConsulta.js" />
+    <Content Include="Scripts\scriptsVistas\pacEliminados.js" />
     <Content Include="Scripts\scriptsVistas\login.js" />
     <Content Include="Scripts\scriptsVistas\medicamentos.js" />
     <Content Include="Scripts\scriptsVistas\menu.js" />
     <Content Include="Scripts\scriptsVistas\pacientes.js" />
     <Content Include="Scripts\scriptsVistas\registro.js" />
+    <Content Include="Scripts\scriptsVistas\serializeFormJSON.js" />
     <Content Include="Scripts\scriptsVistas\snackbar.min.js" />
+    <Content Include="Scripts\scriptsVistas\verConsultas.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -625,6 +630,9 @@
     <Content Include="Views\Consultas\Index.cshtml" />
     <Content Include="Views\Medicamentos\Index.cshtml" />
     <Content Include="Views\Pacientes\Index.cshtml" />
+    <Content Include="Views\Consultas\VerConsultas.cshtml" />
+    <Content Include="Views\Consultas\EditarConsulta.cshtml" />
+    <Content Include="Views\Pacientes\PacientesEliminados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

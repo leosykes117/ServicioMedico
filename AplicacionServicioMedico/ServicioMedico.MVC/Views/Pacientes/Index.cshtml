@@ -5,44 +5,503 @@
 }
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Pacientes";
     Layout = "~/Views/Shared/_MenuPrincipal.cshtml";
 }
 
-<div class="container">
 <div class="row">
-    <h2>Basic Table</h2>
-    <form class="form-inline">
-        <div class="form-group">
-            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
-            <div class="input-group">
-                <div class="input-group-addon"><i class="fa fa-users" aria-hidden="true"></i></div>
-                <select id="cmbTipoBuscar" class="form-control">
-                    <option value="1">Alumno</option>
-                    <option value="2">Docente</option>
-                    <option value="3">PAAE</option>
-                    <option value="4">Externo</option>
-                </select>
+    <div class="col-md-12">
+        <h1 id="encabezadoPagina" class="page-header">Pacientes</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-9">
+        <form action="" class="form-inline">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-users fa-lg" aria-hidden="true"></i></div>
+                    <select id="cmbTipoBuscar" class="form-control" aria-describedby="helpBlock">
+                        <option value="1">Alumno</option>
+                        <option value="2">Docente</option>
+                        <option value="3">PAAE</option>
+                        <option value="4">Externo</option>
+                    </select>
+                </div>
+                <span id="helpBlock" class="help-block">Seleccione un tipo de paciente</span>
             </div>
-        </div>
-    </form>
-    <br />
+        </form>
+    </div>
+    <div class="col-md-3">@Html.ActionLink("Click Aqui para ver los Pacientes Eliminados", "PacientesEliminados", "Pacientes", null, new { @class = "btn btn-link" })</div>
+</div>
+
+<!--TABLA ALUMNOS-->
+<div class="row" id="Alumnos">
+    <h2>Tabla Alumnos</h2>
     <div class="table-responsive">
-        <table id="tbPacientes" class="table table-hover" cellspacing="0" width="100%">
-            <thead class="">
+        <table id="tbAlumnos" class="table table-bordered table-hover" cellspacing="50">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Edad</th>
+                    <th>Genero</th>
+                    <th>Boleta &oacute; PM</th>
+                    <th>Grupo</th>
+                    <th>Carrera</th>
+                    <th>Telefono</th>
+                    <th>Correo</th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody></tbody>
         </table>
     </div>
 </div>
+
+<!--TABLA DOCENTES-->
+<div class="row" id="Docentes">
+    <h2>Tabla Docentes</h2>
+    <div class="table-responsive">
+        <table id="tbDocentes" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Edad</th>
+                    <th>Genero</th>
+                    <th>Numero de Docente</th>
+                    <th>RFC</th>
+                    <th>Telefono</th>
+                    <th>Correo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 </div>
-<div class="bg-danger" id="snackbar"></div>
+
+<!--TABLA PAAES-->
+<div class="row" id="Paaes">
+    <h2>Tabla Personal Administrativo</h2>
+    <div class="table-responsive">
+        <table id="tbPaaes" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Edad</th>
+                    <th>Genero</th>
+                    <th>Numero de Docente</th>
+                    <th>RFC</th>
+                    <th>Telefono</th>
+                    <th>Correo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<!--TABLA EXTERNOS-->
+<div class="row" id="Externos">
+    <h2>Tabla Externo</h2>
+    <div class="table-responsive">
+        <table id="tbExternos" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Edad</th>
+                    <th>Genero</th>
+                    <th>CURP</th>
+                    <th>Telefono</th>
+                    <th>Correo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <button type="button" class="btn btn-info btn-block recargartb">Recargar Tabla <i class="fa fa-refresh" aria-hidden="true"></i></button>
+</div>
+
+<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Nuevo Paciente</h4>
+            </div>
+            <form id="frmEditarPaciente" autocomplete="off" method="post">
+                <div class="modal-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Datos del Paciente</div>
+                        <div class="panel-body">
+                            <div class="row text-center">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-users fa-lg" aria-hidden="true"></i> *
+                                            </div>
+                                            <input type="hidden" id="txtIdPaciente" name="IdPaciente" />
+                                            <!-- COMBO BOX TIPO DE PACIENTE -->
+                                            <select id="cmbTipo" name="TipoPaciente" class="form-control">
+                                                <option value="1">Alumno</option>
+                                                <option value="2">Docente</option>
+                                                <option value="3">PAAE</option>
+                                                <option value="4">Externo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- TEXT BOX NOMBRE -->
+                                            <div class="input-group-addon"><i class="fa fa-wheelchair fa-lg" aria-hidden="true"></i> *</div>
+                                            <input type="text" id="txtNombre" name="NombrePaciente" class="form-control text-capitalize" placeholder="Nombre Paciente" maxlength="20" autofocus required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- TEXT BOX APELLIDOS -->
+                                            <div class="input-group-addon"><i class="fa fa-wheelchair fa-lg" aria-hidden="true"></i> *</div>
+                                            <input type="text" id="txtApellidos" name="ApellidosPaciente" class="form-control text-capitalize" placeholder="Apellidos Paciente" maxlength="20" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN DEL ROW NOMBRE Y APELLIDOS -->
+                            <div class="row text-center">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- COMBO BOX GENERO -->
+                                            <div class="input-group-addon"><i class="fa fa-venus-mars fa-lg" aria-hidden="true"></i></div>
+                                            <select id="cmbGenero" name="GeneroPaciente" class="form-control">
+                                                <option value="1">Masculino</option>
+                                                <option value="2">Femenino</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN DEL ROW GENERO -->
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="input-group date">
+                                            <!-- DATE PICKER FECHA -->
+                                            <div class="input-group-addon"><i class="fa fa-birthday-cake fa-lg"></i></div>
+                                            <input type='text' id="dtpFechaNac" name="FechaNac" class="form-control" placeholder="Fecha de Nacimiento" maxlength="10" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- TEXT BOX EDAD -->
+                                            <div class="input-group-addon"><i class="fa fa-clock-o fa-lg" aria-hidden="true"></i></div>
+                                            <input type="text" id="txtEdad" name="EdadPaciente" class="form-control" placeholder="Edad Paciente" maxlength="3" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN DEL ROW FECHA Y EDAD -->
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="input-group date">
+                                            <!-- TEXT BOX CURP -->
+                                            <div class="input-group-addon"><i class="fa fa-address-card fa-lg"></i></div>
+                                            <input type='text' id="txtCurp" name="Curp" class="form-control text-uppercase" placeholder="CURP" maxlength="18" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN DEL ROW CURP-->
+                        </div>
+                    </div>
+                    <!-- FIN DEL PANEL 1 -->
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Datos de Domicilio</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="fa fa-map fa-lg" aria-hidden="true"></i></div>
+                                            <!-- COMBO BOX ESTADO -->
+                                            <select id="cmbEstado" name="Estado" class="form-control">
+                                                <option value="1">Ciudad de México</option>
+                                                <option value="2">Estado de México</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- COMBO BOX DEL O MUN -->
+                                            <div class="input-group-addon"><i class="fa fa-map-signs fa-lg" aria-hidden="true"></i></div>
+                                            <select id="cmbMunicipio" name="DelMun" class="form-control">
+                                                <option value="1">Álvaro Obregón</option>
+                                                <option value="2">Azcapotzalco</option>
+                                                <option value="3">Benito Juárez</option>
+                                                <option value="4">Coyoacán</option>
+                                                <option value="5">Cuajimalpa</option>
+                                                <option value="6">Cuauhtémoc</option>
+                                                <option value="7">Gustavo A. Madero</option>
+                                                <option value="8">Iztacalco</option>
+                                                <option value="9">Iztapalapa</option>
+                                                <option value="10">Magdalena Contreras</option>
+                                                <option value="11">Miguel Hidalgo</option>
+                                                <option value="12">Milpa Alta</option>
+                                                <option value="13">Tláhuac</option>
+                                                <option value="14">Tlalpan</option>
+                                                <option value="15">Venustiano Carranza</option>
+                                                <option value="16">Xochimilco</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN DEL ROW ESTADO-->
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- TEXT BOX COLONIA -->
+                                            <div class="input-group-addon"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></div>
+                                            <input type="text" id="txtColonia" name="Colonia" class="form-control text-capitalize" placeholder="Colonia" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- TEXT BOX CP -->
+                                            <div class="input-group-addon"><i class="fa fa-envelope-open fa-lg" aria-hidden="true"></i></div>
+                                            <input type="text" id="txtCP" name="Cp" class="form-control" placeholder="Codigo Postal" maxlength="5" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN DEL ROW COL Y CP-->
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- TEXT BOX CALLE -->
+                                            <div class="input-group-addon"><i class="fa fa-road fa-lg" aria-hidden="true"></i></div>
+                                            <input type="text" id="txtCalle" name="Calle" class="form-control text-capitalize" placeholder="Calle" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- TEXT BOX NUM INT -->
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-sort-numeric-asc fa-lg" aria-hidden="true"></i>
+                                            </div>
+                                            <input type="text" id="txtInt" name="NumInt" class="form-control" placeholder="Num Int" maxlength="4" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- TEXT BOX NUM EXT -->
+                                            <div class="input-group-addon"><i class="fa fa-sort-numeric-asc fa-lg" aria-hidden="true"></i></div>
+                                            <input type="text" id="txtExt" name="NumExt" class="form-control" placeholder="Num Ext" maxlength="4" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN DEL ROW CALLE, INT, EXT -->
+                        </div>
+                    </div>
+                    <!-- FIN DEL PANEL 2 -->
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Datos de Contacto</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- TEXT BOX CEL -->
+                                            <div class="input-group-addon"><i class="fa fa-mobile fa-lg" aria-hidden="true"></i></div>
+                                            <input type="text" id="txtCelular" name="Celular" class="form-control" placeholder="Celular" maxlength="10" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- TEXT BOX TEL -->
+                                            <div class="input-group-addon"><i class="fa fa-phone fa-lg" aria-hidden="true"></i></div>
+                                            <input type="text" id="txtTelefono" name="Telefono" class="form-control" placeholder="Telefono" maxlength="8" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN DEL ROW -->
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- TEXT BOX CORREO -->
+                                            <div class="input-group-addon"><i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i></div>
+                                            <input type="email" id="txtCorreo" name="CorreoElectronico" class="form-control" placeholder="Correo Electronico">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN DEL ROW -->
+                        </div>
+                    </div>
+                    <!-- FIN DEL PANEL 3 -->
+
+                    <div id="datosAlumno" class="panel panel-default">
+                        <div class="panel-heading">Datos del Alumno</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- TEXBOX BOLETA-->
+                                            <div class="input-group-addon"><i class="fa fa-id-card-o fa-lg" aria-hidden="true"></i> *</div>
+                                            <input type="text" id="txtBoleta" name="Boleta" class="form-control text-uppercase" placeholder="Boleta o PM" maxlength="10" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- TEXT BOX GRUPO-->
+                                            <div class="input-group-addon"><i class="fa fa-university fa-lg" aria-hidden="true"></i> *</div>
+                                            <input type="text" id="txtGrupo" name="Grupo" class="form-control text-uppercase" placeholder="Grupo" maxlength="5" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN DEL ROW BOLETA Y GRUPO -->
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- COMBO BOX CARRERA -->
+                                            <div class="input-group-addon"><i class="fa fa-graduation-cap fa-lg" aria-hidden="true"></i> *</div>
+                                            <select id="cmbCarrera" name="Carrera" class="form-control">
+                                                <option value="1">Tronco Común</option>
+                                                <option value="2">Técnico en Informática</option>
+                                                <option value="3">Técnico en Administración</option>
+                                                <option value="4">Técnico en Contabilidad</option>
+                                                <option value="5">Técnico en Administración de Empresas Turísticas</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN DEL ROW CARRERA -->
+                        </div>
+                    </div>
+                    <!-- FIN PANEL ALUMNOS -->
+
+                    <div id="datosPersonal" class="panel panel-default">
+                        <div class="panel-heading">Datos del Personal Escolar</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- TEXT BOX NUM EMPLEADO -->
+                                            <div class="input-group-addon"><i class="fa fa-id-card-o fa-lg" aria-hidden="true"></i></div>
+                                            <input type="text" id="txtNumEmp" name="NumEmpleado" class="form-control" placeholder="Numero de Empleado" maxlength="10" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <!-- TEXT BOX RFC -->
+                                            <div class="input-group-addon"><i class="fa fa-id-card-o fa-lg" aria-hidden="true"></i></div>
+                                            <input type="text" id="txtRFC" name="Rfc" class="form-control text-uppercase" placeholder="RFC" maxlength="13" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <label id="mensajeError"></label>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="btnEditar" class="btn btn-primario">Editar Datos</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalBorrar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Eliminar Paciente</h4>
+            </div>
+            <form class="form-horizontal" autocomplete="off">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="txtnomEnviar" class="col-sm-6 control-label text-center">¿Seguro(a) que deseas eliminar a el paciente?</label>
+                        <div class="col-md-6">
+                            <input type="text" name="nom" id="txtnomEnviar" class="form-control" style="border:none; border-color:transparent;" readonly="readonly" />
+                        </div>
+                    </div>
+                    <input type="hidden" name="id" id="txtidEnviar" readonly="readonly" />
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" id="btnEliminarPaciente" class="btn btn-primario">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="bg-primary" id="snackbar"></div>
 @section scripts{
-    <script src="~/Scripts/moment.min.js"></script>
+    <!--script src="~/Scripts/moment.min.js"></script-->
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
     <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
     <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
     <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
     <script src="~/Scripts/scriptsVistas/snackbar.min.js"></script>
+    <script src="~/Scripts/scriptsVistas/serializeFormJSON.js"></script>
     <script src="~/Scripts/scriptsVistas/pacientes.js"></script>
 }
 

@@ -1,22 +1,18 @@
-﻿@model List<ServicioMedico.BO.Consultas>
-
-@section HojasEstilo{
+﻿@section HojasEstilo{
     <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
     <link href="~/Content/snackbar.css" rel="stylesheet" />
 }
 
 @{
-    ViewBag.Title = "Consultas Médicas";
+    ViewBag.Title = "EditarConsulta";
     Layout = "~/Views/Shared/_MenuPrincipal.cshtml";
 }
- 
+
 <div class="row">
     <div class="col-lg-12">
         <div class="media page-header">
             <div class="media-body">
-                <h1 class="">
-                    Consulta Medica
-                </h1>
+                <h1>Editar Consulta</h1>
             </div>
             <div class="media-right">
                 <a class="thumbnail">
@@ -36,7 +32,7 @@
                         <h3 class="panel-title">Datos del Paciente</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="col-lg-4 text-center text-capitalize">
+                        <div class="col-lg-4 text-center">
                             <p style="border:0;border-bottom: 3px solid #71BCC8;margin-bottom:2px;">@ViewBag.nompaciente</p>
                             <strong>Nombre del Paciente</strong>
                         </div>
@@ -87,8 +83,7 @@
     </div>
 </div>
 
-
-<form id="frmNuevaConsulta" method="post" autocomplete="off" accept-charset="utf-8">
+<form id="frmEditarConsulta" method="post" autocomplete="off" accept-charset="utf-8">
     <div class="row">
         <div class="col-lg-3">
             <div class="panel panel-default">
@@ -99,10 +94,7 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-calendar fa-lg"></i>
                             </span>
-                            <input type='text' id="dtpFecha" name="FechaConsulta" class="form-control" placeholder="Fecha" readonly />
-                            <span class="input-group-btn">
-                                <button class="btn btn-default switchDt" type="button">Activar</button>
-                            </span>
+                            <input type='text' id="dtpFecha" name="FechaConsulta" class="form-control" value="@ViewBag.fecha" placeholder="Fecha" />
                         </div>
                     </div>
 
@@ -111,10 +103,7 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-clock-o fa-lg"></i>
                             </span>
-                            <input type='text' id="dtpHoraEntrada" name="HoraEntrada" class="form-control" placeholder="Hora de Inicio" readonly />
-                            <span class="input-group-btn">
-                                <button class="btn btn-default switchDt" type="button">Activar</button>
-                            </span>
+                            <input type='text' id="dtpHoraEntrada" name="HoraEntrada" class="form-control" value="@ViewBag.entrada" placeholder="Hora de Inicio" />
                         </div>
                     </div>
 
@@ -123,10 +112,7 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-clock-o fa-lg"></i>
                             </span>
-                            <input type='text' id="dtpHoraFin" name="HoraSalida" class="form-control" placeholder="Hora de Finalizacion" readonly />
-                            <span class="input-group-btn">
-                                <button class="btn btn-default switchDt" type="button">Activar</button>
-                            </span>
+                            <input type='text' id="dtpHoraFin" name="HoraSalida" class="form-control" value="@ViewBag.salida" placeholder="Hora de Finalizacion" />
                         </div>
                     </div>
                 </div>
@@ -134,8 +120,10 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Detalles de la Consulta</div>
                 <div class="panel-body">
+                    <span id="cveMotivo" style="display:none;">@ViewBag.motivo</span>
+                    <span id="cveMedicamento" style="display:none;">@ViewBag.medicamento</span>
                     <div class="form-group">
-                        <div class='input-group'>
+                        <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="fa fa-thermometer-quarter fa-lg"></i>
                             </span>
@@ -145,7 +133,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class='input-group'>
+                        <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="fa fa-medkit fa-lg"></i>
                             </span>
@@ -154,15 +142,15 @@
                             </select>
                         </div>
                     </div>
-                    <div id="cantPastillas" class="well">
+                    <div class="well">
                         Cantidad de Medicamentos:
-                        <div class='input-group date'>
+                        <div class="input-group">
                             <span class="input-group-btn">
                                 <button class="btn btn-defaul disminuir" type="button">
                                     <i class="fa fa-minus" aria-hidden="true"></i>
                                 </button>
                             </span>
-                            <input type='text' id="txtCantidad" name="CantidadSumintrada" class="form-control" placeholder="Cantidad" />
+                            <input type='text' id="txtCantidad" name="CantidadSumintrada" class="form-control" value="@ViewBag.cantidad" placeholder="Cantidad" />
                             <span class="input-group-btn">
                                 <button class="btn btn-defaul aumentar" type="button">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
@@ -178,52 +166,16 @@
                 <div class="panel-heading">Infomacion de la Consulta Medica </div>
                 <div class="panel-body">
                     <input type="hidden" id="txtIdPaciente" name="CvePaciente" value="@ViewBag.idpaciente">
-                    <div class="panel-group">
-                        <div class="panel panel-default">
-                            <div class="tituloConsultas panel-heading">
-                                <h3 class="panel-title">
-                                    <a data-toggle="collapse" href="#collapse1">Consultas Anteriores</a>
-                                </h3>
-                            </div>
-                            <div id="collapse1" class="panel-collapse collapse">
-                                @if (Model == null || Model.Count == 0)
-                                {
-                                    <ul class="list-group">
-                                        <li class="list-group-item"><strong>No hay Registros</strong></li>
-                                    </ul>
-                                }
-                                else
-                                {
-                                    <ul class="list-group">
-                                        @foreach (var objConsulta in Model)
-                                        {
-                                            <li class="list-group-item">
-                                                <strong>El</strong> @objConsulta.FechaConsulta.ToString("dd/MM/yyy")
-                                                <strong>Se presento por:</strong>  @objConsulta.NombreMotivo
-                                                <strong>Diagnostico:</strong> @objConsulta.Diagnostico
-                                                <strong>Se le administro</strong> @objConsulta.NombreMedicamento
-                                                <strong>Atendio:</strong> @objConsulta.CveDoctor
-                                            </li>
-                                        }
-                                    </ul>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body">
                     <div class="form-group">
                         <label for="txtDiagnostico"><i class="fa fa-heartbeat fa-lg"></i>  Diagnostico:</label>
-                        <textarea id="txtDiagnostico" name="Diagnostico" class="form-control" placeholder="Escribe el diagnostico" style="min-width:100%; max-width:100%; min-height:100px; max-height:100px;"></textarea>
+                        <textarea id="txtDiagnostico" name="Diagnostico" class="form-control" placeholder="Escribe el diagnostico" style="min-width:100%; max-width:100%; min-height:100px; max-height:100px;">@ViewBag.diagnostico</textarea>
                     </div>
                     <div class="form-group">
                         <label for="txtAtendio"><i class="fa fa-user-md fa-lg"></i>  Atendio:</label>
                         <input type="text" id="txtAtendio" name="CveDoctor" class="form-control" placeholder="Escribe tu nombre" />
                     </div>
                     <div class="form-group">
-                        <button type="submit" id="btnRegistrarConsulta" name="RegistrarConsulta" class="btn btn-block btn-lg btn-primario">
-                            Terminar Consulta
-                        </button>
+                        <button type="submit" id="btnEditarConsulta" name="EditarConsulta" class="btn btn-block btn-lg btn-primario">Editar Consulta</button>
                     </div>
                 </div>
             </div>
@@ -238,5 +190,6 @@
     <!--script src="~/Scripts/moment.js"></script-->
     <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
     <script src="~/Scripts/scriptsVistas/snackbar.min.js"></script>
-    <script src="~/Scripts/scriptsVistas/consultamedica.js"></script>
+    <script src="~/Scripts/scriptsVistas/editarConsulta.js"></script>
 }
+

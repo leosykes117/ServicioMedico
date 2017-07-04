@@ -20,12 +20,13 @@ namespace ServicioMedico.BO
         private int numExt;
         private string colonia;
         private string cp;
-        private int municipio;
+        private int delMun;
         private int estado;
         private string celular;
         private string telefono;
         private string correoElectronico;
         private short tipoPaciente;
+        private short estatusPaciente;
 
         public int IdPaciente
         {
@@ -183,16 +184,16 @@ namespace ServicioMedico.BO
             }
         }
 
-        public int Municipio
+        public int DelMun
         {
             get
             {
-                return municipio;
+                return delMun;
             }
 
             set
             {
-                municipio = value;
+                delMun = value;
             }
         }
 
@@ -261,6 +262,19 @@ namespace ServicioMedico.BO
             }
         }
 
+        public short EstatusPaciente
+        {
+            get
+            {
+                return estatusPaciente;
+            }
+
+            set
+            {
+                estatusPaciente = value;
+            }
+        }
+
         public Pacientes() { }
 
         public Pacientes(int idPaciente)
@@ -268,7 +282,7 @@ namespace ServicioMedico.BO
             this.idPaciente = idPaciente;
         }
 
-        public Pacientes(int idPaciente, string nombrePaciente, string apellidosPaciente, short generoPaciente, DateTime fechaNac, short edadPaciente, string curp, string calle, int numInt, int numExt, string colonia, string cp, int municipio, int estado, string celular, string telefono, string correoElectronico, short tipoPaciente)
+        public Pacientes(int idPaciente, string nombrePaciente, string apellidosPaciente, short generoPaciente, DateTime fechaNac, short edadPaciente, string curp, string calle, int numInt, int numExt, string colonia, string cp, int delMun, int estado, string celular, string telefono, string correoElectronico, short tipoPaciente)
         {
             this.idPaciente = idPaciente;
             this.nombrePaciente = nombrePaciente;
@@ -282,7 +296,7 @@ namespace ServicioMedico.BO
             this.numExt = numExt;
             this.colonia = colonia;
             this.cp = cp;
-            this.municipio = municipio;
+            this.delMun = delMun;
             this.estado = estado;
             this.celular = celular;
             this.telefono = telefono;

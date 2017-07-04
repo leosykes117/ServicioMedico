@@ -23,15 +23,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin</a>
+                @Html.ActionLink("SERVICIO MÉDICO", "Index", "Doctores", null, new { @class = "navbar-brand" })
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
                     <ul class="dropdown-menu message-dropdown">
                         <li class="message-preview">
-                            <a href="#">
+                            <a>
                                 <div class="media">
                                     <span class="pull-left">
                                         <img class="media-object" src="http://placehold.it/50x50" alt="">
@@ -47,7 +47,7 @@
                             </a>
                         </li>
                         <li class="message-preview">
-                            <a href="#">
+                            <a>
                                 <div class="media">
                                     <span class="pull-left">
                                         <img class="media-object" src="http://placehold.it/50x50" alt="">
@@ -63,7 +63,7 @@
                             </a>
                         </li>
                         <li class="message-preview">
-                            <a href="#">
+                            <a>
                                 <div class="media">
                                     <span class="pull-left">
                                         <img class="media-object" src="http://placehold.it/50x50" alt="">
@@ -79,52 +79,52 @@
                             </a>
                         </li>
                         <li class="message-footer">
-                            <a href="#">Read All New Messages</a>
+                            <a>Read All New Messages</a>
                         </li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
                     <ul class="dropdown-menu alert-dropdown">
                         <li>
-                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+                            <a>Alert Name <span class="label label-default">Alert Badge</span></a>
                         </li>
                         <li>
-                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+                            <a>Alert Name <span class="label label-primary">Alert Badge</span></a>
                         </li>
                         <li>
-                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+                            <a>Alert Name <span class="label label-success">Alert Badge</span></a>
                         </li>
                         <li>
-                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+                            <a>Alert Name <span class="label label-info">Alert Badge</span></a>
                         </li>
                         <li>
-                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+                            <a>Alert Name <span class="label label-warning">Alert Badge</span></a>
                         </li>
                         <li>
-                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+                            <a>Alert Name <span class="label label-danger">Alert Badge</span></a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#">View All</a>
+                            <a>View All</a>
                         </li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" id="Nombre" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>  <b class="caret"></b></a>
+                    <a id="Nombre" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-user-md fa-lg"></i>  
+                        <b class="caret"></b> Nombre
+                    </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Perfil</a>
+                            <a><i class="fa fa-fw fa-user"></i> Perfil</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Bandeja</a>
+                            <a><i class="fa fa-fw fa-envelope"></i> Bandeja</a>
                         </li>
-                        <!-- <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Config</a>
-                        </li> -->
                         <li class="divider"></li>
                         <li>
-                            <a href="index.html"><i class="fa fa-fw fa-sign-out"></i> Salir</a>
+                            <a href="/Home"><i class="fa fa-fw fa-sign-out"></i> Salir</a>
                         </li>
                     </ul>
                 </li>
@@ -133,7 +133,7 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="activado">
-                        <a href="index.html"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>
+                        <a href="/Doctores"><i class='fa fa-home'></i> Inicio</a>
                     </li>
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#consulta"><i class="fa fa-stethoscope" aria-hidden="true"></i> Consultas <i class="fa fa-fw fa-caret-down"></i></a>
@@ -142,7 +142,7 @@
                                 @Html.ActionLink("Nueva Consulta","Consultas","Doctores")
                             </li>
                             <li>
-                                <a href="#">Ver Consultas</a>
+                                @Html.ActionLink("Ver Consultas", "VerConsultas", "Consultas")
                             </li>
                         </ul>
                     </li>
@@ -150,13 +150,7 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#pacientes"><i class="fa fa-wheelchair" aria-hidden="true"></i> Pacientes <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="pacientes" class="collapse">
                             <li>
-                                <a href="#">Ver Pacientes</a>
-                            </li>
-                            <li>
-                                <a href="#">Editar Paciente</a>
-                            </li>
-                            <li>
-                                <a href="#">Borrar Paciente</a>
+                                @Html.ActionLink("Ver Pacientes","Index","Pacientes")
                             </li>
                         </ul>
                     </li>
@@ -164,10 +158,10 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#reportes"><i class="fa fa-list-alt" aria-hidden="true"></i> Reportes <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="reportes" class="collapse">
                             <li>
-                                <a href="#">Reporte Actual</a>
+                                <a>Reporte Actual</a>
                             </li>
                             <li>
-                                <a href="#">Todos los Reportes</a>
+                                <a >Todos los Reportes</a>
                             </li>
                         </ul>
                     </li>

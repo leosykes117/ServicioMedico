@@ -34,7 +34,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -84,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="ConexionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -92,6 +95,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ServicioMedico.BLL\ServicioMedico.BLL.csproj">
+      <Project>{e2cc393a-6405-483d-a055-9cfbb389d25b}</Project>
+      <Name>ServicioMedico.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServicioMedico.BO\ServicioMedico.BO.csproj">
+      <Project>{eea1ed16-4c08-4b7f-89a4-67d8e95160bb}</Project>
+      <Name>ServicioMedico.BO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServicioMedico.DAL\ServicioMedico.DAL.csproj">
+      <Project>{a0d1ae19-05e5-43d4-9add-c223322de743}</Project>
+      <Name>ServicioMedico.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServicioMedico.MVC\ServicioMedico.MVC.csproj">
       <Project>{17872317-F2B1-4F9F-9FEE-52FD50EE431F}</Project>
       <Name>ServicioMedico.MVC</Name>

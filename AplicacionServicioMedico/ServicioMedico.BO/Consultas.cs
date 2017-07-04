@@ -11,15 +11,17 @@ namespace ServicioMedico.BO
         private int idConsulta;
         private int cvePaciente;
         private string cveDoctor;
-        private string motivo;
         private string diagnostico;
-        private DateTime fecha = new DateTime();
+        private DateTime fechaConsulta = new DateTime();
         private DateTime horaEntrada = new DateTime();
         private DateTime horaSalida = new DateTime();
+        private DateTime duracionConsulta = new DateTime();
         private int idDetalle;
-        private string nombreMedicamento;
-        private int tratamiento;
+        private int motivoConsulta;
+        private int cveMedicamento;
         private int cantidadSumintrada;
+        private string nombreMedicamento;
+        private string nombreMotivo;
 
         public int IdConsulta
         {
@@ -60,19 +62,6 @@ namespace ServicioMedico.BO
             }
         }
 
-        public string Motivo
-        {
-            get
-            {
-                return motivo;
-            }
-
-            set
-            {
-                motivo = value;
-            }
-        }
-
         public string Diagnostico
         {
             get
@@ -86,16 +75,16 @@ namespace ServicioMedico.BO
             }
         }
 
-        public DateTime Fecha
+        public DateTime FechaConsulta
         {
             get
             {
-                return fecha;
+                return fechaConsulta;
             }
 
             set
             {
-                fecha = value;
+                fechaConsulta = value;
             }
         }
 
@@ -125,6 +114,19 @@ namespace ServicioMedico.BO
             }
         }
 
+        public DateTime DuracionConsulta
+        {
+            get
+            {
+                return duracionConsulta;
+            }
+
+            set
+            {
+                duracionConsulta = value;
+            }
+        }
+
         public int IdDetalle
         {
             get
@@ -138,29 +140,29 @@ namespace ServicioMedico.BO
             }
         }
 
-        public string NombreMedicamento
+        public int MotivoConsulta
         {
             get
             {
-                return nombreMedicamento;
+                return motivoConsulta;
             }
 
             set
             {
-                nombreMedicamento = value;
+                motivoConsulta = value;
             }
         }
 
-        public int Tratamiento
+        public int CveMedicamento
         {
             get
             {
-                return tratamiento;
+                return cveMedicamento;
             }
 
             set
             {
-                tratamiento = value;
+                cveMedicamento = value;
             }
         }
 
@@ -177,24 +179,50 @@ namespace ServicioMedico.BO
             }
         }
 
-        public Consultas() { }
-
-        public Consultas(int idConsulta)
+        public string NombreMedicamento
         {
-            this.idConsulta = idConsulta;
+            get
+            {
+                return nombreMedicamento;
+            }
+
+            set
+            {
+                nombreMedicamento = value;
+            }
         }
 
-        public Consultas(int cvePaciente, string cveDoctor, string motivo, string diagnostico, DateTime fecha, DateTime horaEntrada, DateTime horaSalida, int tratamiento, int cantidadSumintrada)
+        public string NombreMotivo
         {
+            get
+            {
+                return nombreMotivo;
+            }
+
+            set
+            {
+                nombreMotivo = value;
+            }
+        }
+
+        public Consultas() { }
+
+        public Consultas(int idConsulta, int cvePaciente, string cveDoctor, string diagnostico, DateTime fechaConsulta, DateTime horaEntrada, DateTime horaSalida, DateTime duracionConsulta, int idDetalle, int motivoConsulta, int cveMedicamento, int cantidadSumintrada, string nombreMedicamento, string nombreMotivo)
+        {
+            this.idConsulta = idConsulta;
             this.cvePaciente = cvePaciente;
             this.cveDoctor = cveDoctor;
-            this.motivo = motivo;
             this.diagnostico = diagnostico;
-            this.fecha = fecha;
+            this.fechaConsulta = fechaConsulta;
             this.horaEntrada = horaEntrada;
             this.horaSalida = horaSalida;
-            this.tratamiento = tratamiento;
+            this.duracionConsulta = duracionConsulta;
+            this.idDetalle = idDetalle;
+            this.motivoConsulta = motivoConsulta;
+            this.cveMedicamento = cveMedicamento;
             this.cantidadSumintrada = cantidadSumintrada;
+            this.nombreMedicamento = nombreMedicamento;
+            this.nombreMotivo = nombreMotivo;
         }
     }
 }

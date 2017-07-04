@@ -15,8 +15,8 @@ namespace ServicioMedico.DAL
         private Conexion conexion;
         private SqlCommand comando;
         private SqlDataReader lector;
-        /*private DataSet ds;
-        private SqlDataAdapter da;*/
+        private DataSet ds;
+        private SqlDataAdapter da;
 
         public ConsultasDAL()
         {
@@ -32,15 +32,15 @@ namespace ServicioMedico.DAL
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@Paciente", SqlDbType.Int).Value = objconsulta.CvePaciente;
                 comando.Parameters.Add("@Doctor", SqlDbType.NVarChar, 50).Value = objconsulta.CveDoctor;
-                comando.Parameters.Add("@Motivo", SqlDbType.NVarChar, 30).Value = objconsulta.Motivo;
-                comando.Parameters.Add("@Diagnostico", SqlDbType.NVarChar, 30).Value = objconsulta.Diagnostico;
-                comando.Parameters.Add("@Fecha", SqlDbType.Date).Value = objconsulta.Fecha.Date.ToString("dd/MM/yyyy");
-                comando.Parameters.Add("@HoraEntrada", SqlDbType.Time).Value = objconsulta.HoraEntrada.ToString("HH:mm");
-                comando.Parameters.Add("@HoraSalida", SqlDbType.Time).Value = objconsulta.HoraSalida.ToString("HH:mm");
-                comando.Parameters.Add("@Tratamiento", SqlDbType.NVarChar, 30).Value = objconsulta.Tratamiento;
+                comando.Parameters.Add("@Diagnostico", SqlDbType.NVarChar).Value = objconsulta.Diagnostico;
+                comando.Parameters.Add("@Fecha", SqlDbType.Date).Value = objconsulta.FechaConsulta.Date.ToString("dd/MM/yyyy");
+                comando.Parameters.Add("@HoraEntrada", SqlDbType.Time).Value = objconsulta.HoraEntrada.ToString("HH:mm:ss");
+                comando.Parameters.Add("@HoraSalida", SqlDbType.Time).Value = objconsulta.HoraSalida.ToString("HH:mm:ss");
+                comando.Parameters.Add("@Motivo", SqlDbType.SmallInt).Value = objconsulta.MotivoConsulta;
+                comando.Parameters.Add("@Medicamento", SqlDbType.Int).Value = objconsulta.CveMedicamento;
                 comando.Parameters.Add("@Cantidad", SqlDbType.Int).Value = objconsulta.CantidadSumintrada;
 
-                SqlParameter pmensaje = new SqlParameter("@Mensaje", SqlDbType.NVarChar, 100);
+                SqlParameter pmensaje = new SqlParameter("@Mensaje", SqlDbType.NVarChar, 200);
                 pmensaje.Direction = ParameterDirection.Output;
                 comando.Parameters.Add(pmensaje);
 
@@ -49,6 +49,69 @@ namespace ServicioMedico.DAL
                 mensaje = comando.Parameters["@Mensaje"].Value.ToString();
             }
             catch (Exception  ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally
+            {
+                conexion.getCon().Close();
+                conexion.cerrarConexion();
+            }
+            return mensaje;
+        }
+
+        public DataTable GeneralConsultas(short tipo, short estatus)
+        {
+            try
+            {
+                comando = new SqlCommand("selBusquedaConsultas", conexion.getCon());
+                ds = new DataSet();
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@Tipo", SqlDbType.SmallInt).Value = tipo;
+                comando.Parameters.Add("@Estatus", SqlDbType.SmallInt).Value = estatus;
+                conexion.getCon().Open();
+                da = new SqlDataAdapter(comando);
+                da.Fill(ds, "Consultas");
+            }
+            catch (Exception)
+            {
+                ds = new DataSet();
+                da = new SqlDataAdapter(comando);
+                da.Fill(ds, "Consultas");
+            }
+            finally
+            {
+                conexion.getCon().Close();
+                conexion.cerrarConexion();
+            }
+            return ds.Tables["Consultas"];
+        }
+
+        public string ActualizarConsulta(Consultas objconsulta)
+        {
+            string mensaje = string.Empty;
+            try
+            {
+                comando = new SqlCommand("updActualizarConsulta", conexion.getCon());
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@Paciente", SqlDbType.Int).Value = objconsulta.CvePaciente;
+                comando.Parameters.Add("@Diagnostico", SqlDbType.NVarChar).Value = objconsulta.Diagnostico;
+                comando.Parameters.Add("@Fecha", SqlDbType.Date).Value = objconsulta.FechaConsulta.Date.ToString("yyyy-MM-dd");
+                comando.Parameters.Add("@HoraEntrada", SqlDbType.Time).Value = objconsulta.HoraEntrada.ToString("HH:mm:ss");
+                comando.Parameters.Add("@HoraSalida", SqlDbType.Time).Value = objconsulta.HoraSalida.ToString("HH:mm:ss");
+                comando.Parameters.Add("@Motivo", SqlDbType.SmallInt).Value = objconsulta.MotivoConsulta;
+                comando.Parameters.Add("@Medicamento", SqlDbType.Int).Value = objconsulta.CveMedicamento;
+                comando.Parameters.Add("@Cantidad", SqlDbType.Int).Value = objconsulta.CantidadSumintrada;
+
+                SqlParameter pmensaje = new SqlParameter("@Mensaje", SqlDbType.NVarChar, 200);
+                pmensaje.Direction = ParameterDirection.Output;
+                comando.Parameters.Add(pmensaje);
+
+                conexion.getCon().Open();
+                comando.ExecuteNonQuery();
+                mensaje = comando.Parameters["@Mensaje"].Value.ToString();
+            }
+            catch(Exception ex)
             {
                 mensaje = ex.Message;
             }
@@ -73,8 +136,8 @@ namespace ServicioMedico.DAL
                 while (lector.Read())
                 {
                     Consultas consultaMedica = new Consultas();
-                    consultaMedica.Fecha = Convert.ToDateTime(lector[0]).Date;
-                    consultaMedica.Motivo = lector[1].ToString();
+                    consultaMedica.FechaConsulta = Convert.ToDateTime(lector[0]).Date;
+                    consultaMedica.NombreMotivo = lector[1].ToString();
                     consultaMedica.Diagnostico = lector[2].ToString();
                     consultaMedica.NombreMedicamento = lector[3].ToString();
                     consultaMedica.CveDoctor = lector[4].ToString();
@@ -94,5 +157,31 @@ namespace ServicioMedico.DAL
             }
             return historiaClinica;
         }
+
+        public DataTable ListadoMotivos()
+        {
+            try
+            {
+                comando = new SqlCommand("selListadoMotivos", conexion.getCon());
+                ds = new DataSet();
+                comando.CommandType = CommandType.StoredProcedure;
+                conexion.getCon().Open();
+                da = new SqlDataAdapter(comando);
+                da.Fill(ds, "Motivos");
+            }
+            catch (Exception)
+            {
+                ds = null;
+                da.Fill(ds);
+            }
+
+            finally
+            {
+                conexion.getCon().Close();
+                conexion.cerrarConexion();
+            }
+            return ds.Tables["Motivos"];
+        }
+
     }
 }

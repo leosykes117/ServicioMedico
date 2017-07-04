@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace ServicioMedico.DAL
 {
-    class Conexion
+    public class Conexion
     {
         private static Conexion objConexion = null;
         private SqlConnection con;

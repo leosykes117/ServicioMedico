@@ -1,0 +1,126 @@
+﻿@section HojasEstilo{
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/snackbar.css" rel="stylesheet" />
+}
+
+@{
+    ViewBag.Title = "Ver Consultas";
+    Layout = "~/Views/Shared/_MenuPrincipal.cshtml";
+}
+<!-- ENCABEZADO -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Todas las Consultas</h1>
+        <form action="" class="form-inline">
+            <div class="form-group" style="margin-right: 35px;">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-users fa-lg" aria-text="true"></i></div>
+                    <select id="cmbTipoPaciente" class="form-control" aria-describedby="helpBlock">
+                        <option value="1">Alumno</option>
+                        <option value="2">Docente</option>
+                        <option value="3">PAAE</option>
+                        <option value="4">Externo</option>
+                    </select>
+                </div>
+                <span id="helpBlock" class="help-block">Seleccione un tipo de paciente</span>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-calendar fa-lg" aria-text="true"></i></div>
+                    <select id="cmbMesBuscar" name="MesBuscar" class="form-control" aria-describedby="helpMes">
+                        <option value="0">-Mes-</option>
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                    </select>
+                </div>
+                <span id="helpMes" class="help-block">Seleccione un mes a buscar</span>
+            </div>
+        </form>
+    </div>
+</div>
+<!--FIN DEL ENCABEZADO-->
+
+<!--TABLA DE CONSULTAS-->
+<div class="row">
+    <h2 id="tituloTb">Tabla de Consultas Alumnos</h2>
+    <div class="table-responsive">
+        <table id="tbConsultas" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Genero</th>
+                    <th>Antendio</th>
+                    <th>Diagnostico</th>
+                    <th>Fecha</th>
+                    <th>Hora Entrada</th>
+                    <th>Hora Salida</th>
+                    <th>Duracion Consulta</th>
+                    <th>Medicamento</th>
+                    <th>Cantidad Suminstrada</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="modalConsultaEditar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Editar Consulta</h4>
+            </div>
+            <form id="frmEnviarDatosConsulta" action="~/Consultas/EditarConsulta" method="post" class="form-horizontal" autocomplete="off">
+                <div class="modal-body text-center">
+                    ¿Estas seguro que deseas editar esta consulta?
+                    <input type="hidden" name="id" id="txtClave" class="form-control">
+                    <input type="hidden" name="nom" id="txtNombre" class="form-control">
+                    <input type="hidden" name="edad" id="txtEdad" class="form-control">
+                    <input type="hidden" name="genero" id="txtGenero" class="form-control">
+                    <input type="hidden" name="diagnostico" id="txtDiagnostico" class="form-control">
+                    <input type="hidden" name="fecha" id="txtFecha" class="form-control">
+                    <input type="hidden" name="entrada" id="txtHoraEntrada" class="form-control">
+                    <input type="hidden" name="salida" id="txtHoraSalida" class="form-control">
+                    <input type="hidden" name="duracion" id="txtDuracion" class="form-control">
+                    <input type="hidden" name="medicamento" id="txtMedicamento" class="form-control">
+                    <input type="hidden" name="motivo" id="txtMotivo" class="form-control">
+                    <input type="hidden" name="cantidad" id="txtCantidad" class="form-control">
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" id="btnEditarConsulta" name="EditarConsulta" class="btn btn-primario">Ir a Editar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="bg-primary" id="snackbar"></div>
+
+@section scripts{
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <!--script src="~/Scripts/moment.js"></script-->
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/scriptsVistas/snackbar.min.js"></script>
+    <script src="~/Scripts/scriptsVistas/verConsultas.js"></script>
+}

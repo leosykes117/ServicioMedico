@@ -36,6 +36,7 @@ namespace ServicioMedico.BO
                 rfc = value;
             }
         }
+
         public PersonalEscolar() { }
 
         public PersonalEscolar(int idPaciente, string nombrePaciente, string apellidosPaciente, short generoPaciente,
@@ -59,7 +60,7 @@ namespace ServicioMedico.BO
             NumExt = numExt;
             Colonia = colonia;
             Cp = cp;
-            Municipio = municipio;
+            DelMun = municipio;
             Estado = estado;
             Celular = celular;
             Telefono = telefono;

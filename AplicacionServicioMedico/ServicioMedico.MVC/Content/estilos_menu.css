@@ -86,7 +86,7 @@ body {
     background-color: #41A497;/*color de fondo de los <li> del menu de arriba en hover y focus*/
 }
 
-.top-nav>.open>.dropdown-menu {
+.top-nav>.open> .dropdown-menu {
     float: left;
     position: absolute;
     margin-top: 0;
@@ -261,17 +261,34 @@ ul.alert-dropdown {
     color: #df8a13;
 }
 
+/*INPUTS SELECTS*/
+.form-control:focus {
+    border: solid;
+    border-color: #2A7B6C;
+    border-radius: 5px;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    /*-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(247, 204, 56, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(247, 204, 56, 0.6);*/
+}
+
+#datosPersonal{
+    display: none;
+}
+
 .activado{
     color: #fff !important;/*color de los <li> de la barra izquierda en hover y focus*/
     background-color: #41A497 !important;/*fondo de los <li> de la barra izquierda en hover y focus*/
 }
 
-/*VENTANA MODAL DE LAS CONSULTAS*/
-#datosPersonal{
-    display: none;
-}
+/*.input-group-addon {
+    background-color: transparent !important;
+    border: none;
+    border-radius: none;
+}*/
 
-/*CHECK BOX Y RADIO BUTTONS*/
+/*RADIOS Y CHECKBOX*/
 .switch {
   position: relative;
   display: inline-block;
@@ -310,7 +327,7 @@ input:checked + .slider {
 }
 
 input:checked + .mujer {
-    background-color: #E64C66;
+    background-color: #FF66A5;/*E64C66*/
 }
 
 input:focus + .slider {
@@ -332,7 +349,25 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-/*BOTON FLOTANTE*/
+/*ESTILOS DE LA CONSULTA*/
+#cantPastillas {
+    display: none;
+}
+
+/*BOTONES*/
+
+.btn-primario {
+    color: #fff;
+    background-color: #52A6A8;
+    border-color: #A0CACC;
+}
+
+.btn-primario:hover, .btn-primario:focus {
+    color: #fff;
+    background-color: #41A497;
+    border-color: #A0CACC;
+}
+
 .btn-circle.btn-xl {
   width: 70px;
   height: 70px;
@@ -350,4 +385,13 @@ input:checked + .slider:before {
     border: none; /* Remove borders */
     outline: none; /* Remove outline */
     cursor: pointer; /* Add a mouse pointer on hover */
+}
+
+/*TABLAS*/
+#Alumnos, #Docentes, #Paaes, #Externos {
+    display: none;
+}
+
+#tbPacientes tbody tr {
+    cursor: pointer;
 }

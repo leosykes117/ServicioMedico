@@ -19,50 +19,106 @@ namespace ServicioMedico.MVC.Controllers
             return View();
         }
 
+        public ViewResult PacientesEliminados()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public JsonResult ListadoGeneral(int tipo)
+        public JsonResult ListadoGeneral(int tipo, int estatus)
         {
             PacientesDAL objDAL = new PacientesDAL();
-            DataTable tb = objDAL.BusquedaGeneral(Convert.ToInt16(tipo));
+            DataTable tb = objDAL.BusquedaGeneral(Convert.ToInt16(tipo), Convert.ToInt16(estatus));
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
             Dictionary<string, object> row;
-            foreach (DataRow dr in tb.Rows)
+            if (tb != null)
             {
-                row = new Dictionary<string, object>();
-                foreach (DataColumn col in tb.Columns)
+                foreach (DataRow dr in tb.Rows)
                 {
-                    row.Add(col.ColumnName, dr[col]);
+                    row = new Dictionary<string, object>();
+                    foreach (DataColumn col in tb.Columns)
+                    {
+                        row.Add(col.ColumnName, dr[col]);
+                    }
+                    rows.Add(row);
                 }
-                rows.Add(row);
             }
+            else
+            {
+
+            }
+            
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult AgregarAlumno(Alumnos alumno)
+        public JsonResult AgregarAlumno(Alumnos nuevoPaciente)
         {
             PacientesLog pacientelog = new PacientesLog();
-            string [] JsonAlum = pacientelog.AgregarAlumno(alumno);
+            string [] JsonAlum = pacientelog.AgregarAlumno(nuevoPaciente);
             JsonConvert.SerializeObject(JsonAlum);
             return Json(JsonAlum);
         }
 
         [HttpPost]
-        public JsonResult AgregarPersonal(PersonalEscolar personal)
+        public JsonResult AgregarPersonal(PersonalEscolar nuevoPaciente)
         {
             PacientesLog pacientelog = new PacientesLog();
-            string[] JsonPersonal = pacientelog.AgregarPersonal(personal);
+            string[] JsonPersonal = pacientelog.AgregarPersonal(nuevoPaciente);
             JsonConvert.SerializeObject(JsonPersonal);
             return Json(JsonPersonal);
         }
 
         [HttpPost]
-        public JsonResult AgregarExterno(Pacientes pExterno)
+        public JsonResult AgregarExterno(Pacientes nuevoPaciente)
         {
             PacientesLog pacientelog = new PacientesLog();
-            string[] JsonExterno = pacientelog.AgregarExterno(pExterno);
+            string[] JsonExterno = pacientelog.AgregarExterno(nuevoPaciente);
             JsonConvert.SerializeObject(JsonExterno);
             return Json(JsonExterno);
+        }
+
+        [HttpPost]
+        public JsonResult ActualizarAlumno(Alumnos aluActualizar)
+        {
+            PacientesDAL pacienteDAL = new PacientesDAL();
+            string json = pacienteDAL.Actualizar(aluActualizar);
+            JsonConvert.SerializeObject(json);
+            return Json(json);
+        }
+
+        public JsonResult ActualizarPersonalE(PersonalEscolar personalActualizar)
+        {
+            PacientesDAL pacienteDAL = new PacientesDAL();
+            string json = pacienteDAL.Actualizar(personalActualizar);
+            JsonConvert.SerializeObject(json);
+            return Json(json);
+        }
+
+        public JsonResult ActualizarExterno(Pacientes extActualizar)
+        {
+            PacientesDAL pacienteDAL = new PacientesDAL();
+            string json = pacienteDAL.Actualizar(extActualizar);
+            JsonConvert.SerializeObject(json);
+            return Json(json);
+        }
+
+        [HttpPost]
+        public JsonResult ActualizarEstatus(Pacientes pacEliminar)
+        {
+            PacientesDAL pacienteDAL = new PacientesDAL();
+            string json = pacienteDAL.ActualizarEstatus(pacEliminar);
+            JsonConvert.SerializeObject(json);
+            return Json(json);
+        }
+
+        [HttpPost]
+        public JsonResult EliminarPaciente(Pacientes pacEliminar)
+        {
+            PacientesDAL pacienteDAL = new PacientesDAL();
+            string json = pacienteDAL.Eliminar(pacEliminar);
+            JsonConvert.SerializeObject(json);
+            return Json(json);
         }
     }
 }
