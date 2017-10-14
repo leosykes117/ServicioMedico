@@ -4,8 +4,8 @@ body{
 
 /*ESTILOS DE LOS ARTICULOS*/
 .principal-centrado{/*para centrar contenido*/
-	max-width:700px;
-	margin:auto;
+	max-width: 500px;
+    margin: auto;
 }
 
 .articulo-menu{

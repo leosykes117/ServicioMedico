@@ -63,6 +63,7 @@
     <Content Include="css\font-awesome.css" />
     <Content Include="css\font-awesome.min.css" />
     <Content Include="css\w3.css" />
+    <Content Include="Default.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="img\bg-modal.png" />
     <Content Include="img\calendario.png" />
@@ -104,6 +105,13 @@
     </Compile>
     <Compile Include="BarraNav_Plantilla.Master.designer.cs">
       <DependentUpon>BarraNav_Plantilla.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Menu_Admi.aspx.cs">
       <DependentUpon>Menu_Admi.aspx</DependentUpon>

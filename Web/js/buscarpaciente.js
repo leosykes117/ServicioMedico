@@ -28,7 +28,7 @@ $("#cmbTipo").change(function () {
 
 $('#dtpFechaNac').datetimepicker({
     format: 'YYYY-MM-DD',
-    locale: "es",
+    //locale: "es",
     extraFormats: ['YYYY-MM-DD']
 });
 
@@ -40,281 +40,26 @@ $("#dtpFechaNac").focusout(function () {
 });
 
 $("#btnAgregarPaciente").click(function () {
-    var nombre = $("#txtNombre").val();
-    var apellidos = $("#txtApellidos").val();
-    var genero = $("#cmbGenero").val();
-    var fecha = $("#dtpFechaNac").val();
-    var edad = $("#txtEdad").val();
-    var curp = $("#txtCurp").val();
-    var calle = $("#txtCalle").val();
-    var nInt = $("#txtInt").val();
-    var nExt = $("#txtExt").val();
-    var col = $("#txtColonia").val();
-    var codigop = $("#txtCP").val();
-    var mun = $("#cmbMunicipio").val();
-    var est = $("#cmbEstado").val();
-    var cel = $("#txtCelular").val();
-    var tel = $("#txtTelefono").val();
-    var correo = $("#txtCorreo").val();
-    var tipo = $("#cmbTipo").val();
+    $("#modalDatos").modal("hide");
+    $("#myModal").modal("show");
+    /*$("#modalContent1").hide("slide", function () {
+        $("#modalContent2").show("slide");
+    });*/
+});
 
-    if (tipo == 1) {
-        var bol = $("#txtBoleta").val();
-        var grp = $("#txtGrupo").val();
-        var carr = $("#cmbCarrera").val();
-        if (nombre != "" && apellidos != "") {
-
-            var alumno = {
-                "IdPaciente": null,
-                "NombrePaciente": nombre,
-                "ApellidosPaciente": apellidos,
-                "GeneroPaciente": genero,
-                "FechaNac": fecha,
-                "EdadPaciente": edad,
-                "Curp": curp,
-                "Calle": calle,
-                "NumInt": nInt,
-                "NumExt": nExt,
-                "Colonia": col,
-                "Cp": codigop,
-                "DelMun": mun,
-                "Estado": est,
-                "Celular": cel,
-                "Telefono": tel,
-                "CorreoElectronico": correo,
-                "TipoPaciente": tipo,
-                "Boleta": bol,
-                "Grupo": grp,
-                "Carrera": carr
-            };
-            $.ajax({
-                url: "/Pacientes/AgregarAlumno",
-                method: "POST",
-                data: alumno,
-                cache: false,
-                beforeSend: function () {
-                    $("#btnAgregarPaciente").html("Agregando...<i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>").attr('disabled', true);
-                }
-            }).done(function (data) {
-                if (data[0] == "Registrado") {
-                    $("#txtidEnviar").val(data[1]);
-                    $("#txtnomEnviar").val(data[2]);
-                    $("#txtedadEnviar").val(data[3]);
-                    $("#txtgeneroEnviar").val(data[4]);
-                    $("#modalDatos").modal("hide");
-                    $("#modalConsulta").modal("show");
-                } else {
-                    $("#mensajeError").html(data);
-                }
-            }).fail(manejarErrorAjax).always(function () {
-                $("#btnAgregarPaciente").html("Agregar Paciente").attr('disabled', false);
-            });
-        } else {
-            $("#mensajeError").html("Faltan Campos por Llenar");
-            $("#btnAgregarPaciente").html("Agregar Paciente").attr('disabled', false);
-        }
-
-    } else if (tipo == 2 || tipo == 3) {
-        var numE = $("#txtNumEmp").val();
-        var rfc = $("#txtRFC").val();
-        if (nombre != "" && apellidos != "") {
-            var personal = {
-                "IdPaciente": null,
-                "NombrePaciente": nombre,
-                "ApellidosPaciente": apellidos,
-                "GeneroPaciente": genero,
-                "FechaNac": fecha,
-                "EdadPaciente": edad,
-                "Curp": curp,
-                "Calle": calle,
-                "NumInt": nInt,
-                "NumExt": nExt,
-                "Colonia": col,
-                "Cp": codigop,
-                "DelMun": mun,
-                "Estado": est,
-                "Celular": cel,
-                "Telefono": tel,
-                "CorreoElectronico": correo,
-                "TipoPaciente": tipo,
-                "NumEmpleado": numE,
-                "Rfc": rfc
-            };
-            $.ajax({
-                url: "/Pacientes/AgregarPersonal",
-                method: "POST",
-                data: personal,
-                cache: false,
-                beforeSend: function () {
-                    $("#btnAgregarPaciente").html("Agregando...<i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>").attr('disabled', true);
-                }
-            }).done(function (data) {
-
-                if (data[0] == "Registrado") {
-                    $("#txtidEnviar").val(data[1]);
-                    $("#txtnomEnviar").val(data[2]);
-                    $("#txtedadEnviar").val(data[3]);
-                    $("#txtgeneroEnviar").val(data[4]);
-                    $("#modalDatos").modal("hide");
-                    $("#modalConsulta").modal("show");
-                } else {
-                    $("#mensajeError").html(data);
-                }
-            }).fail(manejarErrorAjax).always(function () {
-                $("#btnAgregarPaciente").html("Agregar Paciente").attr('disabled', false);
-            });
-
-
-        } else {
-            $("#mensajeError").html("Faltan Campos por Llenar");
-            $("#btnAgregarPaciente").html("Agregar Paciente").attr('disabled', false);
-        }
-    } else {
-        if (nombre != "" && apellidos != "") {
-            var pExterno = {
-                "IdPaciente": null,
-                "NombrePaciente": nombre,
-                "ApellidosPaciente": apellidos,
-                "GeneroPaciente": genero,
-                "FechaNac": fecha,
-                "EdadPaciente": edad,
-                "Curp": curp,
-                "Calle": calle,
-                "NumInt": nInt,
-                "NumExt": nExt,
-                "Colonia": col,
-                "Cp": codigop,
-                "DelMun": mun,
-                "Estado": est,
-                "Celular": cel,
-                "Telefono": tel,
-                "CorreoElectronico": correo,
-                "TipoPaciente": tipo,
-            };
-            $.ajax({
-                url: "/Pacientes/AgregarExterno",
-                method: "POST",
-                data: pExterno,
-                cache: false,
-                beforeSend: function () {
-                    $("#btnAgregarPaciente").html("Agregando...<i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>").attr('disabled', true);
-                }
-            }).done(function (data) {
-
-                if (data[0] == "Registrado") {
-                    $("#txtidEnviar").val(data[1]);
-                    $("#txtnomEnviar").val(data[2]);
-                    $("#txtedadEnviar").val(data[3]);
-                    $("#txtgeneroEnviar").val(data[4]);
-                    $("#modalDatos").modal("hide");
-                    $("#modalConsulta").modal("show");
-                } else {
-                    $("#mensajeError").html(data);
-                }
-            }).fail(manejarErrorAjax).always(function () {
-                $("#btnAgregarPaciente").html("Agregar Paciente").attr('disabled', false);
-            });
-
-
-        } else {
-            $("#mensajeError").html("Faltan Campos por Llenar");
-            $("#btnAgregarPaciente").html("Agregar Paciente").attr('disabled', false);
-        }
+/*$("#modalDatos").on("hide.bs.modal", function (e) {
+    var value = $("input").val();
+    console.log(value);
+    var mensaje = confirm("Perderas el trabajo ya hecho ¿Deseas cancelar?");
+    //Detectamos si el usuario acepto el mensaje
+    if (mensaje) {
+        
     }
-});
-
-$("#frmEditarPaciente").on("submit", function (e) {
-    e.preventDefault();
-    var tPaciente = $("#cmbTipo").val();
-    if (tPaciente == 1) {
-        var aluActualizar = $(this).serializeFormJSON();
-        console.log(aluActualizar);
-        $.ajax({
-            url: "/Pacientes/ActualizarAlumno",
-            method: "POST",
-            data: aluActualizar,
-            cache: false,
-            beforeSend: function () {
-                $("#btnEditar").html("Editando... <i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>").attr('disabled', true);
-            }
-        }).done(function (data) {
-            if (data == "Alumno Actualizado con Exito") {
-                $("#snackbar").html(data);
-            } else {
-                $("#snackbar").html("Ocurrio un error inesperado");
-            }
-        }).fail(manejarErrorAjax).always(function () {
-            $("#modalEditar").modal("hide");
-            $("#btnEditar").html("Editar Datos").attr('disabled', false);
-            mostrarSnack();
-        });
-
-    } else if (tPaciente == 2 || tPaciente == 3) {
-        var personalActualizar = $(this).serializeFormJSON();
-        $.ajax({
-            url: "/Pacientes/ActualizarPersonalE",
-            method: "POST",
-            data: personalActualizar,
-            cache: false,
-            beforeSend: function () {
-                $("#btnEditar").html("Editando... <i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>").attr('disabled', true);
-            }
-        }).done(function (data) {
-            if (data == "Personal Escolar Actualizado con Exito") {
-                $("#snackbar").html(data);
-            } else {
-                $("#snackbar").html("Ocurrio un error inesperado");
-            }
-        }).fail(manejarErrorAjax).always(function () {
-            $("#modalEditar").modal("hide");
-            $("#btnEditar").html("Editar Datos").attr('disabled', false);
-            mostrarSnack();
-        });
-
-    } else {
-        var extActualizar = $(this).serializeFormJSON();
-        $.ajax({
-            url: "/Pacientes/ActualizarExterno",
-            method: "POST",
-            data: extActualizar,
-            cache: false,
-            beforeSend: function () {
-                $("#btnEditar").html("Editando... <i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>").attr('disabled', true);
-            }
-        }).done(function (data) {
-            if (data == "Paciente Externo Actualizado con Exito") {
-                $("#snackbar").html(data);
-            } else {
-                $("#snackbar").html("Ocurrio un error inesperado");
-            }
-        }).fail(manejarErrorAjax).always(function () {
-            $("#modalEditar").modal("hide");
-            $("#btnEditar").html("Editar Datos").attr('disabled', false);
-            mostrarSnack();
-            setTimeout("location.reload()", 3000);
-        });
+    //Detectamos si el usuario denegó el mensaje
+    else {
+        e.preventDefault();
     }
-});
-
-$("#btnEliminarPaciente").click(function () {
-    var pacEliminar = { "IdPaciente": $("#txtidEnviar").val(), EstatusPaciente: 0 }
-    $.ajax({
-        url: "/Pacientes/ActualizarEstatus",
-        method: "POST",
-        data: pacEliminar,
-        cache: false,
-        beforeSend: function () {
-            $("#btnEliminarPaciente").html("Eliminando... <i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>").attr('disabled', true);
-        }
-    }).done(function (data) {
-        $("#modalBorrar").modal("hide");
-        $("#snackbar").html(data);
-    }).fail(manejarErrorAjax).always(function () {
-        $("#btnEliminarPaciente").html("Eliminar").attr('disabled', false);
-        mostrarSnack();
-        setTimeout("location.reload()", 3000);
-    });
-});
+});*/
 
 function MostrarTabla(tipo) {
     if (tipo == 1) {
@@ -340,7 +85,7 @@ function MostrarTabla(tipo) {
     }
 }
 
-var listarAlumnos = function(){
+function listarAlumnos(){
     var tablaAlu = $("#tbAlumnos").DataTable({
         "destroy":true,
         "language": idioma_español
@@ -348,7 +93,7 @@ var listarAlumnos = function(){
     obtener_editar("#tbAlumnos tbody", tablaAlu);
 }
 
-var listarDoc = function(){
+function listarDoc(){
     var tablaDoc = $("#tbDocentes").DataTable({
         "destroy":true,
         "language": idioma_español
@@ -356,7 +101,7 @@ var listarDoc = function(){
     obtener_editar("#tbDocentes tbody", tablaDoc);
 }
 
-var listarPaae = function () {
+function listarPaae() {
     var tablaPaae = $("#tbPaaes").DataTable({
         "destroy":true,
         "language": idioma_español
@@ -364,7 +109,7 @@ var listarPaae = function () {
     obtener_editar("#tbPaaes tbody", tablaPaae);
 }
 
-var listarExternos = function(){
+function listarExternos(){
     var tablaExt = $("#tbExternos").DataTable({
         "destroy":true,
         "language": idioma_español
@@ -372,7 +117,7 @@ var listarExternos = function(){
     obtener_editar("#tbExternos tbody", tablaExt);
 }
 
-var obtener_editar = function (tbody, table){
+function obtener_editar(tbody, table){
     $(tbody).on("dblclick", "tr", function () {
         var data = table.row( $(this) ).data();
         console.log(data);

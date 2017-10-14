@@ -1,0 +1,14 @@
+USE ServicioMedico
+GO
+
+IF OBJECT_ID('tbMotivos') IS NOT  NULL
+DROP TABLE tbMotivos
+GO
+
+CREATE TABLE tbMotivos
+(
+IdMotivo SMALLINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+DescripcionMotivo NVARCHAR(30) NOT NULL,
+CONSTRAINT UQ_DesMot UNIQUE(DescripcionMotivo)
+)
+GO

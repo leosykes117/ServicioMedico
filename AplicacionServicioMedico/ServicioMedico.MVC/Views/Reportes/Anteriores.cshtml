@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "Anteriores";
+    Layout = "~/Views/Shared/_MenuPrincipal.cshtml";
+}
+
+<h2>Anteriores</h2>
+
+<form id="frmReporte" class="form-group row" action="ReporteAnterior" method="get">
+    <div class="col-xs-4">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-calendar-check-o fa-lg"></i></span>
+            <select id="cmbMesBuscar" name="Mes" class="form-control">
+                @{ 
+                    string[] meses = new string[12] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" };
+                    string mesActual = DateTime.Now.ToString("MMMM", new System.Globalization.CultureInfo("es-ES"));
+                    for (int i = 0; i < meses.Length; i++)
+                    {
+                        <option value="@(i+1)">@meses[i]</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="col-xs-4">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-calendar-check-o fa-lg"></i></span>
+            <select id="cmbYearBuscar" name="Year" class="form-control">
+                @{
+                    DateTime fechaBase = DateTime.Now;
+                    <option value="@fechaBase.Year">@fechaBase.Year</option>
+                    for (int i = -1; i >= -15; i--)
+                    {
+                        <option value="@fechaBase.AddYears(i).Year">@fechaBase.AddYears(i).Year</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="col-xs-4">
+        <button type="submit" id="btnBuscarReporte" class="btn btn-primario btn-block">Ver Reporte <i class="fa fa-list-alt" aria-hidden="true"></i></button>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-center" colspan="2">Alumnos</th>
+                        <th class="text-center" colspan="2">Docentes</th>
+                        <th class="text-center" colspan="2">Personal Administrativo</th>
+                        <th class="text-center" colspan="2">Externos</th>
+                        <th class="text-center" colspan="2">SubTotal</th>
+                        <th class="text-center" rowspan="2">Total</th>
+                    </tr>
+                    <tr>
+                        <td>Hombres</td>
+                        <td>Mujeres</td>
+
+                        <td>Hombres</td>
+                        <td>Mujeres</td>
+
+                        <td>Hombres</td>
+                        <td>Mujeres</td>
+
+                        <td>Hombres</td>
+                        <td>Mujeres</td>
+
+                        <td>Hombres</td>
+                        <td>Mujeres</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/scriptsVistas/serializeFormJSON.js"></script>
+    <script src="~/Scripts/scriptsVistas/reportes.js"></script>
+}

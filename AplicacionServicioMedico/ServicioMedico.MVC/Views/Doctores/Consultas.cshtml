@@ -102,17 +102,19 @@
 </div>
 
 <div class="row">
-    <button type="button" class="btn btn-info btn-block recargartb">Recargar Tabla <i class="fa fa-refresh" aria-hidden="true"></i></button>
+    <button type="button" id="recargartb" class="btn btn-info btn-block">Recargar Tabla <i class="fa fa-refresh" aria-hidden="true"></i></button>
 </div>
 
-<div class="modal fade" id="modalDatos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modalDatos" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="gridSystemModalLabel">Nuevo Paciente</h4>
             </div>
-            <form id="frmAgregarPaciente" method="post" autocomplete="off">
+            @using (Html.BeginForm("AgregarAlumno", "Pacientes", FormMethod.Post, new { id = "frmAgregarPaciente", autocomplete = "off", accept_charset = "utf-8" }))
+            {
+                @Html.AntiForgeryToken()
                 <div class="modal-body">
                     <div class="panel panel-default">
                         <div class="panel-heading">Datos del Paciente</div>
@@ -195,7 +197,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <div class="input-group date">
+                                        <div class="input-group">
                                             <!-- TEXT BOX CURP -->
                                             <div class="input-group-addon"><i class="fa fa-address-card fa-lg"></i></div>
                                             <input type='text' id="txtCurp" name="Curp" class="form-control text-uppercase" placeholder="CURP" maxlength="18" />
@@ -426,23 +428,25 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <label id="mensajeError"></label>
+                    <p class="pull-left text-danger"></p>
                     <button type="button" class="btn btn-default">Cancelar</button>
                     <button type="submit" id="btnAgregarPaciente" class="btn btn-primario">Agregar Paciente</button>
                 </div>
-            </form>
+            }
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="modalConsulta">
+<div class="modal fade" id="modalConsulta" data-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Paciente a Consulta</h4>
             </div>
-            <form id="frmEnviarDatos" action="~/Consultas/Index" method="post" class="form-horizontal" autocomplete="off">
+            @using (Html.BeginForm("Index", "Consultas", FormMethod.Post, new { id = "frmEnviarDatos", @class = "form-horizontal", autocomplete = "off", accept_charset = "utf-8" }))
+            {
+                @Html.AntiForgeryToken()
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="txtnomEnviar" class="col-sm-6 control-label text-center">¿Seguro(a) que deseas realizar la consulta a la paciente?</label>
@@ -455,16 +459,11 @@
                     <input type="hidden" name="genero" id="txtgeneroEnviar" readonly="readonly" />
                 </div>
                 <div class="modal-footer">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" id="btnMandarDatos" name="DatosConsulta" class="btn btn-primario">Pasar a Consulta</button>
-                        </div>
-                    </div>
+                    <p class="pull-left text-danger"></p>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="btnMandarDatos" name="DatosConsulta" class="btn btn-primario">Pasar a Consulta</button>
                 </div>
-            </form>
+            }
         </div>
     </div>
 </div>

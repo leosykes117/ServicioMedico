@@ -188,27 +188,28 @@ namespace ServicioMedico.DAL
 
         public DataTable BusquedaGeneral(short t, short estatus)
         {
+            DataTable tablaPacientes;
             try
             {
                 comando = new SqlCommand("selGenPacientes", conexion.getCon());
-                ds = new DataSet();
+                tablaPacientes = new DataTable();
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@Tipo", SqlDbType.SmallInt).Value = t;
                 comando.Parameters.Add("@Estatus", SqlDbType.SmallInt).Value = estatus;
                 conexion.getCon().Open();
                 da = new SqlDataAdapter(comando);
-                da.Fill(ds, "Pacientes");
+                da.Fill(tablaPacientes);
             }
             catch (Exception ex)
             {
-                string mensaje = ex.ToString();
+                tablaPacientes = new DataTable();
             }
             finally
             {
                 conexion.getCon().Close();
                 conexion.cerrarConexion();
             }
-            return ds.Tables["Pacientes"];
+            return tablaPacientes;
         }
 
         public string Actualizar(Alumnos alumno)
@@ -394,26 +395,24 @@ namespace ServicioMedico.DAL
             return mensaje;
         }
 
-        public string Eliminar(Pacientes pac)
+        public string Eliminar(int id)
         {
             string mensaje = string.Empty;
             try
             {
+                Pacientes paciente = new Pacientes(id);
                 comando = new SqlCommand("dltEliminarPaciente", conexion.getCon());
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@ID", SqlDbType.Int).Value = pac.IdPaciente;
-                SqlParameter pmensaje = new SqlParameter("@Mensaje", SqlDbType.NVarChar, 100);
-                pmensaje.Direction = ParameterDirection.Output;
-                comando.Parameters.Add(pmensaje);
+                comando.Parameters.Add("@ID", SqlDbType.Int).Value = paciente.IdPaciente;
 
                 conexion.getCon().Open();
                 comando.ExecuteNonQuery();
-                mensaje = comando.Parameters["@Mensaje"].Value.ToString();
+                mensaje = "Paciente Borrado con Exito";
 
             }
             catch (Exception ex)
             {
-                mensaje = ex.ToString();
+                mensaje = ex.Message;
             }
             finally
             {

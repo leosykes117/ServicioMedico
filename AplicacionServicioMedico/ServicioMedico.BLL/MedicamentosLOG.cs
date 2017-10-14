@@ -10,24 +10,12 @@ using Newtonsoft.Json;
 
 namespace ServicioMedico.BLL
 {
-    public class MedicamentosLOG
+    public class MedicamentosLog
     {
-        public string TodosMedicamentos()
+        public static List<Medicamentos_Consultas> MedicamentosenConsulta(int consulta)
         {
-            MedicamentosDAL listado = new MedicamentosDAL();
-            DataTable tb = listado.TodosMedicamentos();
-            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-            Dictionary<string, object> row;
-            foreach (DataRow dr in tb.Rows)
-            {
-                row = new Dictionary<string, object>();
-                foreach (DataColumn col in tb.Columns)
-                {
-                    row.Add(col.ColumnName, dr[col]);
-                }
-                rows.Add(row);
-            }
-            return JsonConvert.SerializeObject(rows);
+            MedicamentosDAL medicamentoDAL = new MedicamentosDAL();
+            return medicamentoDAL.MedicamentosPorConsuta(consulta);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,16 +13,18 @@ namespace ServicioMedico.BO
         private int cvePaciente;
         private string cveDoctor;
         private string diagnostico;
+        private string observaciones;
         private DateTime fechaConsulta = new DateTime();
         private DateTime horaEntrada = new DateTime();
         private DateTime horaSalida = new DateTime();
         private DateTime duracionConsulta = new DateTime();
-        private int idDetalle;
-        private int motivoConsulta;
-        private int cveMedicamento;
-        private int cantidadSumintrada;
-        private string nombreMedicamento;
-        private string nombreMotivo;
+        private short estatusConsulta;
+        private float temperatura;
+        private string tA;
+        private float fC;
+        private float fR;
+        private List<Motivos> motivosConsultas;
+        private List<Medicamentos_Consultas> medicamentosConsultas;
 
         public int IdConsulta
         {
@@ -72,6 +75,19 @@ namespace ServicioMedico.BO
             set
             {
                 diagnostico = value;
+            }
+        }
+
+        public string Observaciones
+        {
+            get
+            {
+                return observaciones;
+            }
+
+            set
+            {
+                observaciones = value;
             }
         }
 
@@ -127,102 +143,128 @@ namespace ServicioMedico.BO
             }
         }
 
-        public int IdDetalle
+        public short EstatusConsulta
         {
             get
             {
-                return idDetalle;
+                return estatusConsulta;
             }
 
             set
             {
-                idDetalle = value;
+                estatusConsulta = value;
             }
         }
 
-        public int MotivoConsulta
+        public float Temperatura
         {
             get
             {
-                return motivoConsulta;
+                return temperatura;
             }
 
             set
             {
-                motivoConsulta = value;
+                temperatura = value;
             }
         }
 
-        public int CveMedicamento
+        public string TA
         {
             get
             {
-                return cveMedicamento;
+                return tA;
             }
 
             set
             {
-                cveMedicamento = value;
+                tA = value;
             }
         }
 
-        public int CantidadSumintrada
+        public float FC
         {
             get
             {
-                return cantidadSumintrada;
+                return fC;
             }
 
             set
             {
-                cantidadSumintrada = value;
+                fC = value;
             }
         }
 
-        public string NombreMedicamento
+        public float FR
         {
             get
             {
-                return nombreMedicamento;
+                return fR;
             }
 
             set
             {
-                nombreMedicamento = value;
+                fR = value;
             }
         }
 
-        public string NombreMotivo
+        public List<Motivos> MotivosConsultas
         {
             get
             {
-                return nombreMotivo;
+                return motivosConsultas;
             }
 
             set
             {
-                nombreMotivo = value;
+                motivosConsultas = value;
+            }
+        }
+
+        public List<Medicamentos_Consultas> MedicamentosConsultas
+        {
+            get
+            {
+                return medicamentosConsultas;
+            }
+
+            set
+            {
+                medicamentosConsultas = value;
             }
         }
 
         public Consultas() { }
 
-        public Consultas(int idConsulta, int cvePaciente, string cveDoctor, string diagnostico, DateTime fechaConsulta, DateTime horaEntrada, DateTime horaSalida, DateTime duracionConsulta, int idDetalle, int motivoConsulta, int cveMedicamento, int cantidadSumintrada, string nombreMedicamento, string nombreMotivo)
+        public Consultas(int idConsulta)
+        {
+            this.idConsulta = idConsulta;
+        }
+
+        public Consultas(int idConsulta, short estatusConsulta)
+        {
+            this.idConsulta = idConsulta;
+            this.estatusConsulta = estatusConsulta;
+        }
+
+        public Consultas(int idConsulta, int cvePaciente, string cveDoctor, string diagnostico, string observaciones, DateTime fechaConsulta, DateTime horaEntrada, DateTime horaSalida, DateTime duracionConsulta, short estatusConsulta, float temperatura, string tA, float fC, float fR, List<Motivos> motivosConsultas, List<Medicamentos_Consultas> medicamentosConsultas)
         {
             this.idConsulta = idConsulta;
             this.cvePaciente = cvePaciente;
             this.cveDoctor = cveDoctor;
             this.diagnostico = diagnostico;
+            this.observaciones = observaciones;
             this.fechaConsulta = fechaConsulta;
             this.horaEntrada = horaEntrada;
             this.horaSalida = horaSalida;
             this.duracionConsulta = duracionConsulta;
-            this.idDetalle = idDetalle;
-            this.motivoConsulta = motivoConsulta;
-            this.cveMedicamento = cveMedicamento;
-            this.cantidadSumintrada = cantidadSumintrada;
-            this.nombreMedicamento = nombreMedicamento;
-            this.nombreMotivo = nombreMotivo;
+            this.estatusConsulta = estatusConsulta;
+            this.temperatura = temperatura;
+            this.tA = tA;
+            this.fC = fC;
+            this.fR = fR;
+            this.motivosConsultas = motivosConsultas;
+            this.medicamentosConsultas = medicamentosConsultas;
         }
     }
 }

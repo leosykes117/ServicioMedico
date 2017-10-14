@@ -1,58 +1,185 @@
 ﻿$(document).ready(function () {
-    var comboPac = $("#cmbTipoPaciente").val();
-    listarConsultas(comboPac);
-    $("#tbConsultas").clear().draw();
+    $("ul#consulta").addClass("in");
+    $("li#linkInicio").removeClass("activado");
+    $("a#linkConsultas").addClass("activado");
+    var tipoPaciente = $("#cmbTipoPaciente").val();
+    var estatus = $("#Estatus").val();
+    MostrarTabla(tipoPaciente, estatus);
 });
 
 $("#cmbTipoPaciente").change(function () {
-    var cmbPacient = $(this).val()
-    listarConsultas(cmbPacient);
-    $("#tbConsultas").clear().draw();
-    if (cmbPacient == 1) {
-        $("#tituloTb").html("Tabla de Consultas Alumnos");
-    } else if (cmbPacient == 2) {
-        $("#tituloTb").html("Tabla de Consultas Docentes");
-    } else if (cmbPacient == 3) {
-        $("#tituloTb").html("Tabla de Consultas Personal Escolar");
-    } else {
-        $("#tituloTb").html("Tabla de Consultas Externos");
-    }
+    var tipoPaciente = $(this).val();
+    var estatus = $("#Estatus").val();
+    MostrarTabla(tipoPaciente, estatus);
 });
 
-/*$("#frmEnviarDatosConsulta").on("submit", function () {
+$("#frmCambiarEstatus").on("submit", function (event) {
+    var actualizar = false;
+    event.preventDefault();
+    var data = { consulta: $("#txtConsultaDelete").val(), estatusCon: 0 };
+    $.ajax({
+        url: $(this).attr("action"),
+        method: $(this).attr("method"),
+        data: data,
+        cache: false,
+        beforeSend: function () {
+            $("#btnEliminarConsulta").html("Eliminando...<i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>").attr("disabled", "true");
+        }
+    }).done(function (data) {
+        if (data == "Actualizo") {
+            actualizar = true;
+            $("#snackbar").html("La consulta se elimino con exito");
+        } else {
+            actualizar = false;
+            $("#snackbar").html("La consulta medica no se pudo eliminar");
+        }
+    }).fail(function (jqXHR, textStatus) {
+        actualizar = false;
+        $("#snackbar").html(textStatus);
+    }).always(function () {
+        $("#btnEliminarConsulta").html("Eliminar").removeAttr("disabled");
+        $("#modalEliminar").modal("hide");
+        mostrarSnack();
+        if (actualizar) {
+            recargarTabla($("#cmbTipoPaciente").val());
+        }
+    });
+});
 
-});*/
+$("#frmEliminarConsulta").on("submit", function (event) {
+    var actualizar = false;
+    var data = { consulta: $("#txtConsultaDelete").val() };
+    event.preventDefault();
+    $.ajax({
+        url: $(this).attr("action"),
+        method: $(this).attr("method"),
+        data: data,
+        cache: false,
+        beforeSend: function () {
+            $("#btnEliminarConsulta").html("Eliminando...<i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>").attr("disabled", "true");
+        }
+    }).done(function (data) {
+        if (data == "Eliminada") {
+            actualizar = true;
+            $("#snackbar").html("La consulta se elimino con exito");
+        } else {
+            actualizar = false;
+            $("#snackbar").html("La consulta medica no se pudo eliminar");
+        }
+    }).fail(function (jqXHR, textStatus) {
+        actualizar = false;
+        $("#snackbar").html(textStatus);
+    }).always(function () {
+        $("#btnEliminarConsulta").html("Eliminar").removeAttr("disabled");
+        $("#modalEliminar").modal("hide");
+        mostrarSnack();
+        if (actualizar) {
+            recargarTabla($("#cmbTipoPaciente").val());
+        }
+    });
+});
 
+$(document).on("click", "#recargartb", function () {
+    recargarTabla($("#cmbTipoPaciente").val());
+});
 
-function listarConsultas(cmbTipo) {
-    var tipoPaciente = {t : cmbTipo, estatus: 1};
-    var tablaConsultas = $("#tbConsultas").DataTable({
+function MostrarTabla(tipo, estatusCon) {
+    if (tipo == 1) {
+        if ($("#tbAlumnos tbody tr").children().length < 1) {
+            listarAlumnos(tipo, estatusCon);
+            $("#Alumnos").show();
+            $("#Docentes").hide();
+            $("#Paaes").hide();
+            $("#Externos").hide();
+        } else {
+            $("#Alumnos").show();
+            $("#Docentes").hide();
+            $("#Paaes").hide();
+            $("#Externos").hide();
+        }
+    } else if (tipo == 2) {
+        if ($("#tbDocentes tbody tr").children().length < 1) {
+            listarDoc(tipo, estatusCon);
+            $("#Docentes").show();
+            $("#Alumnos").hide();
+            $("#Paaes").hide();
+            $("#Externos").hide();
+        } else {
+            $("#Docentes").show();
+            $("#Alumnos").hide();
+            $("#Paaes").hide();
+            $("#Externos").hide();
+        }
+    } else if (tipo == 3) {
+        if ($("#tbPaaes tbody tr").children().length < 1) {
+            listarPaae(tipo, estatusCon);
+            $("#Paaes").show();
+            $("#Alumnos").hide();
+            $("#Docentes").hide();
+            $("#Externos").hide();
+        } else {
+            $("#Paaes").show();
+            $("#Alumnos").hide();
+            $("#Docentes").hide();
+            $("#Externos").hide();
+        }
+    } else {
+        if ($("#tbExternos tbody tr").children().length < 1) {
+            listarExternos(tipo, estatusCon);
+            $("#Externos").show();
+            $("#Alumnos").hide();
+            $("#Docentes").hide();
+            $("#Paaes").hide();
+        } else {
+            $("#Externos").show();
+            $("#Alumnos").hide();
+            $("#Docentes").hide();
+            $("#Paaes").hide();
+        }
+    }
+}
+
+var listarAlumnos = function (cmbTipo, est) {
+    var data = { t: cmbTipo, estatus: est};
+    var tablaAlu = $("#tbAlumnos").DataTable({
         "destroy": true,
         "ajax": {
             "serverSide": true,
             "method": "POST",
             "url": "/Consultas/ListarConsultas",
-            "data": tipoPaciente,
+            "data": data,
             "cache": "false",
             "dataSrc": ""
         },
         "columns": [
-            { "data": "NombrePaciente" },
-            { "data": "ApellidosPaciente" },
+            { "data": "Nombre" },
             { "data": "Generos" },
             { "data": "CveDoctor" },
-            { "data": "Diagnostico"},
-            { "data": "FechaConsulta"},
+            { "data": "Diagnostico" },
+            { "data": "FechaConsulta" },
             { "data": "HoraEntrada" },
             { "data": "HoraSalida" },
             { "data": "DuracionConsulta" },
-            { "data": "NombreMedicamento" },
-            { "data": "CantidadSuminstrada" },
-            { "defaultContent": "<button type='button' class='btn btn-success btn-block editar'><i class='fa fa-pencil-square-o fa-lg' aria-hidden='true'></i></button> <button type='button' class='btn btn-danger btn-block eliminar'><i class='fa fa-trash-o fa-lg' aria-hidden='true'></i></button>" }
+            { "data": "Temperatura" },
+            { "data": "TA" },
+            { "data": "FC" },
+            { "data": "FR" },
+            {
+                sortable: false,
+                "render": function () {
+                    var botones;
+                    if ($("#Estatus").val() == 1) {
+                        botones = "<button type='button' class='btn btn-success btn-block editar'><i class='fa fa-pencil-square-o fa-lg' aria-hidden='true'></i></button> <button type='button' class='btn btn-danger btn-block eliminar'><i class='fa fa-trash-o fa-lg' aria-hidden='true'></i></button>";
+                    } else {
+                        botones = "<button type='button' class='btn btn-success btn-block recuperar'><i class='fa fa-recycle fa-lg' aria-hidden='true'></i></button> <button type='button' class='btn btn-danger btn-block eliminar'><i class='fa fa-trash-o fa-lg' aria-hidden='true'></i></button>";
+                    }
+                    return botones;
+                }
+            }
         ],
         "columnDefs": [
             {
-                "targets": 5,
+                "targets": 4,
                 "data": "FechaConsulta",
                 "render": function (data, type, full) { // Devuelve el contenido personalizado
                     moment.locale("es");
@@ -61,7 +188,7 @@ function listarConsultas(cmbTipo) {
                 "width": "80px"
             },
             {
-                "targets":[6, 7],
+                "targets": [5, 6],
                 "data": "HoraEntrada, HoraSalida",
                 "render": function (data, type, full) { // Devuelve el contenido personalizado
                     return moment(data).format("h:mm:ss a");
@@ -69,7 +196,7 @@ function listarConsultas(cmbTipo) {
                 "width": "70px"
             },
             {
-                "targets": 8,
+                "targets": 7,
                 "data": "DuracionConsulta",
                 "render": function (data, type, full) { // Devuelve el contenido personalizado
                     return moment(data).format("HH:mm:ss");
@@ -78,46 +205,293 @@ function listarConsultas(cmbTipo) {
         ],
         "language": idioma_español
     });
-    obtener_editar("#tbConsultas tbody", tablaConsultas);
+    obtener_editar("#tbAlumnos tbody", tablaAlu);
+    obtener_eliminar("#tbAlumnos tbody", tablaAlu);
+    obtener_recuperar("#tbAlumnos tbody", tablaAlu);
+}
+
+var listarDoc = function (cmbTipo, est) {
+    var data = { t: cmbTipo, estatus: est };
+    var tablaDoc = $("#tbDocentes").DataTable({
+        "destroy": true,
+        "ajax": {
+            "serverSide": true,
+            "method": "POST",
+            "url": "/Consultas/ListarConsultas",
+            "data": data,
+            "cache": "false",
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": "Nombre" },
+            { "data": "Generos" },
+            { "data": "CveDoctor" },
+            { "data": "Diagnostico" },
+            { "data": "FechaConsulta" },
+            { "data": "HoraEntrada" },
+            { "data": "HoraSalida" },
+            { "data": "DuracionConsulta" },
+            { "data": "Temperatura" },
+            { "data": "TA" },
+            { "data": "FC" },
+            { "data": "FR" },
+            {
+                sortable: false,
+                "render": function () {
+                    var botones;
+                    if ($("#Estatus").val() == 1) {
+                        botones = "<button type='button' class='btn btn-success btn-block editar'><i class='fa fa-pencil-square-o fa-lg' aria-hidden='true'></i></button> <button type='button' class='btn btn-danger btn-block eliminar'><i class='fa fa-trash-o fa-lg' aria-hidden='true'></i></button>";
+                    } else {
+                        botones = "<button type='button' class='btn btn-success btn-block recuperar'><i class='fa fa-recycle fa-lg' aria-hidden='true'></i></button> <button type='button' class='btn btn-danger btn-block eliminar'><i class='fa fa-trash-o fa-lg' aria-hidden='true'></i></button>";
+                    }
+                    return botones;
+                }
+            }
+        ],
+        "columnDefs": [
+            {
+                "targets": 4,
+                "data": "FechaConsulta",
+                "render": function (data, type, full) { // Devuelve el contenido personalizado
+                    moment.locale("es");
+                    return moment(data).format("LL");
+                },
+                "width": "80px"
+            },
+            {
+                "targets": [5, 6],
+                "data": "HoraEntrada, HoraSalida",
+                "render": function (data, type, full) { // Devuelve el contenido personalizado
+                    return moment(data).format("h:mm:ss a");
+                },
+                "width": "70px"
+            },
+            {
+                "targets": 7,
+                "data": "DuracionConsulta",
+                "render": function (data, type, full) { // Devuelve el contenido personalizado
+                    return moment(data).format("HH:mm:ss");
+                }
+            }
+        ],
+        "language": idioma_español
+    });
+    obtener_editar("#tbDocentes tbody", tablaDoc);
+    obtener_eliminar("#tbDocentes tbody", tablaDoc);
+    obtener_recuperar("#tbDocentes tbody", tablaDoc);
+}
+
+var listarPaae = function (cmbTipo, est) {
+    var data = { t: cmbTipo, estatus: est };
+    var tablaPaae = $("#tbPaaes").DataTable({
+        "destroy": true,
+        "ajax": {
+            "serverSide": true,
+            "method": "POST",
+            "url": "/Consultas/ListarConsultas",
+            "data": data,
+            "cache": "false",
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": "Nombre" },
+            { "data": "Generos" },
+            { "data": "CveDoctor" },
+            { "data": "Diagnostico" },
+            { "data": "FechaConsulta" },
+            { "data": "HoraEntrada" },
+            { "data": "HoraSalida" },
+            { "data": "DuracionConsulta" },
+            { "data": "Temperatura" },
+            { "data": "TA" },
+            { "data": "FC" },
+            { "data": "FR" },
+            {
+                sortable: false,
+                "render": function () {
+                    var botones;
+                    if ($("#Estatus").val() == 1) {
+                        botones = "<button type='button' class='btn btn-success btn-block editar'><i class='fa fa-pencil-square-o fa-lg' aria-hidden='true'></i></button> <button type='button' class='btn btn-danger btn-block eliminar'><i class='fa fa-trash-o fa-lg' aria-hidden='true'></i></button>";
+                    } else {
+                        botones = "<button type='button' class='btn btn-success btn-block recuperar'><i class='fa fa-recycle fa-lg' aria-hidden='true'></i></button> <button type='button' class='btn btn-danger btn-block eliminar'><i class='fa fa-trash-o fa-lg' aria-hidden='true'></i></button>";
+                    }
+                    return botones;
+                }
+            }
+        ],
+        "columnDefs": [
+            {
+                "targets": 4,
+                "data": "FechaConsulta",
+                "render": function (data, type, full) { // Devuelve el contenido personalizado
+                    moment.locale("es");
+                    return moment(data).format("LL");
+                },
+                "width": "80px"
+            },
+            {
+                "targets": [5, 6],
+                "data": "HoraEntrada, HoraSalida",
+                "render": function (data, type, full) { // Devuelve el contenido personalizado
+                    return moment(data).format("h:mm:ss a");
+                },
+                "width": "70px"
+            },
+            {
+                "targets": 7,
+                "data": "DuracionConsulta",
+                "render": function (data, type, full) { // Devuelve el contenido personalizado
+                    return moment(data).format("HH:mm:ss");
+                }
+            }
+        ],
+        "language": idioma_español
+    });
+    obtener_editar("#tbPaaes tbody", tablaPaae);
+    obtener_eliminar("#tbPaaes tbody", tablaPaae);
+    obtener_recuperar("#tbPaaes tbody", tablaPaae);
+}
+
+var listarExternos = function (cmbTipo, est ) {
+    var data = { t: cmbTipo, estatus: est };
+    var tablaExt = $("#tbExternos").DataTable({
+        "destroy": true,
+        "ajax": {
+            "serverSide": true,
+            "method": "POST",
+            "url": "/Consultas/ListarConsultas",
+            "data": data,
+            "cache": "false",
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": "Nombre" },
+            { "data": "Generos" },
+            { "data": "CveDoctor" },
+            { "data": "Diagnostico" },
+            { "data": "FechaConsulta" },
+            { "data": "HoraEntrada" },
+            { "data": "HoraSalida" },
+            { "data": "DuracionConsulta" },
+            { "data": "Temperatura" },
+            { "data": "TA" },
+            { "data": "FC" },
+            { "data": "FR" },
+            {
+                sortable: false,
+                "render": function () {
+                    var botones;
+                    if ($("#Estatus").val() == 1) {
+                        botones = "<button type='button' class='btn btn-success btn-block editar'><i class='fa fa-pencil-square-o fa-lg' aria-hidden='true'></i></button> <button type='button' class='btn btn-danger btn-block eliminar'><i class='fa fa-trash-o fa-lg' aria-hidden='true'></i></button>";
+                    } else {
+                        botones = "<button type='button' class='btn btn-success btn-block recuperar'><i class='fa fa-recycle fa-lg' aria-hidden='true'></i></button> <button type='button' class='btn btn-danger btn-block eliminar'><i class='fa fa-trash-o fa-lg' aria-hidden='true'></i></button>";
+                    }
+                    return botones;
+                }
+            }
+        ],
+        "columnDefs": [
+            {
+                "targets": 4,
+                "data": "FechaConsulta",
+                "render": function (data, type, full) { // Devuelve el contenido personalizado
+                    moment.locale("es");
+                    return moment(data).format("LL");
+                },
+                "width": "80px"
+            },
+            {
+                "targets": [5, 6],
+                "data": "HoraEntrada, HoraSalida",
+                "render": function (data, type, full) { // Devuelve el contenido personalizado
+                    return moment(data).format("h:mm:ss a");
+                },
+                "width": "70px"
+            },
+            {
+                "targets": 7,
+                "data": "DuracionConsulta",
+                "render": function (data, type, full) { // Devuelve el contenido personalizado
+                    return moment(data).format("HH:mm:ss");
+                }
+            }
+        ],
+        "language": idioma_español
+    });
+    obtener_editar("#tbExternos tbody", tablaExt);
+    obtener_eliminar("#tbExternos tbody", tablaExt);
+    obtener_recuperar("#tbExternos tbody", tablaExt);
 }
 
 function obtener_editar(tbody, table) {
     $(tbody).on("click", "button.editar", function () {
         var data = table.row($(this).parents("tr")).data();
-        $("#txtClave").val(data.IdPaciente);
-        $("#txtNombre").val(data.NombrePaciente + " " + data.ApellidosPaciente);
+        console.log(data);
+        $("#txtClave").val(data.IdConsulta);
+        $("#txtNombre").val(data.Nombre);
         $("#txtEdad").val(data.EdadPaciente);
         $("#txtGenero").val(data.Generos);
         $("#txtDiagnostico").val(data.Diagnostico);
-        $("#txtFecha").val(moment(data.FechaConsulta).format("YYYY-MM-DD"));
+        $("#txtObservaciones").val(data.Observaciones);
+        $("#txtCveDoctor").val(data.CveDoctor);
+        $("#txtFecha").val(moment(data.FechaConsulta).format("L"));
         $("#txtHoraEntrada").val(moment(data.HoraEntrada).format("LTS"));
         $("#txtHoraSalida").val(moment(data.HoraSalida).format("LTS"));
-        $("#txtDuracion").val( moment(data.DuracionConsulta).format("HH:mm:ss"));
-        $("#txtMedicamento").val(data.CveMedicamento);
-        $("#txtMotivo").val(data.CveMotivo);
-        $("#txtCantidad").val(data.CantidadSuminstrada);
+        $("#txtTemperatura").val(data.Temperatura);
+        $("#txtTA").val(data.TA);
+        $("#txtFC").val(data.FC);
+        $("#txtFR").val(data.FR);
         $("#modalConsultaEditar").modal("show");
     });
 }
 
-(function ($) {
-    $.fn.serializeFormJSON = function () {
+function obtener_eliminar(tbody, table) {
+    $(tbody).on("click", "button.eliminar", function () {
+        var datosConsulta = table.row($(this).parents("tr")).data();
+        $("#txtConsultaDelete").val(datosConsulta.IdConsulta);
+        $("#modalEliminar").modal("show");
+    });
+}
 
-        var o = {};
-        var a = this.serializeArray();
-        $.each(a, function () {
-            if (o[this.name]) {
-                if (!o[this.name].push) {
-                    o[this.name] = [o[this.name]];
-                }
-                o[this.name].push(this.value || '');
+function obtener_recuperar(tbody, table) {
+    $(tbody).on("click", "button.recuperar", function () {
+        var actualizar = false;
+        var consultaEliminada = table.row($(this).parents("tr")).data();
+        var data = { consulta: consultaEliminada.IdConsulta, estatusCon: 1 };
+        $.ajax({
+            url: "/Consultas/CambiarEstatus",
+            method: "POST",
+            data: data,
+            cache: false
+        }).done(function (data) {
+            if (data = "Actualizo") {
+                actualizar = true;
+                $("#snackbar").html("La consulta se recupero con exito");
             } else {
-                o[this.name] = this.value || '';
+                $("#snackbar").html("La consulta medica no se pudo recuperar");
+            }
+        }).fail(function (jqXHR, textStatus) {
+            $("#snackbar").html(textStatus);
+        }).always(function () {
+            mostrarSnack();
+            if (actualizar) {
+                recargarTabla($("#cmbTipoPaciente").val());
             }
         });
-        return o;
-    };
-})(jQuery);
+    });
+}
+
+function recargarTabla(tipo) {
+    if (tipo == 1) {
+        $('#tbAlumnos').DataTable().ajax.reload();
+    } else if (tipo == 2) {
+        $("#tbDocentes").DataTable().ajax.reload();
+    } else if (tipo == 3) {
+        $("#tbPaaes").DataTable().ajax.reload();
+    } else {
+        $("#tbExternos").DataTable().ajax.reload();
+    }
+}
 
 var idioma_español = {
     "sProcessing": "Procesando...",

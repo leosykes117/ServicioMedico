@@ -132,17 +132,17 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="activado">
+                    <li id="linkInicio" class="activado">
                         <a href="/Doctores"><i class='fa fa-home'></i> Inicio</a>
                     </li>
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#consulta"><i class="fa fa-stethoscope" aria-hidden="true"></i> Consultas <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="consulta" class="collapse">
                             <li>
-                                @Html.ActionLink("Nueva Consulta","Consultas","Doctores")
+                                @Html.ActionLink("Nueva Consulta","Consultas", "Doctores", null, new { id="linkNuevaC"})
                             </li>
                             <li>
-                                @Html.ActionLink("Ver Consultas", "VerConsultas", "Consultas")
+                                @Html.ActionLink("Ver Consultas", "VerConsultas", "Consultas", null, new { id="linkConsultas"})
                             </li>
                         </ul>
                     </li>
@@ -150,7 +150,7 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#pacientes"><i class="fa fa-wheelchair" aria-hidden="true"></i> Pacientes <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="pacientes" class="collapse">
                             <li>
-                                @Html.ActionLink("Ver Pacientes","Index","Pacientes")
+                                @Html.ActionLink("Ver Pacientes","Index","Pacientes", null, new { id="linkPacientes"})
                             </li>
                         </ul>
                     </li>
@@ -158,10 +158,10 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#reportes"><i class="fa fa-list-alt" aria-hidden="true"></i> Reportes <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="reportes" class="collapse">
                             <li>
-                                <a>Reporte Actual</a>
+                                @Html.ActionLink("Reporte Actual", "Index", "Reportes", null, new { id="linkReporte"})
                             </li>
                             <li>
-                                <a >Todos los Reportes</a>
+                                @Html.ActionLink("Reportes Anteriores", "Anteriores", "Reportes", null, new { id = "linkAnteriores" })
                             </li>
                         </ul>
                     </li>

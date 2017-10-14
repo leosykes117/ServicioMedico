@@ -83,7 +83,10 @@
     </div>
 </div>
 
-<form id="frmEditarConsulta" method="post" autocomplete="off" accept-charset="utf-8">
+@using (Html.BeginForm("Actualizar", "Consultas", FormMethod.Post,
+                new { id = "frmEditarConsulta", autocomplete = "off", accept_charset = "utf-8" }))
+{
+    @Html.AntiForgeryToken()
     <div class="row">
         <div class="col-lg-3">
             <div class="panel panel-default">
@@ -94,7 +97,7 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-calendar fa-lg"></i>
                             </span>
-                            <input type='text' id="dtpFecha" name="FechaConsulta" class="form-control" value="@ViewBag.fecha" placeholder="Fecha" />
+                            <input type='text' id="dtpFecha" name="FechaConsulta" class="form-control" placeholder="Fecha" value="@ViewBag.fecha" />
                         </div>
                     </div>
 
@@ -103,7 +106,7 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-clock-o fa-lg"></i>
                             </span>
-                            <input type='text' id="dtpHoraEntrada" name="HoraEntrada" class="form-control" value="@ViewBag.entrada" placeholder="Hora de Inicio" />
+                            <input type='text' id="dtpHoraEntrada" name="HoraEntrada" class="form-control" placeholder="Hora de Inicio" value="@ViewBag.entrada" />
                         </div>
                     </div>
 
@@ -112,83 +115,77 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-clock-o fa-lg"></i>
                             </span>
-                            <input type='text' id="dtpHoraFin" name="HoraSalida" class="form-control" value="@ViewBag.salida" placeholder="Hora de Finalizacion" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">Detalles de la Consulta</div>
-                <div class="panel-body">
-                    <span id="cveMotivo" style="display:none;">@ViewBag.motivo</span>
-                    <span id="cveMedicamento" style="display:none;">@ViewBag.medicamento</span>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-thermometer-quarter fa-lg"></i>
-                            </span>
-                            <select id="cmbMotivo" name="MotivoConsulta" class="form-control">
-                                <option value="0">-Motivo-</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-medkit fa-lg"></i>
-                            </span>
-                            <select id="cmbMedicamentos" name="CveMedicamento" class="form-control">
-                                <option value="0">-Medicamento-</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="well">
-                        Cantidad de Medicamentos:
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                                <button class="btn btn-defaul disminuir" type="button">
-                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                </button>
-                            </span>
-                            <input type='text' id="txtCantidad" name="CantidadSumintrada" class="form-control" value="@ViewBag.cantidad" placeholder="Cantidad" />
-                            <span class="input-group-btn">
-                                <button class="btn btn-defaul aumentar" type="button">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </button>
-                            </span>
+                            <input type='text' id="dtpHoraFin" name="HoraSalida" class="form-control" placeholder="Hora de Finalizacion" value="@ViewBag.salida" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="col-lg-9">
+
             <div class="panel panel-default">
-                <div class="panel-heading">Infomacion de la Consulta Medica </div>
+                <div class="panel-heading">Consulta Medica</div>
                 <div class="panel-body">
-                    <input type="hidden" id="txtIdPaciente" name="CvePaciente" value="@ViewBag.idpaciente">
+                    <input type="hidden" id="txtIdConsulta" name="IdConsulta" value="@ViewBag.idConsulta">
                     <div class="form-group">
                         <label for="txtDiagnostico"><i class="fa fa-heartbeat fa-lg"></i>  Diagnostico:</label>
-                        <textarea id="txtDiagnostico" name="Diagnostico" class="form-control" placeholder="Escribe el diagnostico" style="min-width:100%; max-width:100%; min-height:100px; max-height:100px;">@ViewBag.diagnostico</textarea>
+                        <textarea id="txtDiagnostico" name="Diagnostico" class="form-control" placeholder="Escribe el diagnostico" style="min-width:100%; max-width:100%; min-height:100px; max-height:100px;" required>@ViewBag.diagnostico</textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="txtAtendio"><i class="fa fa-user-md fa-lg"></i>  Atendio:</label>
-                        <input type="text" id="txtAtendio" name="CveDoctor" class="form-control" placeholder="Escribe tu nombre" />
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <label for="txtTemperatura"> Temperatura:</label>
+                            <div class="form-group">
+                                <input type="text" id="txtTemperatura" name="Temperatura" class="form-control" value="@ViewBag.temp" placeholder="ej. 36" maxlength="5">
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <label for="txtTemperatura"> T.A:</label>
+                            <div class="form-group">
+                                <input type="text" id="txtTA" name="TA" class="form-control" value="@ViewBag.ta" placeholder="ej 50/100" maxlength="7">
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label for="txtFc"> F.C</label>
+                                <input type="text" id="txtFc" name="FC" class="form-control" value="@ViewBag.fc" placeholder="ej 75.60" max="6">
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label for="txtFr"> F.R</label>
+                                <input type="text" id="txtFr" name="FR" class="form-control" value="@ViewBag.fr" placeholder="ej 75.60" max="6">
+                            </div>
+                        </div>
                     </div>
+                    <!--TEXT BOX TRATAMIENTO-->
                     <div class="form-group">
-                        <button type="submit" id="btnEditarConsulta" name="EditarConsulta" class="btn btn-block btn-lg btn-primario">Editar Consulta</button>
+                        <label for="txtObservaciones"><i class="fa fa-eye fa-lg"></i>  Observaciones:</label>
+                        <textarea id="txtObservaciones" name="Observaciones" class="form-control" placeholder="Escribe las Observaciones" style="min-width:100%; max-width:100%; min-height:100px; max-height:100px;">@ViewBag.observaciones</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtCveDoctor"><i class="fa fa-user-md fa-lg"></i>  Atendio:</label>
+                        <p id="txtCveDoctor" name="CveDoctor" class="form-control">@ViewBag.cveDoctor</p>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" id="btnEditarConsulta" name="RegistrarConsulta" class="btn btn-block btn-lg btn-primario" data-toggle="confirmation">Editar Consulta</button>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
-</form>
+}
 
-<div class="bg-primary" id="snackbar"></div>
+<div class="bg-danger" id="snackbar"></div>
 
 @section scripts{
     <script src="~/Scripts/moment-with-locales.min.js"></script>
-    <!--script src="~/Scripts/moment.js"></script-->
     <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Scripts/scriptsVistas/numeric-Up-Down.js"></script>
+    <script src="~/Scripts/scriptsVistas/serializeFormJSON.js"></script>
     <script src="~/Scripts/scriptsVistas/snackbar.min.js"></script>
     <script src="~/Scripts/scriptsVistas/editarConsulta.js"></script>
 }

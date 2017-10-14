@@ -51,15 +51,15 @@ namespace ServicioMedico.BO
             }
         }
 
-        public Alumnos(){ }
+        public Alumnos() { }
 
-        public Alumnos(int idPaciente, string nombrePaciente, string apellidosPaciente, short generoPaciente, 
-            DateTime fechaNac, short edadPaciente, string curp, string calle, int numInt, int numExt, 
-            string colonia, string cp, int delMun, int estado, string celular, string telefono, 
-            string correoElectronico, short tipoPaciente, string boleta, string grupo, short carrera) : 
+        public Alumnos(int idPaciente, string nombrePaciente, string apellidosPaciente, short generoPaciente,
+            DateTime fechaNac, short edadPaciente, string curp, string calle, int numInt, int numExt,
+            string colonia, string cp, int delMun, int estado, string celular, string telefono,
+            string correoElectronico, short tipoPaciente, string boleta, string grupo, short carrera) :
             //CONSTRUCTOR DE LA CLASE BASE 
-            base (idPaciente, nombrePaciente, apellidosPaciente, generoPaciente, fechaNac, edadPaciente, 
-                curp, calle, numInt, numExt, colonia, cp, delMun, estado, celular, telefono, 
+            base(idPaciente, nombrePaciente, apellidosPaciente, generoPaciente, fechaNac, edadPaciente,
+                curp, calle, numInt, numExt, colonia, cp, delMun, estado, celular, telefono,
                 correoElectronico, tipoPaciente)
         {
             IdPaciente = idPaciente;

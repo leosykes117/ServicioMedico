@@ -63,23 +63,31 @@ function MostrarTabla(tipo) {
 }
 
 $("#frmEliminarPaciente").on("submit", function (event) {
+    var actualizar = false;
     event.preventDefault();
     var pacEliminar = $(this).serializeFormJSON();
     $.ajax({
-        url: "/Pacientes/EliminarPaciente",
-        method: "POST",
+        url: $(this).attr("action"),
+        method: $(this).attr("method"),
         data: pacEliminar,
         cache: false,
         beforeSend: function () {
             $("#btnEliminarPaciente").html("Eliminando... <i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>").attr('disabled', true);
         }
     }).done(function (data) {
-        $("#modalBorrar").modal("hide");
+        if (data == "Paciente Borrado con Exito") {
+            actualizar = true;
+        }
         $("#snackbar").html(data);
-    }).fail(manejarErrorAjax).always(function () {
-        $("#btnEliminarPaciente").html("Eliminar").attr('disabled', false);
+    }).fail(function () {
+        $("#snackbar").html(manejarErrorAjax);
+    }).always(function () {
+        $("#btnEliminarPaciente").html("Eliminar").removeAttr("disabled");
+        $("#modalBorrar").modal("hide");
         mostrarSnack();
-        setTimeout("location.reload()", 3000);
+        if (actualizar) {
+            recargarTabla($("#cmbTipoBuscar").val());
+        }
     });
 });
 
@@ -196,6 +204,7 @@ var listarExternos = function () {
 }
 
 function obtener_recuperar(tbody, table) {
+    var actualizar;
     $(tbody).on("click", "button.recuperar", function () {
         var data = table.row($(this).parents("tr")).data();
         var pacRecuperar = { "IdPaciente": data.Clave, "EstatusPaciente": 1 };
@@ -203,17 +212,27 @@ function obtener_recuperar(tbody, table) {
             url: "/Pacientes/ActualizarEstatus",
             method: "POST",
             data: pacRecuperar,
-            cache: false,
-            beforeSend: function () {
-                $("#btnEliminarPaciente").html("Eliminando... <i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>").attr('disabled', true);
-            }
+            cache: false
         }).done(function (data) {
-            $("#modalBorrar").modal("hide");
+            if (data == "Paciente Recuperado con Exito") {
+                actualizar = true;
+            } else { actualizar = false; }
             $("#snackbar").html(data);
-        }).fail(manejarErrorAjax).always(function () {
-            $("#btnEliminarPaciente").html("Eliminar").attr('disabled', false);
+        }).fail(manejarErrorAjax, function () { actualizar = false; } ).always(function () {
             mostrarSnack();
-            setTimeout("location.reload()", 3000);
+            if (actualizar) {
+                if ($("#cmbTipoBuscar").val() == 1) {
+                    setTimeout(function () { $("#tbAlumnos").DataTable().ajax.reload(); }, 2000);
+                } else if ($("#cmbTipoBuscar").val() == 2) {
+                    setTimeout(function () { $("#tbDocentes").DataTable().ajax.reload(); }, 2000);
+                } else if ($("#cmbTipoBuscar").val() == 3) {
+                    setTimeout(function () { $("#tbPaaes").DataTable().ajax.reload(); }, 2000);
+                } else {
+                    setTimeout(function () { $("#tbExternos").DataTable().ajax.reload(); }, 2000);
+                }
+            } else {
+
+            }
         });
     });
 }
@@ -227,24 +246,17 @@ function obtener_borrar(tbody, table) {
     });
 }
 
-(function ($) {
-    $.fn.serializeFormJSON = function () {
-
-        var o = {};
-        var a = this.serializeArray();
-        $.each(a, function () {
-            if (o[this.name]) {
-                if (!o[this.name].push) {
-                    o[this.name] = [o[this.name]];
-                }
-                o[this.name].push(this.value || '');
-            } else {
-                o[this.name] = this.value || '';
-            }
-        });
-        return o;
-    };
-})(jQuery);
+function recargarTabla(tipo) {
+    if (tipo == 1) {
+        $('#tbAlumnos').DataTable().ajax.reload();
+    } else if (tipo == 2) {
+        $("#tbDocentes").DataTable().ajax.reload();
+    } else if (tipo == 3) {
+        $("#tbPaaes").DataTable().ajax.reload();
+    } else {
+        $("#tbExternos").DataTable().ajax.reload();
+    }
+}
 
 var idioma_español = {
     "sProcessing": "Procesando...",

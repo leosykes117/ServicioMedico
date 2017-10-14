@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Reporte del Mes";
+    Layout = "~/Views/Shared/_MenuPrincipal.cshtml";
+}
+
+<h2 class="text-capitalize">Reporte de @DateTime.Now.AddMonths(-1).ToString("MMMM/yyyy", new System.Globalization.CultureInfo("es-ES")) </h2>
+
+<div class="row">
+    <div class="col-md-12">
+        @if (Model == null || Model.Rows.Count == 0)
+        {
+            <div class="alert alert-danger">
+                <strong>Alerta <i class="fa fa-exclamation-circle"></i></strong> El reporte a&uacute;n no est&aacute; listo.
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th class="text-center" colspan="2">Alumnos</th>
+                        <th class="text-center" colspan="2">Docentes</th>
+                        <th class="text-center" colspan="2">Personal Administrativo</th>
+                        <th class="text-center" colspan="2">Externos</th>
+                        <th class="text-center" colspan="2">SubTotal</th>
+                        <th class="text-center" rowspan="2">Total</th>
+                    </tr>
+                    <tr>
+                        <td>Hombres</td>
+                        <td>Mujeres</td>
+
+                        <td>Hombres</td>
+                        <td>Mujeres</td>
+
+                        <td>Hombres</td>
+                        <td>Mujeres</td>
+
+                        <td>Hombres</td>
+                        <td>Mujeres</td>
+
+                        <td>Hombres</td>
+                        <td>Mujeres</td>
+                    </tr>
+                    @foreach (System.Data.DataRow row in Model.Rows)
+                    {
+                        <tr>
+                            @foreach (var cell in row.ItemArray)
+                            {
+                                <td>@cell.ToString()</td>
+                            }
+                        </tr>
+                    }
+                </table>
+            </div>
+
+            <div class="row">
+                <form id="frmDatosFecha" action="/Reportes/Archivo" method="post" autocomplete="off">
+                    @{
+                        DateTime now = DateTime.Now;
+                        <input type="hidden" id="txtFechaMes" name="mesR" value="@(now.Month-2)" />
+                        <input type="hidden" id="txtFechaYear" name="yearR" value="@now.Year" />
+                        <button type="submit" class="btn btn-primario btn-block" formtarget="_blank">Descargar Reporte</button>
+                    }
+                </form>
+            </div>
+        }
+    </div>
+</div>

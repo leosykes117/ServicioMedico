@@ -31,6 +31,11 @@
             </div>
         </form>
     </div>
+    <div class="col-md-3">
+        <a href="@Url.Action("Index","Pacientes")" class="btn btn-link">
+            <i class="fa fa-arrow-circle-o-left fa-lg" style="margin-right: 3px;"></i>Regresar a los Pacientes
+        </a>
+    </div>
 </div>
 
 <!--TABLA ALUMNOS-->
@@ -138,21 +143,24 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Eliminar Paciente</h4>
             </div>
-            <form id="frmEliminarPaciente" class="form-horizontal" autocomplete="off">
+            @using (Html.BeginForm("EliminarPaciente", "Pacientes", FormMethod.Post, new { id = "frmEliminarPaciente", @class = "form-horizontal", autocomplete = "off", accept_charset = "utf-8" }))
+            {
+                @Html.AntiForgeryToken()
                 <div class="modal-body">
                     <div class="container">
                         <div class="form-group">
-                            <h4>¿Seguro(a) que deseas eliminar a el paciente <u><strong id="nomEnviar"></strong></u>?</h4>
-                            <h4>Si lo eliminas no lo podras volver a recuperar.</h4>
+                            <p>¿Seguro(a) que deseas eliminar a el paciente <strong id="nomEnviar"></strong>?</p>
+                            <p>Se borran, todas las consultas relacionadas con este paciente<br />y no podras volver a recuperarlo</p>
                         </div>
-                        <input type="hidden" name="IdPaciente" id="txtidEnviar" readonly="readonly" />
+                        <input type="hidden" name="paciente" id="txtidEnviar" />
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <p class="pull-left text-danger"></p>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="submit" id="btnEliminarPaciente" class="btn btn-primario">Eliminar</button>
                 </div>
-            </form>
+            }
         </div>
     </div>
 </div>
@@ -164,6 +172,7 @@
     <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
     <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
     <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/scriptsVistas/serializeFormJSON.js"></script>
     <script src="~/Scripts/scriptsVistas/snackbar.min.js"></script>
     <script src="~/Scripts/scriptsVistas/pacEliminados.js"></script>
 }

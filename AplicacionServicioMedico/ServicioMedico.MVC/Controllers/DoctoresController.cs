@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Mvc;
+using System.Globalization;
 using System.Data;
 using ServicioMedico.DAL;
 using ServicioMedico.BO;
@@ -17,13 +18,6 @@ namespace ServicioMedico.MVC.Controllers
         // GET: Doctores
         public ActionResult Index()
         {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult Index(string mensaje)
-        {
-            ViewBag.mensaje = mensaje;
             return View();
         }
 

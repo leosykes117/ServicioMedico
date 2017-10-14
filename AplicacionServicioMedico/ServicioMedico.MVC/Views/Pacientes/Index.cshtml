@@ -14,6 +14,7 @@
         <h1 id="encabezadoPagina" class="page-header">Pacientes</h1>
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-9">
         <form action="" class="form-inline">
@@ -126,18 +127,19 @@
     </div>
 </div>
 
-<div class="row">
-    <button type="button" class="btn btn-info btn-block recargartb">Recargar Tabla <i class="fa fa-refresh" aria-hidden="true"></i></button>
+<div class="row" style="margin-top: 15px;">
+    <button type="button" id="recargartb" class="btn btn-info btn-block">Recargar Tabla <i class="fa fa-refresh" aria-hidden="true"></i></button>
 </div>
 
-<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="gridSystemModalLabel">Nuevo Paciente</h4>
+                <h4 class="modal-title" id="gridSystemModalLabel">Editar Paciente</h4>
             </div>
-            <form id="frmEditarPaciente" autocomplete="off" method="post">
+            <form id="frmEditarPaciente" autocomplete="off" method="post" accept-charset="utf-8">
+                @Html.AntiForgeryToken()
                 <div class="modal-body">
                     <div class="panel panel-default">
                         <div class="panel-heading">Datos del Paciente</div>
@@ -452,7 +454,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <label id="mensajeError"></label>
+                    <p id="mensajeError" class="pull-left text-danger"></p>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="submit" id="btnEditar" class="btn btn-primario">Editar Datos</button>
                 </div>
@@ -461,34 +463,26 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalBorrar">
+<div class="modal fade" id="modalBorrar" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Eliminar Paciente</h4>
             </div>
-            <form class="form-horizontal" autocomplete="off">
+            @using (Html.BeginForm("ActualizarEstatus", "Pacientes", FormMethod.Post, new { id = "frmActualizarEstatus", @class = "form-horizontal", autocomplete = "off", accept_charset = "utf-8" }))
+            {
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="txtnomEnviar" class="col-sm-6 control-label text-center">¿Seguro(a) que deseas eliminar a el paciente?</label>
-                        <div class="col-md-6">
-                            <input type="text" name="nom" id="txtnomEnviar" class="form-control" style="border:none; border-color:transparent;" readonly="readonly" />
-                        </div>
-                    </div>
-                    <input type="hidden" name="id" id="txtidEnviar" readonly="readonly" />
+                    <p>¿Seguro(a) que deseas eliminar a <strong id="txtnomEnviar"></strong>?</p>
+                    <input type="hidden" name="IdPaciente" id="txtidEnviar" readonly="readonly" />
+                    <input type="hidden" name="EstatusPaciente" id="txtestatusEnviar" value="0" readonly="readonly" />
                 </div>
                 <div class="modal-footer">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <button type="button" id="btnEliminarPaciente" class="btn btn-primario">Eliminar</button>
-                        </div>
-                    </div>
+                    <p class="pull-left text-danger"></p>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="btnEliminarPaciente" class="btn btn-primario">Eliminar</button>
                 </div>
-            </form>
+            }
         </div>
     </div>
 </div>

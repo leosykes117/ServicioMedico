@@ -23,32 +23,32 @@ END
 GO
 
 DECLARE @Mensaje AS NVARCHAR(100)
-EXEC insNuevaCategoria 'Antibioticos', @Mensaje OUTPUT
+EXEC insNuevaCategoria 'Antibióticos', @Mensaje OUTPUT
 SELECT @Mensaje AS Mensaje
 GO
 
 DECLARE @Mensaje AS NVARCHAR(100)
-EXEC insNuevaCategoria 'Vendas', @Mensaje OUTPUT
+EXEC insNuevaCategoria 'Antiinflamatorios', @Mensaje OUTPUT
 SELECT @Mensaje AS Mensaje
 GO
 
 DECLARE @Mensaje AS NVARCHAR(100)
-EXEC insNuevaCategoria 'Pomadas', @Mensaje OUTPUT
+EXEC insNuevaCategoria 'Antiácidos', @Mensaje OUTPUT
 SELECT @Mensaje AS Mensaje
 GO
 
 DECLARE @Mensaje AS NVARCHAR(100)
-EXEC insNuevaCategoria 'Gasas', @Mensaje OUTPUT
+EXEC insNuevaCategoria 'Antisépticos', @Mensaje OUTPUT
 SELECT @Mensaje AS Mensaje
 GO
 
 DECLARE @Mensaje AS NVARCHAR(100)
-EXEC insNuevaCategoria 'Analgesicos', @Mensaje OUTPUT
+EXEC insNuevaCategoria 'Laxantes', @Mensaje OUTPUT
 SELECT @Mensaje AS Mensaje
 GO
 
 DECLARE @Mensaje AS NVARCHAR(100)
-EXEC insNuevaCategoria 'Desinflamatorios', @Mensaje OUTPUT
+EXEC insNuevaCategoria 'Analgésicos', @Mensaje OUTPUT
 SELECT @Mensaje AS Mensaje
 GO
 

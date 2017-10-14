@@ -16,6 +16,10 @@
                 <h2>Centro de Estudios Cientifos y Tecnologicos N° 13</h2>
                 <h1>Servicio Médico Escolar</h1>
             </div>
+            <div id="mensajes" class="alert alert-danger alert-dismissable">
+                <a class="close">&times;</a>
+                <strong>Error!</strong><p id="textoError">Indicates a successful or positive action.</p>
+            </div>
             <div class="well texto">
                 <label>Inicia tu Sesi&oacute;n</label>
                 <div class="form-horizontal" accept-charset="UTF-8">
@@ -36,32 +40,34 @@
                 </div>
                 <p>¿No tienes una cuenta? @Html.ActionLink("Registrate", "Registro", "Sesion", null, new {@class = "btn btn-link" })</p>
             </div>
-            <div id="mensajes" class="alert alert-danger alert-dismissable">
-                <a class="close">&times;</a>
-                <strong>Error!</strong><p id="textoError">Indicates a successful or positive action.</p>
-            </div>
         </div>
     </div>
     <footer class="row">
-        <div class="col-xs-12 col-md-4">
-            <p class="text-justify">Algunos contenidos están protegidos por los derechos de autor ©1998–2017 de determinados colaboradores en mozilla.org. El resto de contenidos están disponibles bajo una licencia Creative Commons.</p>
-        </div>
-        <div class="col-xs-12 col-md-4">
-            <p class="text-justify">Aplicacion Web Creada por <strong>Leonardo Antonio Arellano Martinez.</strong></p>
-        </div>
-        <address class="col-xs-12 col-md-4">
+        <div class="col-md-4">
+            <h2>Getting started</h2>
             <p>
-                <i class="fa fa-envelope" aria-hidden="true"></i>
-                <strong> Correo: </strong>
-                leo.aremtz98@mail.com
-
-                <br>
-
-                <i class="fa fa-mobile fa-lg" aria-hidden="true"></i>
-                <strong> Celular: </strong>
-                55-14-67-04-31
+                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+                enables a clean separation of concerns and gives you full control over markup
+                for enjoyable, agile development.
             </p>
-        </address>
+        </div>
+        <div class="col-md-4">
+            <p>
+                Aplicaci&oacute;n Web Creada por <strong>Leonardo Antonio Arellano Martinez.</strong>
+            </p> 
+            <br />
+        </div>
+        <div class="col-md-4">
+            <address>
+                <i class="fa fa-envelope" aria-hidden="true"></i> <strong> Correo: </strong>
+                leo.aremtz98@gmail.com
+            </address>
+
+            <address>
+                <i class="fa fa-mobile fa-lg" aria-hidden="true"></i> <strong> Celular: </strong>
+                55-14-67-04-31
+            </address>
+        </div>
     </footer>
     <div class="container body-content">
         @RenderBody()

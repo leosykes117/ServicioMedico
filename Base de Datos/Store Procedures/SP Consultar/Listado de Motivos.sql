@@ -8,7 +8,7 @@ GO
 CREATE PROC selListadoMotivos
 AS
 BEGIN
-	SELECT IdMotivo AS 'CveMot', DescripcionMotivo AS 'Motivo' FROM tbMotivosConsultas
+	SELECT IdMotivo AS 'CveMot', DescripcionMotivo AS 'Motivo' FROM tbMotivos
 END
 GO
 

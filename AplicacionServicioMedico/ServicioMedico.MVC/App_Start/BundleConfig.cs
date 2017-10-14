@@ -26,8 +26,7 @@ namespace ServicioMedico.MVC
             //SCRIPTS PARA LA VISTA DE MENU PRINCIPAL
             bundles.Add(new ScriptBundle("~/Menu/scripts").Include(
                         "~/Scripts/jquery-3.1.1.min.js",
-                        "~/Scripts/bootstrap.min.js",
-                        "~/Scripts/scriptsVistas/menu.js"));
+                        "~/Scripts/bootstrap.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

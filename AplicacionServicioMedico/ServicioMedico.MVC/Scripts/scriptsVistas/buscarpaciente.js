@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    $("li#linkInicio").removeClass("activado");
+    $("ul#consulta").addClass("in");
+    $("a#linkNuevaC").addClass("activado");
     MostrarTabla($("#cmbTipoBuscar").val());
 });
 
@@ -41,24 +44,25 @@ $('#dtpFechaNac').datetimepicker({
 
 $("#dtpFechaNac").focusout(function () {
     var nacimiento = moment($(this).val());
-    if(nacimiento == null) {
+    if (nacimiento != null) {
         var hoy = moment();
         var edad = hoy.diff(nacimiento, "years");
         $("#txtEdad").val(edad);
     }
     else{
         $("#txtEdad").val(null);
-    }
+    }   
 });
 
 $("#frmAgregarPaciente").on("submit", function (event) {
+    var actualizar;
     event.preventDefault();
     var nuevoPaciente = $(this).serializeFormJSON();
     if (nuevoPaciente.tipoPaciente == 1) {
 
         $.ajax({
-            url: "/Pacientes/AgregarAlumno",
-            method: "POST",
+            url: $(this).attr("action"),
+            method: $(this).attr("method"),
             data: nuevoPaciente,
             cache: false,
             beforeSend: function () {
@@ -66,6 +70,7 @@ $("#frmAgregarPaciente").on("submit", function (event) {
             }
         }).done(function (data) {
             if (data[0] == "Registrado") {
+                actualizar = true;
                 $("#txtidEnviar").val(data[1]);
                 $("#txtnomEnviar").val(data[2]);
                 $("#txtedadEnviar").val(data[3]);
@@ -73,10 +78,17 @@ $("#frmAgregarPaciente").on("submit", function (event) {
                 $("#modalDatos").modal("hide");
                 $("#modalConsulta").modal("show");
             } else {
+                actualizar = false;
                 $("#mensajeError").html(data);
             }
-        }).fail(manejarErrorAjax).always(function () {
+        }).fail(function (jqXHR, err) {
+            actualizar = false;
+            $("#mensajeError").html(err);
+        }).always(function () {
             $("#btnAgregarPaciente").html("Agregar Paciente").removeAttr("disabled");
+            if (actualizar) {
+                recargarTabla(1);
+            }
         });
 
     } else if (nuevoPaciente.tipoPaciente == 2 || nuevoPaciente.tipoPaciente == 3) {
@@ -90,8 +102,8 @@ $("#frmAgregarPaciente").on("submit", function (event) {
                 $("#btnAgregarPaciente").html("Agregando...<i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>").attr("disabled","true");
             }
         }).done(function (data) {
-
             if (data[0] == "Registrado") {
+                actualizar = true;
                 $("#txtidEnviar").val(data[1]);
                 $("#txtnomEnviar").val(data[2]);
                 $("#txtedadEnviar").val(data[3]);
@@ -99,10 +111,17 @@ $("#frmAgregarPaciente").on("submit", function (event) {
                 $("#modalDatos").modal("hide");
                 $("#modalConsulta").modal("show");
             } else {
+                actualizar = false;
                 $("#mensajeError").html(data);
             }
-        }).fail(manejarErrorAjax).always(function () {
+        }).fail(function (jqXHR, err) {
+            actualizar = false;
+            $("#mensajeError").html(err);
+        }).always(function () {
             $("#btnAgregarPaciente").html("Agregar Paciente").removeAttr("disabled");
+            if (actualizar) {
+                recargarTabla(nuevoPaciente.tipoPaciente);
+            }
         });
 
     } else {
@@ -116,8 +135,8 @@ $("#frmAgregarPaciente").on("submit", function (event) {
                 $("#btnAgregarPaciente").html("Agregando...<i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>").attr("disabled","true");
             }
         }).done(function (data) {
-
             if (data[0] == "Registrado") {
+                actualizar = true;
                 $("#txtidEnviar").val(data[1]);
                 $("#txtnomEnviar").val(data[2]);
                 $("#txtedadEnviar").val(data[3]);
@@ -125,27 +144,25 @@ $("#frmAgregarPaciente").on("submit", function (event) {
                 $("#modalDatos").modal("hide");
                 $("#modalConsulta").modal("show");
             } else {
+                actualizar = false;
                 $("#mensajeError").html(data);
             }
-        }).fail(manejarErrorAjax).always(function () {
+        }).fail(function (jqXHR, err) {
+            actualizar = false;
+            $("#mensajeError").html(err);
+        }).always(function () {
             $("#btnAgregarPaciente").html("Agregar Paciente").removeAttr("disabled");
+            if (actualizar) {
+                recargarTabla(4);
+            }
         });
 
     }
 });
 
-$(".recargartb").click(function () {
-    if ($("#cmbTipoBuscar").val() == 1) {
-        listarAlumnos();
-    } else if ($("#cmbTipoBuscar").val() == 2) {
-        listarDoc();
-    } else if ($("#cmbTipoBuscar").val() == 3) {
-        listarPaae();
-    } else {
-        listarExternos();
-    }
+$(document).on("click", "#recargartb", function () {
+    recargarTabla($("#cmbTipoBuscar").val());
 });
-
 
 function MostrarTabla(tipo) {
     if (tipo == 1) {
@@ -173,7 +190,7 @@ function MostrarTabla(tipo) {
             $("#Alumnos").hide();
             $("#Paaes").hide();
             $("#Externos").hide();
-        } 
+        }
     } else if (tipo == 3) {
         if ($("#tbPaaes tbody tr").children().length < 1) {
             listarPaae();
@@ -300,6 +317,18 @@ function obtener_consulta(tbody, table) {
         $("#txtgeneroEnviar").val(data.ClaveGenero);
         $("#modalConsulta").modal("show");
     });
+}
+
+function recargarTabla(tipo) {
+    if (tipo == 1) {
+        $('#tbAlumnos').DataTable().ajax.reload();
+    } else if (tipo == 2) {
+        $("#tbDocentes").DataTable().ajax.reload();
+    } else if (tipo == 3) {
+        $("#tbPaaes").DataTable().ajax.reload();
+    } else {
+        $("#tbExternos").DataTable().ajax.reload();
+    }
 }
 
 var idioma_español = {

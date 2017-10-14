@@ -1,81 +1,139 @@
-USE FlashConsultas
+USE ServicioMedico
 GO
 
-IF OBJECT_ID('selCraerReporte') IS NOT NULL
-DROP PROC selCraerReporte
+IF OBJECT_ID('insCraerReporte') IS NOT NULL
+DROP PROC insCraerReporte
 GO
 
-CREATE PROCEDURE selCraerReporte
-(
+CREATE PROCEDURE insNuevoReporte
 @Mes INT,
-@Consultorio INT,
-@MasAlum INT OUTPUT,
-@FemAlum INT OUTPUT,
-@MasDoc INT OUTPUT,
-@FemDoc INT OUTPUT,
-@MasPae INT OUTPUT,
-@FemPae INT OUTPUT,
-@MasExt INT OUTPUT,
-@FemExt INT OUTPUT
-)
+@YEAR INT,
+@ID INT OUTPUT
 AS
 BEGIN
 	--TRAR LA SUMA DE TODOS LOS HOMBRE DE LA TABLA ALUMNOS
-	SELECT @MasAlum = COUNT(TablaAlumnos.[Sexo A])
-	FROM TablaConsultasAlumnos INNER JOIN TablaAlumnos ON TablaAlumnos.Boleta=TablaConsultasAlumnos.[CVE Boleta]
-	WHERE MONTH([Fecha (Alumnos)])=@Mes AND [Sexo A]='Masculino' AND [CVE Doctor (Alumnos)]=@Consultorio
+	DECLARE @HombreA AS INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE TipoPaciente = 1 AND GeneroPaciente = 1) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
+
 	--TRER LA SUMA DE TODAS LAS MUJERES DE LA TABLA ALUMNOS
-	SELECT @FemAlum =  COUNT(TablaAlumnos.[Sexo A])
-	FROM TablaConsultasAlumnos INNER JOIN TablaAlumnos ON TablaAlumnos.Boleta=TablaConsultasAlumnos.[CVE Boleta]
-	WHERE MONTH([Fecha (Alumnos)])=@Mes AND [Sexo A]='Femenino' AND [CVE Doctor (Alumnos)]=@Consultorio
+	DECLARE @MujeresA AS INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE TipoPaciente = 1 AND GeneroPaciente = 2) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
 	
 	--TRAER LA SUMA DE TODOS LOS HOMBRE DE LA TABLA DOCENTES
-	SELECT @MasDoc = COUNT(TablaDocentes.[Sexo D])
-	FROM TablaConsultasDocentes INNER JOIN TablaDocentes ON TablaDocentes.[ID Docente]=TablaConsultasDocentes.[CVE Docente]
-	WHERE MONTH([Fecha (Docentes)])=@Mes AND [Sexo D]='Masculino' AND [CVE Doctor (Docentes)]=@Consultorio
+	DECLARE @HombreD AS INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE TipoPaciente = 2 AND GeneroPaciente = 1) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
+
 	--TRER LA SUMA DE TODAS LAS MUJERES DE LA TABLA DOCENTES
-	SELECT @FemDoc = COUNT(TablaDocentes.[Sexo D])
-	FROM TablaConsultasDocentes INNER JOIN TablaDocentes ON TablaDocentes.[ID Docente]=TablaConsultasDocentes.[CVE Docente]
-	WHERE MONTH([Fecha (Docentes)])=@Mes AND [Sexo D]='Femenino' AND [CVE Doctor (Docentes)]=@Consultorio
+	DECLARE @MujeresD AS INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE TipoPaciente = 2 AND GeneroPaciente = 2) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
 
 	--TRAER LA SUMA DE TODOS LOS HOMBRE DE LA TABLA PAES
-	SELECT @MasPae = COUNT(TablaPAES.[Sexo PAE])
-	FROM TablaConsultasPAE INNER JOIN TablaPAES ON TablaPAES.[ID PAE]=TablaConsultasPAE.[CVE PAE]
-	WHERE MONTH([Fecha (PAE)])=@Mes AND [Sexo PAE]='Masculino' AND [CVE Doctor (PAE)]=@Consultorio
+	DECLARE @HombreP AS INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE TipoPaciente = 3 AND GeneroPaciente = 1) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
+
 	--TRER LA SUMA DE TODAS LAS MUJERES DE LA TABLA PAES
-	SELECT @FemPae = COUNT(TablaPAES.[Sexo PAE])
-	FROM TablaConsultasPAE INNER JOIN TablaPAES ON TablaPAES.[ID PAE]=TablaConsultasPAE.[CVE PAE]
-	WHERE MONTH([Fecha (PAE)])=@Mes AND [Sexo PAE]='Femenino' AND [CVE Doctor (PAE)]=@Consultorio
+	DECLARE @MujeresP AS INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE TipoPaciente = 3 AND GeneroPaciente = 2) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
 
 	--TRAER LA SUMA DE TODOS LOS HOMBRE DE LA TABLA EXTERNOS
-	SELECT @MasExt = COUNT(TablaExternos.[Sexo E])
-	FROM TablaConsultasExternos INNER JOIN TablaExternos ON TablaExternos.[ID Externo]=TablaConsultasExternos.[CVE Externos]
-	WHERE MONTH([Fecha (Externos)])=@Mes AND [Sexo E]='Masculino' AND [CVE Doctor (Externos)]=@Consultorio
+	DECLARE @HombreE AS INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE TipoPaciente = 4 AND GeneroPaciente = 1) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
+
 	--TRAER LA SUMA DE TODOS LAS MUJERES DE LA TABLA EXTERNOS
-	SELECT @FemExt = COUNT(TablaExternos.[Sexo E])
-	FROM TablaConsultasExternos INNER JOIN TablaExternos ON TablaExternos.[ID Externo]=TablaConsultasExternos.[CVE Externos]
-	WHERE MONTH([Fecha (Externos)])=@Mes AND [Sexo E]='Femenino' AND [CVE Doctor (Externos)]=@Consultorio
+	DECLARE @MujeresE AS INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE TipoPaciente = 4 AND GeneroPaciente = 2) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
+
+	DECLARE @SubtotalH INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE GeneroPaciente = 1) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
+
+	DECLARE @SubtotalM INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE GeneroPaciente = 2) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) -- AND [CVE Doctor (Alumnos)]=@Consultorio
+
+	DECLARE @Total INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1)
+
+	INSERT INTO Reporte 
+	VALUES(NULL, @Mes,@YEAR, @HombreA, @MujeresA, @HombreD, @MujeresD, @HombreP, @MujeresP, @HombreE, @MujeresE, @SubtotalH, @SubtotalM, @Total, NULL)
+	SET @ID = @@IDENTITY
 END
 GO
 
 
 
-SELECT * FROM TablaConsultasAlumnos
-select * from TablaAlumnos
-SELECT * FROM TablaDocentes
-SELECT * FROM TablaConsultasDocentes
-SELECT * FROM TablaPAES
-SELECT * FROM TablaConsultasPAE
-SELECT * FROM TablaExternos
-SELECT * FROM TablaConsultasExternos
+IF OBJECT_ID('selCraerReporte') IS NOT NULL
+DROP PROC selCraerReporte
+GO
 
-SELECT COUNT(TablaAlumnos.[Sexo A])
-FROM TablaConsultasAlumnos INNER JOIN TablaAlumnos ON TablaAlumnos.Boleta=TablaConsultasAlumnos.[CVE Boleta]
-WHERE MONTH([Fecha (Alumnos)]) = 10 AND [Sexo A] = 'Masculino' AND [CVE Doctor (Alumnos)] = 501
+CREATE PROC selCraerReporte
+@Mes INT,
+@YEAR INT
+AS
+BEGIN
+	--TRAR LA SUMA DE TODOS LOS HOMBRE DE LA TABLA ALUMNOS
+	DECLARE @HombreA AS INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE TipoPaciente = 1 AND GeneroPaciente = 1) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
 
+	--TRER LA SUMA DE TODAS LAS MUJERES DE LA TABLA ALUMNOS
+	DECLARE @MujeresA AS INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE TipoPaciente = 1 AND GeneroPaciente = 2) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
+	
+	--TRAER LA SUMA DE TODOS LOS HOMBRE DE LA TABLA DOCENTES
+	DECLARE @HombreD AS INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE TipoPaciente = 2 AND GeneroPaciente = 1) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
 
+	--TRER LA SUMA DE TODAS LAS MUJERES DE LA TABLA DOCENTES
+	DECLARE @MujeresD AS INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE TipoPaciente = 2 AND GeneroPaciente = 2) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
 
-SELECT COUNT([Sexo A]) AS 'Hombre', COUNT([Sexo A]) AS 'Mujeres' FROM TablaAlumnos
-WHERE [Sexo A] = 'Masculino' AND AS 'Mujeres' = 'Femenino'
+	--TRAER LA SUMA DE TODOS LOS HOMBRE DE LA TABLA PAES
+	DECLARE @HombreP AS INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE TipoPaciente = 3 AND GeneroPaciente = 1) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
 
+	--TRER LA SUMA DE TODAS LAS MUJERES DE LA TABLA PAES
+	DECLARE @MujeresP AS INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE TipoPaciente = 3 AND GeneroPaciente = 2) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
 
+	--TRAER LA SUMA DE TODOS LOS HOMBRE DE LA TABLA EXTERNOS
+	DECLARE @HombreE AS INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE TipoPaciente = 4 AND GeneroPaciente = 1) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
+
+	--TRAER LA SUMA DE TODOS LAS MUJERES DE LA TABLA EXTERNOS
+	DECLARE @MujeresE AS INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE TipoPaciente = 4 AND GeneroPaciente = 2) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
+
+	DECLARE @SubtotalH INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE GeneroPaciente = 1) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) --CveDoctor = Un numero
+
+	DECLARE @SubtotalM INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE CvePaciente IN (SELECT IdPaciente FROM tbPacientes WHERE GeneroPaciente = 2) 
+	AND MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1) -- AND [CVE Doctor (Alumnos)]=@Consultorio
+
+	DECLARE @Total INT = (SELECT COUNT(*) FROM tbConsultas
+	WHERE MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1)
+	
+	SELECT @HombreA as 'AlumnosH', @MujeresA as 'AlumnosM', 
+			@HombreD as 'DocentesH', @MujeresD 'DocentesM', 
+			@HombreP as 'PaaesH', @MujeresP as 'PaaesM', 
+			@HombreE as 'ExternosH', @MujeresE as 'ExternosM', 
+			@SubtotalH as 'SubtotalH', @SubtotalM as 'SubtotalM', @Total as 'Total'
+END
+GO

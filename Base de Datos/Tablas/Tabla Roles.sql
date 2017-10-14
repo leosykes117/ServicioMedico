@@ -1,24 +1,25 @@
 USE ServicioMedico
 GO
 
-IF OBJECT_ID('TablaRoles') IS NOT NULL
-DROP TABLE TablaRoles
+IF OBJECT_ID('Roles') IS NOT NULL
+DROP TABLE Roles
 GO
 
-CREATE TABLE TablaRoles
+CREATE TABLE Roles
 (
-IDRol SMALLINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+IdRol SMALLINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 Roles NVARCHAR(13)
 )
 GO
 
-INSERT INTO TablaRoles
+INSERT INTO Roles
 VALUES
 ('Administrador'),
 ('Doctor'),
 ('Pasante')
+go
 
-SELECT * FROM TablaRoles
+SELECT * FROM Roles
 GO
 
 ------------------------TABLA CONSULTORIOS---------------------------

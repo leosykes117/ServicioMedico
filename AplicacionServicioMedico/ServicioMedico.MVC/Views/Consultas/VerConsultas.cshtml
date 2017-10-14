@@ -7,14 +7,23 @@
     ViewBag.Title = "Ver Consultas";
     Layout = "~/Views/Shared/_MenuPrincipal.cshtml";
 }
-<!-- ENCABEZADO -->
+
 <div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">Todas las Consultas</h1>
+    <div class="col-md-12">
+        <h1 id="encabezadoPagina" class="page-header">Consultas</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-9">
         <form action="" class="form-inline">
-            <div class="form-group" style="margin-right: 35px;">
+            <div class="form-group">
+                <input type="hidden" id="Estatus" value="1" />
+            </div>
+
+            <div class="form-group">
                 <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-users fa-lg" aria-text="true"></i></div>
+                    <div class="input-group-addon"><i class="fa fa-users fa-lg" aria-hidden="true"></i></div>
                     <select id="cmbTipoPaciente" class="form-control" aria-describedby="helpBlock">
                         <option value="1">Alumno</option>
                         <option value="2">Docente</option>
@@ -47,33 +56,120 @@
             </div>
         </form>
     </div>
+    <div class="col-md-3">@Html.ActionLink("Click Aqui para ver las Consultas Eliminados", "ConsultasEliminadas", null, new { @class = "btn btn-link" })</div>
 </div>
-<!--FIN DEL ENCABEZADO-->
 
-<!--TABLA DE CONSULTAS-->
-<div class="row">
-    <h2 id="tituloTb">Tabla de Consultas Alumnos</h2>
+
+<!--TABLA ALUMNOS-->
+<div class="row" id="Alumnos">
+    <h2>Tabla Alumnos</h2>
     <div class="table-responsive">
-        <table id="tbConsultas" class="table table-bordered table-hover">
+        <table id="tbAlumnos" class="table table-bordered table-hover" cellspacing="50">
             <thead>
                 <tr>
                     <th>Nombre</th>
-                    <th>Apellidos</th>
                     <th>Genero</th>
-                    <th>Antendio</th>
+                    <th>Atendio</th>
                     <th>Diagnostico</th>
                     <th>Fecha</th>
-                    <th>Hora Entrada</th>
-                    <th>Hora Salida</th>
-                    <th>Duracion Consulta</th>
-                    <th>Medicamento</th>
-                    <th>Cantidad Suminstrada</th>
+                    <th>Hora de Entrada</th>
+                    <th>Hora de Salida</th>
+                    <th>Duracion de la Consulta</th>
+                    <th>Temp.</th>
+                    <th>T.A</th>
+                    <th>F.C</th>
+                    <th>F.R</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
     </div>
+</div>
+
+<!--TABLA DOCENTES-->
+<div class="row" id="Docentes">
+    <h2>Tabla Docentes</h2>
+    <div class="table-responsive">
+        <table id="tbDocentes" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Genero</th>
+                    <th>Atendio</th>
+                    <th>Diagnostico</th>
+                    <th>Fecha</th>
+                    <th>Hora de Entrada</th>
+                    <th>Hora de Salida</th>
+                    <th>Duracion de la Consulta</th>
+                    <th>Temp.</th>
+                    <th>T.A</th>
+                    <th>F.C</th>
+                    <th>F.R</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<!--TABLA PAAES-->
+<div class="row" id="Paaes">
+    <h2>Tabla Personal Administrativo</h2>
+    <div class="table-responsive">
+        <table id="tbPaaes" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Genero</th>
+                    <th>Atendio</th>
+                    <th>Diagnostico</th>
+                    <th>Fecha</th>
+                    <th>Hora de Entrada</th>
+                    <th>Hora de Salida</th>
+                    <th>Duracion de la Consulta</th>
+                    <th>Temp.</th>
+                    <th>T.A</th>
+                    <th>F.C</th>
+                    <th>F.R</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<!--TABLA EXTERNOS-->
+<div class="row" id="Externos">
+    <h2>Tabla Externo</h2>
+    <div class="table-responsive">
+        <table id="tbExternos" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Genero</th>
+                    <th>Atendio</th>
+                    <th>Diagnostico</th>
+                    <th>Fecha</th>
+                    <th>Hora de Entrada</th>
+                    <th>Hora de Salida</th>
+                    <th>Duracion de la Consulta</th>
+                    <th>Temp.</th>
+                    <th>T.A</th>
+                    <th>F.C</th>
+                    <th>F.R</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 15px;">
+    <button type="button" id="recargartb" class="btn btn-info btn-block">Recargar Tabla <i class="fa fa-refresh" aria-hidden="true"></i></button>
 </div>
 
 <div class="modal fade" id="modalConsultaEditar">
@@ -83,33 +179,56 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Editar Consulta</h4>
             </div>
-            <form id="frmEnviarDatosConsulta" action="~/Consultas/EditarConsulta" method="post" class="form-horizontal" autocomplete="off">
-                <div class="modal-body text-center">
-                    ¿Estas seguro que deseas editar esta consulta?
+            @using (Html.BeginForm("EditarConsulta", "Consultas", FormMethod.Post,
+                new { id = "frmEnviarDatosConsulta", @class = "form-horizontal", autocomplete = "off", accept_charset = "utf-8" }))
+            {
+                <div class="modal-body">
+                    <p>¿Estas seguro que deseas editar esta consulta?</p>
                     <input type="hidden" name="id" id="txtClave" class="form-control">
                     <input type="hidden" name="nom" id="txtNombre" class="form-control">
                     <input type="hidden" name="edad" id="txtEdad" class="form-control">
                     <input type="hidden" name="genero" id="txtGenero" class="form-control">
-                    <input type="hidden" name="diagnostico" id="txtDiagnostico" class="form-control">
-                    <input type="hidden" name="fecha" id="txtFecha" class="form-control">
-                    <input type="hidden" name="entrada" id="txtHoraEntrada" class="form-control">
-                    <input type="hidden" name="salida" id="txtHoraSalida" class="form-control">
-                    <input type="hidden" name="duracion" id="txtDuracion" class="form-control">
-                    <input type="hidden" name="medicamento" id="txtMedicamento" class="form-control">
-                    <input type="hidden" name="motivo" id="txtMotivo" class="form-control">
-                    <input type="hidden" name="cantidad" id="txtCantidad" class="form-control">
+                    <input type="hidden" name="Diagnostico" id="txtDiagnostico" class="form-control">
+                    <input type="hidden" name="Observaciones" id="txtObservaciones" class="form-control" />
+                    <input type="hidden" name="CveDoctor" id="txtCveDoctor" class="form-control" />
+                    <input type="hidden" name="FechaConsulta" id="txtFecha" class="form-control">
+                    <input type="hidden" name="HoraEntrada" id="txtHoraEntrada" class="form-control">
+                    <input type="hidden" name="HoraSalida" id="txtHoraSalida" class="form-control">
+                    <input type="hidden" name="Temperatura" id="txtTemperatura" class="form-control">
+                    <input type="hidden" name="TA" id="txtTA" class="form-control">
+                    <input type="hidden" name="FC" id="txtFC" class="form-control">
+                    <input type="hidden" name="FR" id="txtFR" class="form-control">
                 </div>
                 <div class="modal-footer">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" id="btnEditarConsulta" name="EditarConsulta" class="btn btn-primario">Ir a Editar</button>
-                        </div>
-                    </div>
+                    <p id="EditarError" class="pull-left text-danger"></p>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="btnEditarConsulta" name="EditarConsulta" class="btn btn-primario">Ir a Editar</button>
                 </div>
-            </form>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEliminar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Eliminar Consulta</h4>
+            </div>
+            @using (Html.BeginForm("CambiarEstatus", "Consultas", FormMethod.Post,
+                            new { id = "frmCambiarEstatus", @class = "form-horizontal", autocomplete = "off", accept_charset = "utf-8" }))
+            {
+                <div class="modal-body">
+                    <p>¿Seguro que deseas eliminar esta consulta?</p>
+                    <input type="hidden" id="txtConsultaDelete" name="consulta" />
+                </div>
+                <div class="modal-footer">
+                    <p class="pull-left text-danger"></p>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="btnEliminarConsulta" class="btn btn-primario">Eliminar</button>
+                </div>
+            }
         </div>
     </div>
 </div>
@@ -121,6 +240,8 @@
     <!--script src="~/Scripts/moment.js"></script-->
     <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
     <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/scriptsVistas/serializeFormJSON.js"></script>
+    <script src="~/Scripts/BSConfirmation/bootstrap-confirmation.min.js"></script>
     <script src="~/Scripts/scriptsVistas/snackbar.min.js"></script>
     <script src="~/Scripts/scriptsVistas/verConsultas.js"></script>
 }

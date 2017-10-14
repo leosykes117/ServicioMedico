@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data;
-using ServicioMedico.DAL;
 using ServicioMedico.BO;
 using ServicioMedico.BLL;
 using Newtonsoft.Json;
@@ -20,7 +19,14 @@ namespace ServicioMedico.MVC.Controllers
             return View();
         }
 
-        [HttpGet]
+       [HttpGet]
+       public JsonResult MedicamentosConsultas(int cve)
+        {
+            List<Medicamentos_Consultas> listaMed = (List<Medicamentos_Consultas>)MedicamentosLog.MedicamentosenConsulta(cve);
+            return Json( listaMed, JsonRequestBehavior.AllowGet );
+        }
+
+        /*[HttpGet]
         public JsonResult ListadoMedicamentos()
         {
             MedicamentosDAL listado = new MedicamentosDAL();
@@ -37,9 +43,9 @@ namespace ServicioMedico.MVC.Controllers
                 rows.Add(row);
             }
             return Json(rows, JsonRequestBehavior.AllowGet);
-        }
+        }*/
 
-        [HttpPost]
+        /*[HttpPost]
         public JsonResult AgregarMedicamento(Medicamentos medicamento)
         {
             string json = string.Empty;
@@ -65,6 +71,6 @@ namespace ServicioMedico.MVC.Controllers
                 rows.Add(row);
             }
             return Json(rows, JsonRequestBehavior.AllowGet);
-        }
+        }*/
     }
 }

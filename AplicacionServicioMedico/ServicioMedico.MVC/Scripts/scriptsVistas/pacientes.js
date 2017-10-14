@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+    $("li#linkInicio").removeClass("activado");
+    $("ul#pacientes").addClass("in");
+    $("a#linkPacientes").addClass("activado");
     MostrarTabla($("#cmbTipoBuscar").val());
 });
 
@@ -50,11 +53,11 @@ $("#dtpFechaNac").focusout(function () {
 });
 
 $("#frmEditarPaciente").on("submit", function (e) {
+    var actualizar;
     e.preventDefault();
     var tPaciente = $("#cmbTipo").val();
     if (tPaciente == 1) {
         var aluActualizar = $(this).serializeFormJSON();
-        console.log(aluActualizar);
         $.ajax({
             url: "/Pacientes/ActualizarAlumno",
             method: "POST",
@@ -65,14 +68,22 @@ $("#frmEditarPaciente").on("submit", function (e) {
             }
         }).done(function (data) {
             if (data == "Alumno Actualizado con Exito") {
+                actualizar = true;
                 $("#snackbar").html(data);
             } else {
+                actualizar = false;
                 $("#snackbar").html("Ocurrio un error inesperado");
             }
-        }).fail(manejarErrorAjax).always(function () {
+        }).fail(function (jqXHR, err) {
+            actualizar = false;
+            $("#snackbar").html(err);
+        }).always(function () {
             $("#modalEditar").modal("hide");
-            $("#btnEditar").html("Editar Datos").attr('disabled', false);
+            $("#btnEditar").html("Editar Datos").removeAttr('disabled');
             mostrarSnack();
+            if (actualizar) {
+                recargarTabla(aluActualizar.TipoPaciente);
+            }
         });
 
     } else if (tPaciente == 2 || tPaciente == 3) {
@@ -87,14 +98,22 @@ $("#frmEditarPaciente").on("submit", function (e) {
             }
         }).done(function (data) {
             if (data == "Personal Escolar Actualizado con Exito") {
+                actualizar = true;
                 $("#snackbar").html(data);
             } else {
+                actualizar = false;
                 $("#snackbar").html("Ocurrio un error inesperado");
             }
-        }).fail(manejarErrorAjax).always(function () {
+        }).fail(function (jqXHR, err) {
+            actualizar = false;
+            $("#snackbar").html(err);
+        }).always(function () {
             $("#modalEditar").modal("hide");
-            $("#btnEditar").html("Editar Datos").attr('disabled', false);
+            $("#btnEditar").html("Editar Datos").removeAttr('disabled');
             mostrarSnack();
+            if (actualizar) {
+                recargarTabla(personalActualizar.TipoPaciente);
+            }
         });
 
     } else {
@@ -109,49 +128,61 @@ $("#frmEditarPaciente").on("submit", function (e) {
             }
         }).done(function (data) {
             if (data == "Paciente Externo Actualizado con Exito") {
+                actualizar = true;
                 $("#snackbar").html(data);
             } else {
+                actualizar = false;
                 $("#snackbar").html("Ocurrio un error inesperado");
             }
-        }).fail(manejarErrorAjax).always(function () {
+        }).fail(function (jqXHR, err) {
+            actualizar = false;
+            $("#snackbar").html(err);
+        }).always(function () {
             $("#modalEditar").modal("hide");
-            $("#btnEditar").html("Editar Datos").attr('disabled', false);
+            $("#btnEditar").html("Editar Datos").removeAttr('disabled');
             mostrarSnack();
-            setTimeout("location.reload()", 3000);
+            if (actualizar) {
+                recargarTabla(extActualizar.TipoPaciente);
+            }
         });
     }
 });
 
-$("#btnEliminarPaciente").click(function () {
-    var pacEliminar = { "IdPaciente": $("#txtidEnviar").val(), EstatusPaciente: 0 }
+$("#frmActualizarEstatus").on("submit", function (e) {
+    e.preventDefault();
+    var actualizar;
+    var tPaciente = $("#cmbTipoBuscar").val();
+    var pacEliminar = $(this).serializeFormJSON();
     $.ajax({
-        url: "/Pacientes/ActualizarEstatus",
-        method: "POST",
+        url: $(this).attr("action"),
+        method: $(this).attr("method"),
         data: pacEliminar,
         cache: false,
         beforeSend: function () {
             $("#btnEliminarPaciente").html("Eliminando... <i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>").attr('disabled', true);
         }
     }).done(function (data) {
-        $("#modalBorrar").modal("hide");
+        if (data == "Paciente Eliminado con Exito") {
+            actualizar = true;
+        } else {
+            actualizar = false;
+        }
         $("#snackbar").html(data);
-    }).fail(manejarErrorAjax).always(function () {
-        $("#btnEliminarPaciente").html("Eliminar").attr('disabled', false);
+    }).fail(function (jqXHR, err) {
+        actualizar = false;
+        $("#snackbar").html(err);
+    }).always(function () {
+        $("#btnEliminarPaciente").html("Eliminar").removeAttr('disabled');
+        $("#modalBorrar").modal("hide");
         mostrarSnack();
-        setTimeout("location.reload()", 3000);
+        if (actualizar) {
+            recargarTabla(tPaciente);
+        }
     });
 });
 
-$(".recargartb").click(function () {
-    if ($("#cmbTipoBuscar").val() == 1) {
-        listarAlumnos();
-    } else if ($("#cmbTipoBuscar").val() == 2) {
-        listarDoc();
-    } else if ($("#cmbTipoBuscar").val() == 3) {
-        listarPaae();
-    } else {
-        listarExternos();
-    }
+$(document).on("click", "#recargartb", function () {
+    recargarTabla($("#cmbTipoBuscar").val());
 });
 
 function MostrarTabla(tipo) {
@@ -180,7 +211,7 @@ function MostrarTabla(tipo) {
             $("#Alumnos").hide();
             $("#Paaes").hide();
             $("#Externos").hide();
-        } 
+        }
     } else if (tipo == 3) {
         if ($("#tbPaaes tbody tr").children().length < 1) {
             listarPaae();
@@ -375,9 +406,21 @@ function obtener_borrar(tbody, table) {
     $(tbody).on("click", "button.eliminar", function () {
         var data = table.row( $(this).parents("tr") ).data();
         $("#txtidEnviar").val(data.Clave);
-        $("#txtnomEnviar").val(data.Nombre + " " + data.Apellidos);
+        $("#txtnomEnviar").html(data.Nombre + " " + data.Apellidos);
         $("#modalBorrar").modal("show");
     });
+}
+
+function recargarTabla(tipo) {
+    if (tipo == 1) {
+        $('#tbAlumnos').DataTable().ajax.reload();
+    } else if (tipo == 2) {
+        $("#tbDocentes").DataTable().ajax.reload();
+    } else if (tipo == 3) {
+        $("#tbPaaes").DataTable().ajax.reload();
+    } else {
+        $("#tbExternos").DataTable().ajax.reload();
+    }
 }
 
 var idioma_español = {

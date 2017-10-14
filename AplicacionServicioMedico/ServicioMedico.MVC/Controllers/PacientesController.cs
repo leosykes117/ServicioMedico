@@ -52,6 +52,7 @@ namespace ServicioMedico.MVC.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult AgregarAlumno(Alumnos nuevoPaciente)
         {
             PacientesLog pacientelog = new PacientesLog();
@@ -61,6 +62,7 @@ namespace ServicioMedico.MVC.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult AgregarPersonal(PersonalEscolar nuevoPaciente)
         {
             PacientesLog pacientelog = new PacientesLog();
@@ -70,6 +72,7 @@ namespace ServicioMedico.MVC.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult AgregarExterno(Pacientes nuevoPaciente)
         {
             PacientesLog pacientelog = new PacientesLog();
@@ -78,6 +81,7 @@ namespace ServicioMedico.MVC.Controllers
             return Json(JsonExterno);
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public JsonResult ActualizarAlumno(Alumnos aluActualizar)
         {
@@ -87,6 +91,8 @@ namespace ServicioMedico.MVC.Controllers
             return Json(json);
         }
 
+        [ValidateAntiForgeryToken]
+        [HttpPost]
         public JsonResult ActualizarPersonalE(PersonalEscolar personalActualizar)
         {
             PacientesDAL pacienteDAL = new PacientesDAL();
@@ -95,6 +101,8 @@ namespace ServicioMedico.MVC.Controllers
             return Json(json);
         }
 
+        [ValidateAntiForgeryToken]
+        [HttpPost]
         public JsonResult ActualizarExterno(Pacientes extActualizar)
         {
             PacientesDAL pacienteDAL = new PacientesDAL();
@@ -113,10 +121,10 @@ namespace ServicioMedico.MVC.Controllers
         }
 
         [HttpPost]
-        public JsonResult EliminarPaciente(Pacientes pacEliminar)
+        [ValidateAntiForgeryToken]
+        public JsonResult EliminarPaciente(int paciente)
         {
-            PacientesDAL pacienteDAL = new PacientesDAL();
-            string json = pacienteDAL.Eliminar(pacEliminar);
+            string json = PacientesLog.EliminarPaciente(paciente);
             JsonConvert.SerializeObject(json);
             return Json(json);
         }

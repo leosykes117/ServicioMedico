@@ -15,8 +15,15 @@ SELECT * FROM tbCarreras
 SELECT * FROM tbGeneros
 SELECT * FROM tbTiposPacientes
 
-SELECT * FROM tbCategorias
-SELECT * FROM tbMedicamentos
-SELECT * FROM tbDetallesConsultas
 SELECT * FROM tbConsultas
 SELECT * FROM tbMotivosConsultas
+SELECT * FROM tbMedicamentosConsultas
+
+ALTER TABLE tbConsultas
+ADD
+EstatusConsulta SMALLINT,
+Temperatura DECIMAL(4,2) NULL, 
+TA NVARCHAR(8) NULL,
+FC DECIMAL(6,3) NULL, 
+FR DECIMAL(6,3) NULL
+GO

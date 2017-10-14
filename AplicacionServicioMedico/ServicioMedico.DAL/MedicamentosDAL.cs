@@ -13,7 +13,7 @@ namespace ServicioMedico.DAL
     {
         private Conexion conexion;
         private SqlCommand comando;
-        //private SqlDataReader lector;
+        private SqlDataReader lector;
         private DataSet ds;
         private SqlDataAdapter da;
 
@@ -22,62 +22,36 @@ namespace ServicioMedico.DAL
             conexion = Conexion.saberEstado();
         }
 
-        public string AgregarMedicamento(Medicamentos medicamento)
+        public List<Medicamentos_Consultas> MedicamentosPorConsuta(int claveConsulta)
         {
-            string mensaje = string.Empty;
+            List<Medicamentos_Consultas> listadomedicamentos;
             try
             {
-                comando = new SqlCommand("insNuevoMedicamento", conexion.getCon());
+                listadomedicamentos = new List<Medicamentos_Consultas>();
+                comando = new SqlCommand("selHistoriaMedicamentos", conexion.getCon());
                 comando.CommandType = CommandType.StoredProcedure;
-
-                comando.Parameters.Add("@Nombre", SqlDbType.NVarChar, 50).Value = medicamento.NombreMedicamento;
-                comando.Parameters.Add("@Cantidad", SqlDbType.Int).Value = medicamento.Cantidad;
-                comando.Parameters.Add("@Fecha", SqlDbType.Date).Value = medicamento.FechaCaducidad.Date.ToString("dd/MM/yyyy");
-                comando.Parameters.Add("@Categoria", SqlDbType.Int).Value = medicamento.Categoria;
-
-                SqlParameter pmensaje = new SqlParameter("@Mensaje", SqlDbType.NVarChar, 100);
-                pmensaje.Direction = ParameterDirection.Output;
-                comando.Parameters.Add(pmensaje);
-
+                comando.Parameters.Add("@Consulta", SqlDbType.Int).Value = claveConsulta;
                 conexion.getCon().Open();
-                comando.ExecuteNonQuery();
-                mensaje = comando.Parameters["@Mensaje"].Value.ToString();
+                lector = comando.ExecuteReader();
+                while (lector.Read())
+                {
+                    Medicamentos_Consultas med = new Medicamentos_Consultas();
+                    med.NombreMedicamento = lector[0].ToString();
+                    med.CantidadSuministrada = Convert.ToInt32(lector[1]);
+                    med.PrescripcionMedica = lector[2].ToString();
+                    listadomedicamentos.Add(med);
+                }
             }
             catch (Exception ex)
             {
-                mensaje = ex.ToString();
+                listadomedicamentos = new List<Medicamentos_Consultas>();
             }
             finally
             {
                 conexion.getCon().Close();
                 conexion.cerrarConexion();
             }
-            return mensaje;
-        }
-
-        public DataTable TodosMedicamentos()
-        {
-            try
-            {
-                comando = new SqlCommand("selListadoMedicamentos", conexion.getCon());
-                ds = new DataSet();
-                comando.CommandType = CommandType.StoredProcedure;
-                conexion.getCon().Open();
-                da = new SqlDataAdapter(comando);
-                da.Fill(ds, "Medicamentos");
-            }
-            catch(Exception)
-            {
-                ds = null;
-                da.Fill(ds);
-            }
-
-            finally
-            {
-                conexion.getCon().Close();
-                conexion.cerrarConexion();
-            }
-            return ds.Tables["Medicamentos"];
+            return listadomedicamentos;
         }
 
         public DataTable MedicamentosCat()

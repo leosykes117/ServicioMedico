@@ -2,6 +2,8 @@
 
 @section HojasEstilo{
     <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/Select2/select2.min.css" rel="stylesheet" />
+    <link href="~/Content/Select2/select2-bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/snackbar.css" rel="stylesheet" />
 }
 
@@ -86,9 +88,8 @@
         </div>
     </div>
 </div>
-
-
-<form id="frmNuevaConsulta" method="post" autocomplete="off" accept-charset="utf-8">
+@using (Html.BeginForm("Guardar", "Consultas", FormMethod.Post, new { id = "frmNuevaConsulta", autocomplete = "off", accept_charset = "utf-8" }))
+{
     <div class="row">
         <div class="col-lg-3">
             <div class="panel panel-default">
@@ -131,38 +132,48 @@
                     </div>
                 </div>
             </div>
+
             <div class="panel panel-default">
-                <div class="panel-heading">Detalles de la Consulta</div>
+                <div class="panel-heading">Motivos de la Consulta</div>
                 <div class="panel-body">
                     <div class="form-group">
                         <div class='input-group'>
                             <span class="input-group-addon">
-                                <i class="fa fa-thermometer-quarter fa-lg"></i>
+                                <i class="fa fa-thermometer-half fa-lg"></i>
                             </span>
-                            <select id="cmbMotivo" name="MotivoConsulta" class="form-control">
-                                <option value="0">-Motivo-</option>
-                            </select>
+                            <select id="cmbMotivo" class="form-control" multiple required></select>
                         </div>
                     </div>
-                    <div class="form-group">
+                </div>
+            </div>
+
+            <!--DETALLES DE LA CONSULTA-->
+            <div class="panel panel-default">
+                <div class="panel-heading">Medicamentos</div>
+                <div class="panel-body">
+                    <div id="nuevoMedicamento" class="form-group">
                         <div class='input-group'>
                             <span class="input-group-addon">
                                 <i class="fa fa-medkit fa-lg"></i>
                             </span>
-                            <select id="cmbMedicamentos" name="CveMedicamento" class="form-control">
-                                <option value="0">-Medicamento-</option>
-                            </select>
+                            <input type="text" name="" id="txtMedicamento" class="form-control" aria-describedby="helpBlock" />
                         </div>
+                        <span id="helpBlock" class="help-block hidden">Al especificar el medicamento debe tener la siguiente expresion: "Medicamento - Cantidad" &oacute; "Medicamento + Medicamento2 - Cantidad"</span>
                     </div>
-                    <div id="cantPastillas" class="well">
-                        Cantidad de Medicamentos:
-                        <div class='input-group date'>
+                    <br>
+                    <div class="form-group">
+                        <label for="txtPrescripcion"> <i class="fa fa-file-text-o fa-lg"></i> Prescripción Médica:</label>
+                        <textarea id="txtPrescripcion" class="form-control" style="min-width:100%; max-width:100%; min-height:100px; max-height:100px;" placeholder="Escribe la prescripción médica"></textarea>
+                    </div>
+                    <div class="well">
+                        Cantidad de Medicamento:
+                        <div class="input-group">
                             <span class="input-group-btn">
                                 <button class="btn btn-defaul disminuir" type="button">
                                     <i class="fa fa-minus" aria-hidden="true"></i>
                                 </button>
                             </span>
-                            <input type='text' id="txtCantidad" name="CantidadSumintrada" class="form-control" placeholder="Cantidad" />
+                            <input type="text" id="txtCantidad" class="form-control" placeholder="Cantidad" />
                             <span class="input-group-btn">
                                 <button class="btn btn-defaul aumentar" type="button">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
@@ -170,73 +181,171 @@
                             </span>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <button type="button" id="btnAgregarMedicina" class="btn btn-primario btn-block">Agregar Medicamento</button>
+                    </div>
                 </div>
             </div>
+            <!--FIN DE DETALLES DE LA CONSULTA-->
         </div>
+
         <div class="col-lg-9">
+
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <a role="button" data-toggle="collapse" href="#collapse1">Consultas Anteriores</a>
+                        </h3>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse">
+                        @if (Model == null || Model.Count == 0)
+                        {
+                            <ul class="list-group">
+                                <li class="list-group-item"><strong>No hay Registros</strong></li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <ul class="list-group">
+                                @foreach (var objConsulta in Model)
+                                {
+                                    <li class="list-group-item">
+                                        <span style="display:none;">@objConsulta.IdConsulta</span>
+                                        El: <strong> @objConsulta.FechaConsulta.ToLongDateString()</strong>
+                                        Se diagnostico: <strong>@objConsulta.Diagnostico</strong>
+                                        @if (objConsulta.Observaciones.IsEmpty())
+                                        {
+                                            objConsulta.Observaciones = "Sin Observaciones";
+                                        }
+                                        Observaciones: <strong>@objConsulta.Observaciones</strong>
+                                        Atendio: <strong>@objConsulta.CveDoctor</strong>
+                                        Motivos: <a class="btn btn-link motivosConsulta" role="button">Ver los Motivos</a>
+                                        Medicamentos: <a class="btn btn-link medicamentosConsulta" role="button">Ver los Medicamento</a>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </div>
+                </div>
+            </div>
+
             <div class="panel panel-default">
-                <div class="panel-heading">Infomacion de la Consulta Medica </div>
+                <div class="panel-heading">Detalles de la Consulta</div>
                 <div class="panel-body">
-                    <input type="hidden" id="txtIdPaciente" name="CvePaciente" value="@ViewBag.idpaciente">
-                    <div class="panel-group">
-                        <div class="panel panel-default">
-                            <div class="tituloConsultas panel-heading">
+                    <!--PANEL DE MEDICAMENTOS-->
+                    <div class="panel-group" id="accordionMedicinas" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-mipanel">
+                            <div class="panel-heading" role="tab" id="headingMedicamentos">
                                 <h3 class="panel-title">
-                                    <a data-toggle="collapse" href="#collapse1">Consultas Anteriores</a>
+                                    <a role="button" data-toggle="collapse" data-parent="#accordionMedicinas" href="#lstMedicinas" aria-expanded="true" aria-controls="lstMedicinas">Listado de Tratamiento</a>
                                 </h3>
                             </div>
-                            <div id="collapse1" class="panel-collapse collapse">
-                                @if (Model == null || Model.Count == 0)
-                                {
-                                    <ul class="list-group">
-                                        <li class="list-group-item"><strong>No hay Registros</strong></li>
-                                    </ul>
-                                }
-                                else
-                                {
-                                    <ul class="list-group">
-                                        @foreach (var objConsulta in Model)
-                                        {
-                                            <li class="list-group-item">
-                                                <strong>El</strong> @objConsulta.FechaConsulta.ToString("dd/MM/yyy")
-                                                <strong>Se presento por:</strong>  @objConsulta.NombreMotivo
-                                                <strong>Diagnostico:</strong> @objConsulta.Diagnostico
-                                                <strong>Se le administro</strong> @objConsulta.NombreMedicamento
-                                                <strong>Atendio:</strong> @objConsulta.CveDoctor
-                                            </li>
-                                        }
-                                    </ul>
-                                }
+                            <div id="lstMedicinas" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingMedicamentos">
+                                <div class="panel-body">
+                                    <ul id="list-group-medicinas" class="list-group"></ul>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <!--div class="panel-group" id="accordionMotivos" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-mipanel">
+                            <div class="panel-heading" role="tab" id="headingMotivos">
+                                <h3 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordionMotivos" href="#lstMotivos" aria-expanded="true" aria-controls="lstMotivos">Listado de Motivos</a>
+                                </h3>
+                            </div>
+                            <div id="lstMotivos" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingMotivos">
+                                <div class="panel-body">
+                                    <ul id="listaMotivos" class="list-group">
+                                        <li class='list-group-item'>
+                                            <button type='button' class='close' aria-label='Close' onclick='borrarLi(this)'><i class='fa fa-times-circle' aria-hidden='true'></i></button>
+                                            <span>1</span> Consulta
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div-->
                 </div>
+                <!--hr-->
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Consulta Medica</div>
                 <div class="panel-body">
+                    <input type="hidden" id="txtIdPaciente" name="CvePaciente" value="@ViewBag.idpaciente">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <label for="txtTemperatura"> Temperatura:</label>
+                            <div class="form-group">
+                                <input type="text" id="txtTemperatura" name="Temperatura" class="form-control" placeholder="ej. 36" maxlength="5">
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <label for="txtTemperatura"> T.A:</label>
+                            <div class="form-group">
+                                <input type="text" id="txtTA" name="TA" class="form-control" placeholder="ej 50/100" maxlength="7">
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label for="txtFc"> F.C</label>
+                                <input type="text" id="txtFc" name="FC" class="form-control" placeholder="ej 75.60" max="6">
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label for="txtFr"> F.R</label>
+                                <input type="text" id="txtFr" name="FR" class="form-control" placeholder="ej 75.60" max="6">
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="txtDiagnostico"><i class="fa fa-heartbeat fa-lg"></i>  Diagnostico:</label>
-                        <textarea id="txtDiagnostico" name="Diagnostico" class="form-control" placeholder="Escribe el diagnostico" style="min-width:100%; max-width:100%; min-height:100px; max-height:100px;"></textarea>
+                        <textarea id="txtDiagnostico" name="Diagnostico" class="form-control" placeholder="Escribe el diagnostico" style="min-width:100%; max-width:100%; min-height:100px; max-height:100px;" required></textarea>
                     </div>
+
+                    <!--TEXT BOX TRATAMIENTO-->
                     <div class="form-group">
-                        <label for="txtAtendio"><i class="fa fa-user-md fa-lg"></i>  Atendio:</label>
-                        <input type="text" id="txtAtendio" name="CveDoctor" class="form-control" placeholder="Escribe tu nombre" />
+                        <label for="txtObservaciones"><i class="fa fa-eye fa-lg"></i>  Observaciones:</label>
+                        <textarea id="txtObservaciones" name="Observaciones" class="form-control" placeholder="Escribe las Observaciones" style="min-width:100%; max-width:100%; min-height:100px; max-height:100px;"></textarea>
                     </div>
+
                     <div class="form-group">
-                        <button type="submit" id="btnRegistrarConsulta" name="RegistrarConsulta" class="btn btn-block btn-lg btn-primario">
+                        <label for="txtCveDoctor"><i class="fa fa-user-md fa-lg"></i>  Atendio:</label>
+                        <input type="text" id="txtCveDoctor" name="CveDoctor" class="form-control" placeholder="Escribe tu Nombre" required />
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="ckbReceta" class="checkbox" /> Imprimir Receta
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" id="btnRegistrarConsulta" class="btn btn-block btn-lg btn-primario" data-toggle="confirmation">
                             Terminar Consulta
                         </button>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
-</form>
+}
 
 <div class="bg-primary" id="snackbar"></div>
 
 @section scripts{
     <script src="~/Scripts/moment-with-locales.min.js"></script>
-    <!--script src="~/Scripts/moment.js"></script-->
     <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Scripts/Select2/select2.min.js"></script>
+    <script src="~/Scripts/BSConfirmation/bootstrap-confirmation.min.js"></script>
+    <script src="~/Scripts/scriptsVistas/serializeFormJSON.js"></script>
+    <script src="~/Scripts/scriptsVistas/numeric-Up-Down.js"></script>
     <script src="~/Scripts/scriptsVistas/snackbar.min.js"></script>
     <script src="~/Scripts/scriptsVistas/consultamedica.js"></script>
 }

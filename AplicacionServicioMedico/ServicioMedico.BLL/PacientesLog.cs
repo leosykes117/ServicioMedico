@@ -77,5 +77,11 @@ namespace ServicioMedico.BLL
             }
             return json;
         }
+
+        public static string EliminarPaciente(int cvePaciente)
+        {
+            PacientesDAL pacienteDAL = new PacientesDAL();
+            return pacienteDAL.Eliminar(cvePaciente);
+        }
     }
 }

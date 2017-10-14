@@ -1,0 +1,207 @@
+﻿@section HojasEstilo{
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/snackbar.css" rel="stylesheet" />
+}
+
+@{
+    ViewBag.Title = "ConsultasEliminadas";
+    Layout = "~/Views/Shared/_MenuPrincipal.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 id="encabezadoPagina" class="page-header">Consultas eliminadas</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-9">
+        <form action="" class="form-inline">
+            <div class="form-group">
+                <input type="hidden" id="Estatus" value="0" />
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-users fa-lg" aria-hidden="true"></i></div>
+                    <select id="cmbTipoPaciente" class="form-control" aria-describedby="helpBlock">
+                        <option value="1">Alumno</option>
+                        <option value="2">Docente</option>
+                        <option value="3">PAAE</option>
+                        <option value="4">Externo</option>
+                    </select>
+                </div>
+                <span id="helpBlock" class="help-block">Seleccione un tipo de paciente</span>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-calendar fa-lg" aria-text="true"></i></div>
+                    <select id="cmbMesBuscar" name="MesBuscar" class="form-control" aria-describedby="helpMes">
+                        <option value="0">-Mes-</option>
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                    </select>
+                </div>
+                <span id="helpMes" class="help-block">Seleccione un mes a buscar</span>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-3"><a href="VerConsultas" class="btn btn-link"><i class="fa fa-arrow-circle-o-left fa-lg"></i> Regresar a las Consultas</a></div>
+</div>
+
+<!--TABLA ALUMNOS-->
+<div class="row" id="Alumnos">
+    <h2>Tabla Alumnos</h2>
+    <div class="table-responsive">
+        <table id="tbAlumnos" class="table table-bordered table-hover" cellspacing="50">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Genero</th>
+                    <th>Atendio</th>
+                    <th>Diagnostico</th>
+                    <th>Fecha</th>
+                    <th>Hora de Entrada</th>
+                    <th>Hora de Salida</th>
+                    <th>Duracion de la Consulta</th>
+                    <th>Temp.</th>
+                    <th>T.A</th>
+                    <th>F.C</th>
+                    <th>F.R</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<!--TABLA DOCENTES-->
+<div class="row" id="Docentes">
+    <h2>Tabla Docentes</h2>
+    <div class="table-responsive">
+        <table id="tbDocentes" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Genero</th>
+                    <th>Atendio</th>
+                    <th>Diagnostico</th>
+                    <th>Fecha</th>
+                    <th>Hora de Entrada</th>
+                    <th>Hora de Salida</th>
+                    <th>Duracion de la Consulta</th>
+                    <th>Temp.</th>
+                    <th>T.A</th>
+                    <th>F.C</th>
+                    <th>F.R</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<!--TABLA PAAES-->
+<div class="row" id="Paaes">
+    <h2>Tabla Personal Administrativo</h2>
+    <div class="table-responsive">
+        <table id="tbPaaes" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Genero</th>
+                    <th>Atendio</th>
+                    <th>Diagnostico</th>
+                    <th>Fecha</th>
+                    <th>Hora de Entrada</th>
+                    <th>Hora de Salida</th>
+                    <th>Duracion de la Consulta</th>
+                    <th>Temp.</th>
+                    <th>T.A</th>
+                    <th>F.C</th>
+                    <th>F.R</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<!--TABLA EXTERNOS-->
+<div class="row" id="Externos">
+    <h2>Tabla Externo</h2>
+    <div class="table-responsive">
+        <table id="tbExternos" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Genero</th>
+                    <th>Atendio</th>
+                    <th>Diagnostico</th>
+                    <th>Fecha</th>
+                    <th>Hora de Entrada</th>
+                    <th>Hora de Salida</th>
+                    <th>Duracion de la Consulta</th>
+                    <th>Temp.</th>
+                    <th>T.A</th>
+                    <th>F.C</th>
+                    <th>F.R</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="row" style="margin-top: 15px;">
+    <button type="button" id="recargartb" class="btn btn-info btn-block">Recargar Tabla <i class="fa fa-refresh" aria-hidden="true"></i></button>
+</div>
+
+<div class="modal fade" id="modalEliminar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Eliminar Consulta</h4>
+            </div>
+            @using (Html.BeginForm("Eliminar", "Consultas", FormMethod.Post, new { id = "frmEliminarConsulta", @class = "form-horizontal", autocomplete = "off", accept_charset = "utf-8" }))
+            {
+                <div class="modal-body">
+                    <p>¿Seguro que deseas eliminar esta consulta?</p>
+                    <p>Si la eliminas no la podras volver a recuperar.</p>
+                    <input type="hidden" id="txtConsultaDelete" name="consulta" />
+                </div>
+                <div class="modal-footer">
+                    <p class="pull-left text-danger"></p>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="btnEliminarConsulta" class="btn btn-primario">Eliminar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="bg-primary" id="snackbar"></div>
+@section scripts{
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <!--script src="~/Scripts/moment.js"></script-->
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/scriptsVistas/serializeFormJSON.js"></script>
+    <script src="~/Scripts/scriptsVistas/snackbar.min.js"></script>
+    <script src="~/Scripts/scriptsVistas/verConsultas.js"></script>
+}
