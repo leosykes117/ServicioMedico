@@ -8,8 +8,8 @@
 
 Diagramas y Presentaciones/
 Plantillas/
-Base de Datos/DB/ServicioMedico_Data.mdf
-Base de Datos/DB/ServicioMedico_Log.ldf
+*.mdf
+*.ldf
 
 
 # Build results
