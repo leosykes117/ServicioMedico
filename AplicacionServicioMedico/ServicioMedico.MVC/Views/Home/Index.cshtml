@@ -4,3 +4,37 @@
     Layout = "~/Views/Shared/_PlantillaLogin.cshtml";
 }
 
+<div class="texto">
+    <h2>Centro de Estudios Cientifos y Tecnologicos N° 13</h2>
+    <h1>Servicio Médico Escolar</h1>
+</div>
+<div id="mensajes" class="alert alert-danger alert-dismissable">
+    <a class="close">&times;</a>
+    <strong>Error!</strong><p id="textoError">Indicates a successful or positive action.</p>
+</div>
+<div class="well texto">
+    <label>Inicia tu Sesi&oacute;n</label>
+    <div class="form-horizontal" accept-charset="UTF-8">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-user-md fa-lg" aria-hidden="true"></i></div>
+                <input type="text" id="txtUsuario" class="form-control" placeholder="Usuario" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></div>
+                <input type="password" id="txtContraseña" class="form-control" placeholder="Contraseña" />
+            </div>
+        </div>
+
+        <button id="btnIniciar" class="btn btn-primario btn-lg btn-block">Iniciar Sesión</button>
+    </div>
+    <p>¿No tienes una cuenta? @Html.ActionLink("Registrate", "Registro", "Doctores", null, new { @class = "btn btn-link" })</p>
+</div>
+
+@section scripts {
+    
+    <script src="~/Scripts/scriptsVistas/login.js"></script>
+    
+    }

@@ -15,8 +15,8 @@ namespace ServicioMedico.DAL
     {
         private Conexion conexion;
         private SqlCommand comando;
-        //private SqlDataReader lector;
-        private DataSet ds;
+        /*private SqlDataReader lector;
+        //private DataSet ds;*/
         private SqlDataAdapter da;
 
         public PacientesDAL()
@@ -200,7 +200,7 @@ namespace ServicioMedico.DAL
                 da = new SqlDataAdapter(comando);
                 da.Fill(tablaPacientes);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 tablaPacientes = new DataTable();
             }

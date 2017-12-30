@@ -8,9 +8,10 @@
 
 Diagramas y Presentaciones/
 Plantillas/
+Base de Datos/DB/*.mdf
+Base de Datos/DB/*.ldf
 *.mdf
 *.ldf
-
 
 # Build results
 [Dd]ebug/

@@ -42,7 +42,7 @@ namespace ServicioMedico.DAL
                     listadomedicamentos.Add(med);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 listadomedicamentos = new List<Medicamentos_Consultas>();
             }

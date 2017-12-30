@@ -25,5 +25,23 @@ namespace ServicioMedico.MVC.Controllers
         { 
             return View();
         }
+
+        public ActionResult Registro()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Crear(Doctores doc)
+        {
+            string msm = DoctoresLog.AgregarDoctor(doc);
+            if (msm == "Cuenta registrada con exito")
+                return RedirectToAction("Index");
+            else
+            {
+                ViewBag.MensajeRegistro = msm;
+                return View("Registro");
+            }
+        }
     }
 }

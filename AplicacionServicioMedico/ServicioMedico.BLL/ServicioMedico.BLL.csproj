@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsultasLog.cs" />
+    <Compile Include="DoctoresLog.cs" />
     <Compile Include="MedicamentosLog.cs" />
     <Compile Include="MotivosLog.cs" />
     <Compile Include="PacientesLog.cs" />

@@ -174,7 +174,6 @@
     <Compile Include="Controllers\MotivosController.cs" />
     <Compile Include="Controllers\PacientesController.cs" />
     <Compile Include="Controllers\ReportesController.cs" />
-    <Compile Include="Controllers\SesionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -678,7 +677,6 @@
     <Content Include="Views\Shared\_PlantillaLogin.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_PlantillaRegistro.cshtml" />
-    <Content Include="Views\Sesion\Registro.cshtml" />
     <Content Include="Views\Shared\_MenuPrincipal.cshtml" />
     <Content Include="Views\Doctores\Index.cshtml" />
     <Content Include="Views\Doctores\Consultas.cshtml" />
@@ -691,6 +689,7 @@
     <Content Include="Views\Consultas\ConsultasEliminadas.cshtml" />
     <Content Include="Views\Reportes\Index.cshtml" />
     <Content Include="Views\Reportes\Anteriores.cshtml" />
+    <Content Include="Views\Doctores\Registro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "Registro";
+    Layout = "~/Views/Shared/_PlantillaLogin.cshtml";
+}
+
+@using (Html.BeginForm("Crear", "Doctores", FormMethod.Post, new { id = "frmRegister", @class = "well", autocomplete = "off", accept_charset = "utf-8" }))
+{
+    <h1>Registrarse.</h1>
+    <div class="row">
+        <!--TEXT BOX Nombre-->
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            @Html.TextBox("NombreDoctor", null, new { id = "txtNombre", @class = "form-control", placeholder = "Nombre", autofocus = true })
+        </div>
+        <!--TEXT BOX Usuario-->
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            @Html.TextBox("ApellidosDoctor", null, new { id = "txtApellidos", @class = "form-control", placeholder = "Apellidos" })
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <!--TEXT BOX Correo-->
+            @Html.TextBox("EmailDoctor", null, new { type = "email", id = "txtEmail", @class = "form-control", placeholder = "Email" })
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <!--TEXT BOX Contraseña-->
+            @Html.Password("PasswordEncriptada", null, new { id = "txtContraseña", @class = "form-control", placeholder = "Password" })
+            <div id="especificacion" class="row" style="display: none">
+                <div class="col-md-12">
+                    <h4><i class="fa fa-lock" aria-hidden="true"></i> La contraseña debe cumplir: </h4>
+                    <p>incluir al menos un número o símbolo</p>
+                    <p>Se permiten los signos de puntuación usuales, así como varios símbolos como: ^ = + $ # o &#64;.</p>
+                    <p>incluir caracteres latinosLos caracteres latinos permitidos son desde la A hasta la Z y desde la a hasta la z.</p>
+                    <p>tanto en mayúsculas como en minúsculas.tener al menos 8 caracteres.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            @Html.DropDownList("GeneroDoctor", new List<SelectListItem> {
+            new SelectListItem(){Text = "Masculino", Value="1"},
+            new SelectListItem() {Text = "Femenino", Value="2"}
+            }, "Genero", new { id = "cmbGenero", @class="form-control"})
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            @Html.DropDownList("Rol", new List<SelectListItem> {
+            new SelectListItem() { Text = "Admi", Value = "1" },
+            new SelectListItem() { Text = "Doctor", Value = "2" },
+            new SelectListItem() { Text = "Pasante", Value = "3" }
+            }, "Rol", new { id = "cmbRol", @class = "form-control" })
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <button type="submit" id="btnRegistrar" class="btn btn-primario btn-md">Registrarse</button>
+            <p>¿Ya tienes una cuenta? @Html.ActionLink("Inicia Sesión", "Index", "Home", null, new { @class = "btn btn-link" })</p>
+        </div>
+    </div>
+}
+
+@section scripts {
+
+    <script src="~/Scripts/scriptsVistas/registro.js"></script>
+    
+    }

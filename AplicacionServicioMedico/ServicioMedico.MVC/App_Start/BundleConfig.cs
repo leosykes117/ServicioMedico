@@ -14,14 +14,7 @@ namespace ServicioMedico.MVC
             //SCRIPT PARA LA VISTA DE INICIO
             bundles.Add(new ScriptBundle("~/LogIn/scripts").Include(
                         "~/Scripts/jquery-3.1.1.min.js",
-                        "~/Scripts/bootstrap.min.js",
-                        "~/Scripts/scriptsVistas/login.js"));
-
-            //SCRIPT PARA LA VISTA DE REGISTRO
-            bundles.Add(new ScriptBundle("~/Registro/scripts").Include(
-                        "~/Scripts/jquery-3.1.1.min.js",
-                        "~/Scripts/bootstrap.min.js",
-                        "~/Scripts/scriptsVistas/registro.js"));
+                        "~/Scripts/bootstrap.min.js"));
 
             //SCRIPTS PARA LA VISTA DE MENU PRINCIPAL
             bundles.Add(new ScriptBundle("~/Menu/scripts").Include(
@@ -45,12 +38,6 @@ namespace ServicioMedico.MVC
                       "~/Content/bootstrap.min.css",
                       "~/Content/font-awesome.min.css",
                       "~/Content/estilos_login.css"));
-
-            //ESTILOS PARA LA VISTA DE REGISTRO
-            bundles.Add(new StyleBundle("~/Registro/css").Include(
-                      "~/Content/bootstrap.min.css",
-                      "~/Content/font-awesome.min.css",
-                      "~/Content/estilos_registro.css"));
 
             //ESTILOS DE LA VISTA MENU PRINCIPAL
             bundles.Add(new StyleBundle("~/Menu/css").Include(

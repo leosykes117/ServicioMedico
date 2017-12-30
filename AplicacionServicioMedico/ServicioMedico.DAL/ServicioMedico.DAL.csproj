@@ -47,6 +47,7 @@
     <Compile Include="Conexion.cs" />
     <Compile Include="ConsultasDAL.cs" />
     <Compile Include="CRUD.cs" />
+    <Compile Include="DoctoresDAL.cs" />
     <Compile Include="MedicamentosDAL.cs" />
     <Compile Include="MotivosDAL.cs" />
     <Compile Include="PacientesDAL.cs" />

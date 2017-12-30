@@ -1,4 +1,4 @@
-USE ServicioMedico
+USE ServicioMedicoTest
 GO
 
 IF OBJECT_ID('insNuevoDoctor') IS NOT NULL
@@ -61,38 +61,30 @@ GO
 
 CREATE PROC insNuevoDoctor
 (
-@Nombre NVARCHAR(50),
+@Nombre NVARCHAR(30),
+@Apellidos NVARCHAR(30),
 @Genero SMALLINT,
-@Email NVARCHAR (70),
-@Dirreccion NVARCHAR (100),
-@Telefono NVARCHAR(8),
-@Usuario NVARCHAR(20),
-@Contraseña NVARCHAR(20),
-@Cedula INT,
-@Consultorio SMALLINT,
-@Mensaje NVARCHAR(100) OUTPUT
+@Email NVARCHAR(100),
+@Passw NVARCHAR(255),
+@Rol SMALLINT,
+@Mensaje NVARCHAR(4000) OUTPUT
 )
 AS
 BEGIN
-	BEGIN TRAN T_InsertarDoc --CREAMOS UNA TRANSACCION YA QUE HAREMOS VARIOS INSERTS
+	BEGIN TRAN T_InsertarDoc
 	BEGIN TRY
-		
+
 		DECLARE @ID AS INT
-		INSERT INTO TablaPersonas VALUES(@Nombre, @Genero, @Email, @Dirreccion, @Telefono) --CREA A LA PERSONA
-		SET @ID = @@IDENTITY --ALMACENAMOS EL IDENTITY YA QUE LO OCUPAREMOS EN VARIAS TABLAS
-
-		INSERT INTO TablaEmpleados VALUES(@ID, @Usuario, @Contraseña, 0, 2) --CREA A EL EMPLEADO
-
-		INSERT INTO TablaDoctores VALUES(@ID, @Cedula, @Consultorio) --CREA A EL DOCTOR
-
-		SET @Mensaje = 'El doctor se registro correctamente'
-
+		INSERT INTO TablaUsuarios VALUES(@Nombre, @Apellidos, @Genero, @Email, @Passw, @Rol, NULL, GETDATE(), NULL)
+		SET @Mensaje = 'Registrado'
 	COMMIT TRAN T_InsertarDoc
 	END TRY
 
 	BEGIN CATCH
-		SET @Mensaje = 'Ocurrio un Error: ' + ERROR_MESSAGE() + ' en la línea ' + CONVERT(NVARCHAR(255), ERROR_LINE() ) + '.' --DECIMOS EL ERRO Y LA LINEA EN LA QUE ESTA
-        Rollback TRAN T_InsertarDoc
+		ROLLBACK TRAN T_InsertarDoc
+		DECLARE @ErrorSeverity INT, @ErrorState INT;  
+		SELECT  @Mensaje = ERROR_MESSAGE(),  @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE(); 
+		RAISERROR (@Mensaje, @ErrorSeverity, @ErrorState);  
 	END CATCH
 END
 GO

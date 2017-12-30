@@ -1,4 +1,6 @@
-USE ServicioMedico
+/*USE ServicioMedico
+GO*/
+USE ServicioMedicoTest
 GO
 
 IF OBJECT_ID('TablaUsuarios') IS NOT NULL
@@ -7,28 +9,19 @@ GO
 
 CREATE TABLE TablaUsuarios
 (
-IdUsuario INT IDENTITY(501,1) PRIMARY KEY NOT NULL,
-Usuario NVARCHAR(15) UNIQUE NOT NULL,
-Contraseña NVARCHAR(15) NOT NULL,
-Correo NVARCHAR(70) UNIQUE NOT NULL,
-Rol INT NOT NULL,
-CONSTRAINT fk_UsuR FOREIGN KEY (Rol) REFERENCES TablaRoles (IDRol)
-)
-GO
-
-SELECT * FROM TablaUsuarios
-
-
-/*Tabla Empleados de Prueba*/
-
-CREATE TABLE TablaEmpleados
-(
-[Cve Persona (Empleados)] INT PRIMARY KEY NOT NULL,
-Usuario NVARCHAR(20) UNIQUE NOT NULL,
-Contraseña NVARCHAR(20),
-Vista SMALLINT NOT NULL,
+IdDoctor INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+NombreDoctor NVARCHAR(30) NOT NULL,
+ApellidosDoctor NVARCHAR(30) NOT NULL,
+GeneroDoctor SMALLINT NOT NULL,
+EmailDoctor NVARCHAR(100) NOT NULL,
+Password_Encriptada NVARCHAR(255) NOT NULL,
 Rol SMALLINT NOT NULL,
-CONSTRAINT fk_PerEmpleado FOREIGN KEY ([Cve Persona (Empleados)]) REFERENCES TablaPersonas (IDPersona) ON DELETE CASCADE,
-CONSTRAINT f_RolEmpleado FOREIGN KEY (Rol) REFERENCES TablaRoles (IDRol)
+Token_Reseteo_Password NVARCHAR(6) NULL,
+Creado_El DATETIME NULL,
+Modificado_El DATETIME NULL,
+CONSTRAINT fk_GeneroP FOREIGN KEY (GeneroDoctor) REFERENCES tbGeneros (IdGenero),
+CONSTRAINT fk_RolD FOREIGN KEY(Rol) REFERENCES Roles (IdRol),
+CONSTRAINT uq_email UNIQUE(EmailDoctor),
+CONSTRAINT uq_token UNIQUE(Token_Reseteo_Password),
 )
 GO

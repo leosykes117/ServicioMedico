@@ -18,7 +18,7 @@ namespace ServicioMedico.DAL
     {
         private Conexion conexion;
         private SqlCommand comando;
-        private SqlDataReader lector;
+        //private SqlDataReader lector;
         private SqlDataAdapter da;
 
         public ReportesDAL()
