@@ -30,7 +30,7 @@ namespace ServicioMedico.DAL
                 comando.Parameters.Add("@Apellidos", SqlDbType.NVarChar, 30).Value = doc.ApellidosDoctor;
                 comando.Parameters.Add("@Genero", SqlDbType.SmallInt).Value = doc.GeneroDoctor;
                 comando.Parameters.Add("@Email", SqlDbType.NVarChar, 100).Value = doc.EmailDoctor;
-                comando.Parameters.Add("@Passw", SqlDbType.NVarChar, 255).Value = doc.PasswordEncriptada;
+                comando.Parameters.Add("@Passw", SqlDbType.NVarChar, 255).Value = doc.Password;
                 comando.Parameters.Add("@Rol", SqlDbType.SmallInt).Value = doc.Rol;
 
                 SqlParameter pmensaje = new SqlParameter("@Mensaje", SqlDbType.NVarChar, 4000);

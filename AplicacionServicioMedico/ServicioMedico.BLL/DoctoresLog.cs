@@ -10,20 +10,19 @@ namespace ServicioMedico.BLL
 {
     public class DoctoresLog
     {
-        public static string AgregarDoctor(Doctores doclog)
+        public static bool Succeeded { get; set; }
+
+        public static int AgregarDoctor(Doctores doclog)
         {
             string mensaje = string.Empty;
             DoctoresDAL docDAL = new DoctoresDAL();
             mensaje = docDAL.Agregar(doclog);
             if (mensaje.Equals("Registrado"))
-                mensaje = "Cuenta registrada con exito";
-
+                return 0;
             else if (mensaje.Contains("uq_email"))
-                mensaje = "Este email ya ha sido registrado";
+                return 1;
             else
-                mensaje = "Ocurrio un error inesperado que no pudo ser controlado";
-
-            return mensaje;
+                return 4;
         }
     }
 }

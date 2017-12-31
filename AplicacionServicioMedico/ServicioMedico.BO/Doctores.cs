@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,153 +9,36 @@ namespace ServicioMedico.BO
 {
     public class Doctores
     {
-        private int idDoctor;
-        private string nombreDoctor;
-        private string apellidosDoctor;
-        private short generoDoctor;
-        private string emailDoctor;
-        private string passwordEncriptada;
-        private short rol;
-        private string tokenReseteoPassword;
-        private DateTime creadoEl;
-        private DateTime modificadoEl;
+        public int IdDoctor { get; set; }
 
-        public int IdDoctor
-        {
-            get
-            {
-                return idDoctor;
-            }
+        [Required]
+        [Display(Name = "Nombre")]
+        public string NombreDoctor { get; set; }
 
-            set
-            {
-                idDoctor = value;
-            }
-        }
+        [Required]
+        [Display(Name = "Apellido")]
+        public string ApellidosDoctor { get; set; }
 
-        public string NombreDoctor
-        {
-            get
-            {
-                return nombreDoctor;
-            }
+        [Required]
+        [Display(Name = "Genero")]
+        public short GeneroDoctor { get; set; }
 
-            set
-            {
-                nombreDoctor = value;
-            }
-        }
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Correo electrónico")]
+        public string EmailDoctor { get; set; }
 
-        public string ApellidosDoctor
-        {
-            get
-            {
-                return apellidosDoctor;
-            }
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
+        public string Password { get; set; }
 
-            set
-            {
-                apellidosDoctor = value;
-            }
-        }
+        [Required]
+        [Display(Name = "Rol")]
+        public short Rol { get; set; }
 
-        public short GeneroDoctor
-        {
-            get
-            {
-                return generoDoctor;
-            }
-
-            set
-            {
-                generoDoctor = value;
-            }
-        }
-
-        public string EmailDoctor
-        {
-            get
-            {
-                return emailDoctor;
-            }
-
-            set
-            {
-                emailDoctor = value;
-            }
-        }
-
-        public string PasswordEncriptada
-        {
-            get
-            {
-                return passwordEncriptada;
-            }
-
-            set
-            {
-                passwordEncriptada = value;
-            }
-        }
-
-        public short Rol
-        {
-            get
-            {
-                return rol;
-            }
-
-            set
-            {
-                rol = value;
-            }
-        }
-
-        public string TokenReseteoPassword
-        {
-            get
-            {
-                return tokenReseteoPassword;
-            }
-
-            set
-            {
-                tokenReseteoPassword = value;
-            }
-        }
-
-        public DateTime CreadoEl
-        {
-            get
-            {
-                return creadoEl;
-            }
-
-            set
-            {
-                creadoEl = value;
-            }
-        }
-
-        public DateTime ModificadoEl
-        {
-            get
-            {
-                return modificadoEl;
-            }
-
-            set
-            {
-                modificadoEl = value;
-            }
-        }
-
-        public Doctores() { }
-
-        public Doctores(string email, string password)
-        {
-            emailDoctor = email;
-            passwordEncriptada = password;
-        }
+        public string TokenReseteoPassword { get; set; }
+        public DateTime CreadoEl { get; set; }
+        public DateTime ModificadoEl { get; set; }
     }
 }

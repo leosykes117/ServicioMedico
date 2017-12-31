@@ -1,20 +1,33 @@
-﻿
+﻿@model ServicioMedico.BO.Doctores
+
 @{
     ViewBag.Title = "Registro";
     Layout = "~/Views/Shared/_PlantillaLogin.cshtml";
 }
 
+@if (ViewBag.MensajesError != null)
+{
+    <div id="mensajes" class="alert alert-danger alert-dismissable" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>
+            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Error
+        </strong>
+        <span id="textoMsm">@ViewBag.MensajesError</span>
+    </div>
+}
+
 @using (Html.BeginForm("Crear", "Doctores", FormMethod.Post, new { id = "frmRegister", @class = "well", autocomplete = "off", accept_charset = "utf-8" }))
 {
+    @Html.AntiForgeryToken()
     <h1>Registrarse.</h1>
     <div class="row">
         <!--TEXT BOX Nombre-->
         <div class="col-xs-6 col-sm-6 col-md-6">
-            @Html.TextBox("NombreDoctor", null, new { id = "txtNombre", @class = "form-control", placeholder = "Nombre", autofocus = true })
+            @Html.TextBox("NombreDoctor", null, new { id = "txtNombre", @class = "form-control text-capitalize", placeholder = "Nombre", autofocus = true })
         </div>
         <!--TEXT BOX Usuario-->
         <div class="col-xs-6 col-sm-6 col-md-6">
-            @Html.TextBox("ApellidosDoctor", null, new { id = "txtApellidos", @class = "form-control", placeholder = "Apellidos" })
+            @Html.TextBox("ApellidosDoctor", null, new { id = "txtApellidos", @class = "form-control text-capitalize", placeholder = "Apellidos" })
         </div>
     </div>
     <br>
@@ -28,7 +41,7 @@
     <div class="row">
         <div class="col-md-12">
             <!--TEXT BOX Contraseña-->
-            @Html.Password("PasswordEncriptada", null, new { id = "txtContraseña", @class = "form-control", placeholder = "Password" })
+            @Html.Password("Password", null, new { id = "txtContraseña", @class = "form-control", placeholder = "Password" })
             <div id="especificacion" class="row" style="display: none">
                 <div class="col-md-12">
                     <h4><i class="fa fa-lock" aria-hidden="true"></i> La contraseña debe cumplir: </h4>
