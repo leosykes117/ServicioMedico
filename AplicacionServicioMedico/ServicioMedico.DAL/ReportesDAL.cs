@@ -84,7 +84,7 @@ namespace ServicioMedico.DAL
             }
             catch (Exception)
             {
-                tablaReportes = new DataTable();
+                tablaReportes = null;
             }
             finally
             {

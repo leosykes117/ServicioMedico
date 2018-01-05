@@ -154,7 +154,7 @@ function detallesConsulta(consulta) {
     var contenido = $("<ol>", { "class": "list-group" });
     $.ajax({
         url: "/Medicamentos/MedicamentosConsultas",
-        method: "GET",
+        method: "POST",
         data: data,
         cache: false,
         success: function (data) {

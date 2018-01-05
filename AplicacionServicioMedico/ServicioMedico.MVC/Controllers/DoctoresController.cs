@@ -17,13 +17,28 @@ namespace ServicioMedico.MVC.Controllers
     {
         
         // GET: Doctores
-        public ActionResult Index()
+        public ActionResult Index(string message)
         {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Doctores doc = (Doctores)Session["user"];
+            
+            if (string.IsNullOrEmpty(message))
+            {
+                DoctoresLog.MessageDoc(doc);
+                message = DoctoresLog.MessageLog;
+            }
+            ViewBag.Welcome = message;
             return View();
         }
 
         public ActionResult Consultas()
-        { 
+        {
+            if (Session["user"] == null)
+                return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -34,27 +49,22 @@ namespace ServicioMedico.MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LogIn(Doctores doc)
+        public ActionResult LogIn(Usuario doc)
         {
             if (!ModelState.IsValid)
             {
-                return View(doc);
+                ViewBag.MensajesError = "Ingrese correo electronico y contraseña";
+                return RedirectToAction("Index", "Home");
             }
-            /*var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+
+            var result = DoctoresLog.Login(doc);
+            if (result != null)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Intento de inicio de sesión no válido.");
-                    return View(model);
-            }*/
-            return View(doc);
+                Session["user"] = result;
+                return RedirectToAction("Index", "Doctores", new { @message = DoctoresLog.MessageLog });
+            }
+            ViewBag.MensajesError = DoctoresLog.MessageLog;
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -67,9 +77,11 @@ namespace ServicioMedico.MVC.Controllers
                 switch (msm)
                 {
                     case 0:
-                        return RedirectToAction("Index", "Doctores");
+                        Usuario user = new Usuario() { Email = doc.EmailDoctor, Password = doc.Password };
+                        Session["user"] = DoctoresLog.Login(user);
+                        return RedirectToAction("Index", "Doctores", new { @message = DoctoresLog.MessageLog });
                     case 1:
-                        ViewBag.MensajesError = "Este correo es invalido";
+                        ViewBag.MensajesError = "Este correo no es invalido";
                         break;
                     default:
                         ViewBag.MensajesError = "Ocurrio un error inesperado que no pudo ser controlado";
@@ -79,6 +91,14 @@ namespace ServicioMedico.MVC.Controllers
             else
                 ViewBag.MensajesError = "Complete todos los campos";
             return View("Registro");
+        }
+
+        [HttpGet]
+        public ActionResult LogOut()
+        {
+            if (Session["user"] != null)
+                Session["user"] = null;
+            return RedirectToAction("Index", "Home");
         }
     }
 }

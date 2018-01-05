@@ -10,7 +10,22 @@ namespace ServicioMedico.BLL
 {
     public class DoctoresLog
     {
-        public static bool Succeeded { get; set; }
+        public static string MessageLog { get; set; }
+
+        public static Doctores Login(Usuario userlog)
+        {
+            DoctoresDAL docDAL = new DoctoresDAL();
+            Doctores doc = docDAL.Login(userlog);
+            if (doc != null)
+            {
+                MessageDoc(doc);
+            }
+            else
+            {
+                MessageLog = docDAL.Message;
+            }
+            return doc;
+        }
 
         public static int AgregarDoctor(Doctores doclog)
         {
@@ -23,6 +38,45 @@ namespace ServicioMedico.BLL
                 return 1;
             else
                 return 4;
+        }
+
+        public static void MessageDoc(Doctores doc)
+        {
+            string nombre = OneWord(doc.NombreDoctor).ToUpper() + " " + OneWord(doc.ApellidosDoctor.ToUpper());
+            
+            switch (doc.Rol)
+            {
+                case 1:
+                    if (doc.GeneroDoctor == 1)
+                        MessageLog = "BIENVENIDO ADMINISTRADOR " + nombre;
+                    else
+                        MessageLog = "BIENVENIDA ADMINISTRADORA " + nombre;
+                    break;
+
+                case 2:
+                    if (doc.GeneroDoctor == 1)
+                        MessageLog = "BIENVENIDO DOCTOR " + nombre;
+                    else
+                        MessageLog = "BIENVENIDA DOCTORA " + nombre;
+                    break;
+                case 3:
+                    if (doc.GeneroDoctor == 1)
+                        MessageLog = "BIENVENIDO PASANTE " + nombre;
+                    else
+                        MessageLog = "BIENVENIDA PASANTE " + nombre;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private static string OneWord(string word)
+        {
+            if (word.Contains(" "))
+            {
+                word = word.Split(' ')[0];
+            }
+            return word;
         }
     }
 }

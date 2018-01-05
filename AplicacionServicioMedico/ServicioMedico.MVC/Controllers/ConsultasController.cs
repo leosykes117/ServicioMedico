@@ -13,8 +13,11 @@ namespace ServicioMedico.MVC.Controllers
     public class ConsultasController : Controller
     {
         [HttpPost]
-        public ViewResult Index(int id, string nom, int edad, string genero)
+        public ActionResult Index(int id, string nom, int edad, string genero)
         {
+            if (Session["user"] == null)
+                return RedirectToAction("Index", "Home");
+
             List<Consultas> lista = (List<Consultas>)ConsultasLog.ConsultasAnteriores(id);
             ViewBag.idpaciente = id;
             ViewBag.nompaciente = nom;
@@ -24,14 +27,18 @@ namespace ServicioMedico.MVC.Controllers
         }
 
         [HttpGet]
-        public ViewResult VerConsultas()
+        public ActionResult VerConsultas()
         {
+            if (Session["user"] == null)
+                return RedirectToAction("Index", "Home");
             return View();
         }
 
         [HttpGet]
-        public ViewResult ConsultasEliminadas()
+        public ActionResult ConsultasEliminadas()
         {
+            if(Session["user"] == null)
+                return RedirectToAction("Index", "Home");
             return View();
         }
 

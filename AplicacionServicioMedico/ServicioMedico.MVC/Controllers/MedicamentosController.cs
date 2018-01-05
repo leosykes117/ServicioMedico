@@ -19,11 +19,11 @@ namespace ServicioMedico.MVC.Controllers
             return View();
         }
 
-       [HttpGet]
+       [HttpPost]
        public JsonResult MedicamentosConsultas(int cve)
         {
             List<Medicamentos_Consultas> listaMed = (List<Medicamentos_Consultas>)MedicamentosLog.MedicamentosenConsulta(cve);
-            return Json( listaMed, JsonRequestBehavior.AllowGet );
+            return Json(listaMed);
         }
 
         /*[HttpGet]

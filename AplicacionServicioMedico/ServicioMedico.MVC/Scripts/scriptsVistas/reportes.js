@@ -24,7 +24,7 @@ $("#frmReporte").on("submit", function (event) {
     }).done(function (data) {
         var filaReporte = $("table tbody tr").html("");
         /* Vemos que la respuesta no este vacía y sea una arreglo */
-        if (data != null && $.isArray(data)) {
+        if (data.length != 0 && $.isArray(data)) {
             /* Recorremos tu respuesta con each */
             $.each(data, function (index, value) {
                 /* Vamos agregando a nuestra tabla las filas necesarias */
@@ -34,6 +34,8 @@ $("#frmReporte").on("submit", function (event) {
                                        "</td><td>" + value.ExternosH + "</td><td>" + value.ExternosM +
                                        "</td><td>" + value.SubtotalH + "</td><td>" + value.SubtotalM + "</td><td>" + value.Total + "</td>");
             });
+        } else {
+            $(filaReporte).append("<td colspan='11' class='text-center'><strong>No se atendieron personas en este mes<strong></td>")
         }
     }).fail(function () {
 

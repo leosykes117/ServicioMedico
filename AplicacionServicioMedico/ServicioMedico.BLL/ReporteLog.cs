@@ -28,6 +28,10 @@ namespace ServicioMedico.BLL
         public string GenerarPdf()
         {
             DataTable tb = (DataTable)ReporteMes();
+            if (tb == null)
+            {
+                return "Error";
+            }
             string Ruta = rutaDoctor;
             System.IO.FileStream fs = new FileStream(Ruta, FileMode.Create, FileAccess.Write, FileShare.None);
             Document document = new Document();

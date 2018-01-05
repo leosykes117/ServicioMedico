@@ -11,6 +11,10 @@ namespace ServicioMedico.MVC.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            if(Session["user"] != null)
+            {
+                return RedirectToAction("Index", "Doctores");
+            }
             return View();
         }
     }

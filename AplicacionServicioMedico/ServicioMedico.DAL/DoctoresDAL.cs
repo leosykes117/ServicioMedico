@@ -13,10 +13,56 @@ namespace ServicioMedico.DAL
     {
         private Conexion conexion;
         private SqlCommand comando;
+        public string Message { get; set; }
 
         public DoctoresDAL()
         {
             conexion = Conexion.saberEstado();
+        }
+
+        public Doctores Login(Usuario user)
+        {
+            Doctores docReturn = null;
+            try
+            {
+                comando = new SqlCommand("selIniciarSesion", conexion.getCon());
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add(new SqlParameter("@Email", user.Email));
+                comando.Parameters.Add(new SqlParameter("@Password", user.Password));
+                SqlDataReader dr = null;
+                conexion.getCon().Open();
+                dr = comando.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    docReturn = new Doctores();
+                    while (dr.Read())
+                    {
+                        docReturn.IdDoctor = dr.GetInt32(0);
+                        docReturn.NombreDoctor = dr.GetString(1);
+                        docReturn.ApellidosDoctor = dr.GetString(2);
+                        docReturn.GeneroDoctor = dr.GetInt16(3);
+                        docReturn.EmailDoctor = dr.GetString(4);
+                        docReturn.Rol = dr.GetInt16(5);
+                    }
+                }
+                else
+                    Message = "Usuario o contraseña erroneos";
+                dr.Close();
+            }
+            catch (SqlException sqlex)
+            {
+                Message = sqlex.Message;
+            }
+            catch (Exception ex)
+            {
+                Message = ex.Message;
+            }
+            finally
+            {
+                conexion.getCon().Close();
+                conexion.cerrarConexion();
+            }
+            return docReturn;
         }
 
         public string Agregar(Doctores doc)
