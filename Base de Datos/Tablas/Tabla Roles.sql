@@ -1,40 +1,40 @@
 USE ServicioMedico
 GO
 
-IF OBJECT_ID('Roles') IS NOT NULL
-DROP TABLE Roles
+IF OBJECT_ID('tbRoles') IS NOT NULL
+DROP TABLE tbRoles
 GO
 
-CREATE TABLE Roles
+CREATE TABLE tbRoles
 (
 IdRol SMALLINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 Roles NVARCHAR(13)
 )
 GO
 
-INSERT INTO Roles
+INSERT INTO tbRoles
 VALUES
 ('Administrador'),
 ('Doctor'),
 ('Pasante')
-go
+GO
 
-SELECT * FROM Roles
+SELECT * FROM tbRoles
 GO
 
 ------------------------TABLA CONSULTORIOS---------------------------
-IF OBJECT_ID('TablaConsultorios') IS NOT NULL
-DROP TABLE TablaConsultorios
+IF OBJECT_ID('tbConsultorios') IS NOT NULL
+DROP TABLE tbConsultorios
 GO
 
-CREATE TABLE TablaConsultorios
+CREATE TABLE tbConsultorios
 (
-IDConsultorio SMALLINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+IdConsultorio SMALLINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 NombreConsultorio NVARCHAR(30)
 )
 GO
 
-INSERT INTO TablaConsultorios
+INSERT INTO tbConsultorios
 VALUES
 ('Medicina General Matutino'),
 ('Medicina General Vespertino'),
@@ -42,4 +42,4 @@ VALUES
 ('Nutrición'),
 ('Optometría')
 
-SELECT * FROM TablaConsultorios
+SELECT * FROM tbConsultorios

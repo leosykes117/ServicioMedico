@@ -28,7 +28,7 @@ namespace ServicioMedico.BLL
         public string GenerarPdf()
         {
             DataTable tb = (DataTable)ReporteMes();
-            if (tb == null)
+            /*if (tb == null)
             {
                 return "Error";
             }
@@ -127,7 +127,7 @@ namespace ServicioMedico.BLL
             document.Add(table);
             document.Close();
             writer.Close();
-            fs.Close();
+            fs.Close();*/
             return "Hare el reporte";
         }
 
@@ -146,8 +146,8 @@ namespace ServicioMedico.BLL
         {
             DateTime fecha = DateTime.Now;
             DataTable tb;
-            if (SiCrear(fecha))
-            {
+            /*if (SiCrear(fecha))
+            {*/
                 ReportesDAL reportesDAL = new ReportesDAL();
                 int mes = fecha.Month;
                 if (mes == 1)
@@ -159,11 +159,11 @@ namespace ServicioMedico.BLL
                     tb = reportesDAL.Reporte(fecha.Month - 1, fecha.Year);
                 }
 
-            }
+            /*}
             else
             {
                 tb = null;
-            }
+            }*/
             return tb;
         }
 

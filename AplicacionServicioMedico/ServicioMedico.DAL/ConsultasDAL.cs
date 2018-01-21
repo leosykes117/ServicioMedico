@@ -31,7 +31,7 @@ namespace ServicioMedico.DAL
                 comando = new SqlCommand("insAgregarConsulta", conexion.getCon());
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@Paciente", SqlDbType.Int).Value = objconsulta.CvePaciente;
-                comando.Parameters.Add("@Doctor", SqlDbType.NVarChar, 50).Value = objconsulta.CveDoctor;
+                comando.Parameters.Add("@Doctor", SqlDbType.Int).Value = objconsulta.CveDoctor;
                 comando.Parameters.Add("@Diagnostico", SqlDbType.NVarChar).Value = objconsulta.Diagnostico;
                 comando.Parameters.Add("@Observaciones", SqlDbType.NVarChar).Value = objconsulta.Observaciones;
                 comando.Parameters.Add("@Fecha", SqlDbType.Date).Value = objconsulta.FechaConsulta.Date.ToString("dd/MM/yyyy");
@@ -245,7 +245,7 @@ namespace ServicioMedico.DAL
                     consultaMedica.FechaConsulta = Convert.ToDateTime(lector[1]).Date;
                     consultaMedica.Diagnostico = lector[2].ToString();
                     consultaMedica.Observaciones = lector[3].ToString();
-                    consultaMedica.CveDoctor = lector[4].ToString();
+                    consultaMedica.NomDoc = lector[4].ToString();
                     historiaClinica.Add(consultaMedica);
                 }
 

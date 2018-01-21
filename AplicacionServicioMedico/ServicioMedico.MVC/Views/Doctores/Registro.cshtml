@@ -69,7 +69,17 @@
             }, "Rol", new { id = "cmbRol", @class = "form-control" })
         </div>
     </div>
-    <br>
+    <br />  
+    <!--RESPONSABLE Y CONSULTORIO-->
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            @Html.DropDownList("Consultorio", (IEnumerable<SelectListItem>)ViewBag.consRegister, "Consultorio", new { id = "cmbConsultorio", @class = "form-control" })
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            @Html.DropDownList("Responsable", (IEnumerable<SelectListItem>)ViewBag.docsRegister, "Acargo de...", new { id = "cmbResponsable", @class = "form-control" })
+        </div>
+    </div>
+    <br />
     <div class="row">
         <div class="col-md-12">
             <button type="submit" id="btnRegistrar" class="btn btn-primario btn-md">Registrarse</button>

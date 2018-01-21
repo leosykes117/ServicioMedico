@@ -67,6 +67,8 @@ namespace ServicioMedico.MVC.Controllers
         [HttpPost]
         public JsonResult Guardar(Consultas nuevaConsulta)
         {
+            Doctores doc = (Doctores)Session["user"];
+            nuevaConsulta.CveDoctor = doc.IdDoctor;
             string json = ConsultasLog.AgregarConsulta(nuevaConsulta);
             JsonConvert.SerializeObject(json);
             return Json(json);

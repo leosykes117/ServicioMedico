@@ -62,7 +62,7 @@ BEGIN
 	DECLARE @Total INT = (SELECT COUNT(*) FROM tbConsultas
 	WHERE MONTH(FechaConsulta) = @Mes AND YEAR(FechaConsulta) = @YEAR AND EstatusConsulta = 1)
 
-	INSERT INTO Reporte 
+	INSERT INTO Reportes
 	VALUES(NULL, @Mes,@YEAR, @HombreA, @MujeresA, @HombreD, @MujeresD, @HombreP, @MujeresP, @HombreE, @MujeresE, @SubtotalH, @SubtotalM, @Total, NULL)
 	SET @ID = @@IDENTITY
 END

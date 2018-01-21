@@ -11,8 +11,9 @@ CREATE PROC selHistoriaClinica
 )
 AS
 BEGIN
-	SELECT IdConsulta, FechaConsulta, Diagnostico, Observaciones, CveDoctor
+	SELECT IdConsulta, FechaConsulta, Diagnostico, Observaciones, NombreDoctor + ' ' + ApellidosDoctor
 	FROM tbConsultas INNER JOIN tbPacientes ON tbConsultas.CvePaciente = tbPacientes.IdPaciente
+	INNER JOIN tbDoctores ON tbConsultas.CveDoctor = tbDoctores.IdDoctor
 	WHERE CvePaciente = @CvePaciente AND EstatusConsulta = 1
 	ORDER BY FechaConsulta ASC
 END

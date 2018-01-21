@@ -75,6 +75,10 @@ namespace ServicioMedico.DAL
                 comando.Parameters.Add("@Nombre", SqlDbType.NVarChar, 30).Value = doc.NombreDoctor;
                 comando.Parameters.Add("@Apellidos", SqlDbType.NVarChar, 30).Value = doc.ApellidosDoctor;
                 comando.Parameters.Add("@Genero", SqlDbType.SmallInt).Value = doc.GeneroDoctor;
+                if (doc.Responsable != 0)
+                    comando.Parameters.Add("@Responsable", SqlDbType.Int).Value = doc.Responsable;
+                if(doc.Consultorio != 0)
+                    comando.Parameters.Add("@Consultorio", SqlDbType.SmallInt).Value = doc.Consultorio;
                 comando.Parameters.Add("@Email", SqlDbType.NVarChar, 100).Value = doc.EmailDoctor;
                 comando.Parameters.Add("@Passw", SqlDbType.NVarChar, 255).Value = doc.Password;
                 comando.Parameters.Add("@Rol", SqlDbType.SmallInt).Value = doc.Rol;
@@ -102,6 +106,40 @@ namespace ServicioMedico.DAL
                 conexion.cerrarConexion();
             }
             return mensaje;
+        }
+
+        public List<Doctores> ListadoRegistro()
+        {
+            List<Doctores> all;
+            try
+            {
+                comando = new SqlCommand("selListadoDocRegister", conexion.getCon());
+                comando.CommandType = CommandType.StoredProcedure;
+                SqlDataReader dr = null;
+                conexion.getCon().Open();
+                dr = comando.ExecuteReader();
+                all = new List<Doctores>();
+                if (dr.HasRows)
+                {
+                    while(dr.Read())
+                    {
+                        Doctores d = new Doctores();
+                        d.IdDoctor = dr.GetInt32(0);
+                        d.NombreDoctor = dr.GetString(1);
+                        all.Add(d);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                all = null;
+            }
+            finally
+            {
+                conexion.getCon().Close();
+                conexion.cerrarConexion();
+            }
+            return all;
         }
     }
 }

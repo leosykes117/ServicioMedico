@@ -13,7 +13,7 @@ CREATE PROCEDURE selIniciarSesion
 AS
 BEGIN
 	BEGIN TRY
-		SELECT IdDoctor, NombreDoctor, ApellidosDoctor, GeneroDoctor, EmailDoctor, Rol FROM TablaUsuarios WHERE (EmailDoctor = @Email AND Password_Encriptada = @Password);
+		SELECT IdDoctor, NombreDoctor, ApellidosDoctor, GeneroDoctor, EmailDoctor, Rol FROM tbDoctores WHERE (EmailDoctor = @Email AND Password_Encriptada = @Password);
 	END TRY
 	BEGIN CATCH
 		DECLARE @Mensaje NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT;  
@@ -23,5 +23,5 @@ BEGIN
 END
 GO
 
-EXEC selIniciarSesion 'leo.aremtz98@gmail.com','Sticky.Mine.Spartan117'
+EXEC selIniciarSesion 'leo.aremtz98@gmail.com','Sticky.Mine.Saprtan117'
 GO

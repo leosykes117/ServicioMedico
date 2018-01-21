@@ -2,9 +2,9 @@
     var MadarMensajeCrear = false;
     var now = moment();
     var diaSemana = now.isoWeekday();
-    if (diaSemana < 7) {
+    if (diaSemana <= 7) {
         var dia = now.date();
-        if (dia >= 1 && dia <= 7) {
+        if (dia >= 1 && dia <= 31) {
             var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
             var datos = { "mesR": meses[now.month()-1], "yearR": now.format("YYYY") };
             $.ajax({

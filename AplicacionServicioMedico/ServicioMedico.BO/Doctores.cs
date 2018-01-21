@@ -23,6 +23,10 @@ namespace ServicioMedico.BO
         [Display(Name = "Genero")]
         public short GeneroDoctor { get; set; }
 
+        public int? Responsable { get; set; }
+
+        public short? Consultorio { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Correo electrónico")]
@@ -38,7 +42,9 @@ namespace ServicioMedico.BO
         public short Rol { get; set; }
 
         public string TokenReseteoPassword { get; set; }
+
         public DateTime CreadoEl { get; set; }
+
         public DateTime ModificadoEl { get; set; }
     }
 }

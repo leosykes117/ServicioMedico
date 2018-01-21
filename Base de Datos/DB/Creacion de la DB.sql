@@ -4,8 +4,8 @@ GO
 CREATE DATABASE ServicioMedico
 ON 
 (
-NAME = 'ServicioMedico_Data',
-FILENAME = 'C:\Programas\ServicioMedico\Base de Datos\DB\ServicioMedico_Data.mdf',
+NAME = 'ServicioMedico',
+FILENAME = 'C:\Programas\ServicioMedico\Base de Datos\DB\ServicioMedico.mdf',
 SIZE = 5MB,
 MAXSIZE = UNLIMITED,
 FILEGROWTH = 25%
@@ -13,8 +13,8 @@ FILEGROWTH = 25%
 LOG
 ON
 (
-NAME = 'ServicioMedico_Log',
-FILENAME = 'C:\Programas\ServicioMedico\Base de Datos\DB\ServicioMedico_Log.ldf',
+NAME = 'ServicioMedico_log',
+FILENAME = 'C:\Programas\ServicioMedico\Base de Datos\DB\ServicioMedico_log.ldf',
 SIZE = 1MB,
 MAXSIZE = UNLIMITED,
 FILEGROWTH = 25%

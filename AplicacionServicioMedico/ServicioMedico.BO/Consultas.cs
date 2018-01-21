@@ -11,7 +11,7 @@ namespace ServicioMedico.BO
     {
         private int idConsulta;
         private int cvePaciente;
-        private string cveDoctor;
+        private int cveDoctor;
         private string diagnostico;
         private string observaciones;
         private DateTime fechaConsulta = new DateTime();
@@ -23,6 +23,7 @@ namespace ServicioMedico.BO
         private string tA;
         private float fC;
         private float fR;
+        public string NomDoc { get; set; }
         private List<Motivos> motivosConsultas;
         private List<Medicamentos_Consultas> medicamentosConsultas;
 
@@ -52,7 +53,7 @@ namespace ServicioMedico.BO
             }
         }
 
-        public string CveDoctor
+        public int CveDoctor
         {
             get
             {
@@ -247,7 +248,7 @@ namespace ServicioMedico.BO
             this.estatusConsulta = estatusConsulta;
         }
 
-        public Consultas(int idConsulta, int cvePaciente, string cveDoctor, string diagnostico, string observaciones, DateTime fechaConsulta, DateTime horaEntrada, DateTime horaSalida, DateTime duracionConsulta, short estatusConsulta, float temperatura, string tA, float fC, float fR, List<Motivos> motivosConsultas, List<Medicamentos_Consultas> medicamentosConsultas)
+        public Consultas(int idConsulta, int cvePaciente, int cveDoctor, string diagnostico, string observaciones, DateTime fechaConsulta, DateTime horaEntrada, DateTime horaSalida, DateTime duracionConsulta, short estatusConsulta, float temperatura, string tA, float fC, float fR, List<Motivos> motivosConsultas, List<Medicamentos_Consultas> medicamentosConsultas)
         {
             this.idConsulta = idConsulta;
             this.cvePaciente = cvePaciente;

@@ -70,8 +70,8 @@ namespace ServicioMedico.DAL
 
         public DataTable Reporte(int mes, int y)
         {
-            DataTable tablaReportes;
-            try
+            DataTable tablaReportes = new DataTable();
+            /*try
             {
                 tablaReportes = new DataTable();
                 comando = new SqlCommand("selCraerReporte", conexion.getCon());
@@ -90,7 +90,7 @@ namespace ServicioMedico.DAL
             {
                 conexion.getCon().Close();
                 conexion.cerrarConexion();
-            }
+            }*/
             return tablaReportes;
         }
 

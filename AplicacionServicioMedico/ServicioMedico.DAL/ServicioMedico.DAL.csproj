@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Conexion.cs" />
     <Compile Include="ConsultasDAL.cs" />
+    <Compile Include="ConsultoriosDAL.cs" />
     <Compile Include="CRUD.cs" />
     <Compile Include="DoctoresDAL.cs" />
     <Compile Include="MedicamentosDAL.cs" />

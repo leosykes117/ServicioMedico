@@ -5,6 +5,17 @@
     Layout = "~/Views/Shared/_PlantillaLogin.cshtml";
 }
 
+@if (ViewBag.MensajesError != null)
+            {
+    <div id="mensajes" class="alert alert-danger alert-dismissable" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>
+            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Error
+        </strong>
+        <span id="textoMsm">@ViewBag.MensajesError</span>
+    </div>
+}
+
 <div class="well texto">
     <label>Inicia tu Sesi&oacute;n</label>
     @using (Html.BeginForm("Login", "Doctores", FormMethod.Post, new { id = "frmLogin", @class = "form-horizontal", autocomplete = "off", accept_charset = "utf-8" }))

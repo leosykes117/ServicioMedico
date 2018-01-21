@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -68,6 +69,33 @@ namespace ServicioMedico.BLL
                 default:
                     break;
             }
+        }
+
+        public static List<SelectListItem> ListForRegister()
+        {
+            DoctoresDAL docDAL = new DoctoresDAL();
+            List<SelectListItem> selectLDoc = new List<SelectListItem>(); ;
+            List<Doctores> listDoc = (List<Doctores>)docDAL.ListadoRegistro();
+            if (listDoc.Count != 0 && listDoc != null)
+            {
+                foreach (var item in listDoc)
+                {
+                    selectLDoc.Add(new SelectListItem()
+                    {
+                        Value = item.IdDoctor.ToString(),
+                        Text = item.NombreDoctor
+                    });
+                }
+            }
+            else
+            {
+                selectLDoc.Add(new SelectListItem()
+                {
+                    Value = "0",
+                    Text = "Sin Registros"
+                });
+            }
+            return selectLDoc;
         }
 
         private static string OneWord(string word)

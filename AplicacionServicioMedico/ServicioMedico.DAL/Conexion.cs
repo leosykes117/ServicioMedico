@@ -15,7 +15,7 @@ namespace ServicioMedico.DAL
 
         private Conexion()
         {
-            con = new SqlConnection(@"Data Source=.;Initial Catalog=ServicioMedicoTest;Integrated Security=True");
+            con = new SqlConnection(@"Data Source=.;Initial Catalog=ServicioMedico;Integrated Security=True");
         }
 
         public static Conexion saberEstado()

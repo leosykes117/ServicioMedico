@@ -32,6 +32,7 @@ namespace ServicioMedico.MVC.Controllers
                 message = DoctoresLog.MessageLog;
             }
             ViewBag.Welcome = message;
+            ViewBag.Name = doc.NombreDoctor;
             return View();
         }
 
@@ -44,6 +45,8 @@ namespace ServicioMedico.MVC.Controllers
 
         public ActionResult Registro()
         {
+            ViewBag.consRegister = ConsultoriosLog.ListConsultoriosForRegister();
+            ViewBag.docsRegister = DoctoresLog.ListForRegister();
             return View();
         }
 
@@ -82,14 +85,22 @@ namespace ServicioMedico.MVC.Controllers
                         return RedirectToAction("Index", "Doctores", new { @message = DoctoresLog.MessageLog });
                     case 1:
                         ViewBag.MensajesError = "Este correo no es invalido";
+                        ViewBag.consRegister = ConsultoriosLog.ListConsultoriosForRegister();
+                        ViewBag.docsRegister = DoctoresLog.ListForRegister();
                         break;
                     default:
                         ViewBag.MensajesError = "Ocurrio un error inesperado que no pudo ser controlado";
+                        ViewBag.consRegister = ConsultoriosLog.ListConsultoriosForRegister();
+                        ViewBag.docsRegister = DoctoresLog.ListForRegister();
                         break;
                 }
             }
             else
+            {
+                ViewBag.consRegister = ConsultoriosLog.ListConsultoriosForRegister();
+                ViewBag.docsRegister = DoctoresLog.ListForRegister();
                 ViewBag.MensajesError = "Complete todos los campos";
+            }
             return View("Registro");
         }
 

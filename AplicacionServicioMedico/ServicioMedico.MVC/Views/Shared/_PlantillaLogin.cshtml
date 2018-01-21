@@ -16,16 +16,6 @@
                 <h2>Centro de Estudios Cientifos y Tecnologicos N° 13</h2>
                 <h1>Servicio Médico Escolar</h1>
             </div>
-            @if (ViewBag.MensajesError != null)
-            {
-                <div id="mensajes" class="alert alert-danger alert-dismissable" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <strong>
-                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Error
-                    </strong>
-                    <span id="textoMsm">@ViewBag.MensajesError</span>
-                </div>
-            }
             @RenderBody()
         </div>
     </div>
