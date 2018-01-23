@@ -110,7 +110,7 @@ namespace ServicioMedico.DAL
             return mensaje;  
         }
 
-        public DataTable GeneralConsultas(short tipo, short estatus)
+        public DataTable GeneralConsultas(short tipo, short estatus, int id)
         {
             DataTable tablaConsultas;
             try
@@ -119,6 +119,7 @@ namespace ServicioMedico.DAL
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@Tipo", SqlDbType.SmallInt).Value = tipo;
                 comando.Parameters.Add("@Estatus", SqlDbType.SmallInt).Value = estatus;
+                comando.Parameters.Add("@Cve", SqlDbType.Int).Value = id;
                 tablaConsultas = new DataTable();
                 conexion.getCon().Open();
                 da = new SqlDataAdapter(comando);

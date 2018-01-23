@@ -108,7 +108,8 @@ namespace ServicioMedico.MVC.Controllers
         [HttpPost]
         public JsonResult ListarConsultas(short t, short estatus)
         {
-            DataTable tb = (DataTable)ConsultasLog.TodasLasConsultas(t, estatus);
+            Doctores doc = (Doctores)Session["user"];
+            DataTable tb = (DataTable)ConsultasLog.TodasLasConsultas(t, estatus, doc.IdDoctor);
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
             Dictionary<string, object> row;
             foreach (DataRow dr in tb.Rows)

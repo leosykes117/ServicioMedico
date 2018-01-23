@@ -38,8 +38,7 @@ namespace ServicioMedico.BLL
             ComprobarRuta();
             string Ruta = rutaDoctor + @"\Reporte " + mes + " " + year + ".pdf";
             System.IO.FileStream fs = new FileStream(Ruta, FileMode.Create, FileAccess.Write, FileShare.None);
-            Document document = new Document();
-            document.SetPageSize(iTextSharp.text.PageSize.LETTER.Rotate());
+            Document document = new Document(iTextSharp.text.PageSize.LETTER.Rotate());
             PdfWriter writer = PdfWriter.GetInstance(document, fs);
             document.Open();
 

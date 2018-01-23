@@ -154,7 +154,7 @@ var listarAlumnos = function (cmbTipo, est) {
         "columns": [
             { "data": "Nombre" },
             { "data": "Generos" },
-            { "data": "CveDoctor" },
+            { "data": "Atendio" },
             { "data": "Diagnostico" },
             { "data": "FechaConsulta" },
             { "data": "HoraEntrada" },
@@ -225,7 +225,7 @@ var listarDoc = function (cmbTipo, est) {
         "columns": [
             { "data": "Nombre" },
             { "data": "Generos" },
-            { "data": "CveDoctor" },
+            { "data": "Atendio" },
             { "data": "Diagnostico" },
             { "data": "FechaConsulta" },
             { "data": "HoraEntrada" },
@@ -296,7 +296,7 @@ var listarPaae = function (cmbTipo, est) {
         "columns": [
             { "data": "Nombre" },
             { "data": "Generos" },
-            { "data": "CveDoctor" },
+            { "data": "Atendio" },
             { "data": "Diagnostico" },
             { "data": "FechaConsulta" },
             { "data": "HoraEntrada" },
@@ -367,7 +367,7 @@ var listarExternos = function (cmbTipo, est ) {
         "columns": [
             { "data": "Nombre" },
             { "data": "Generos" },
-            { "data": "CveDoctor" },
+            { "data": "Atendio" },
             { "data": "Diagnostico" },
             { "data": "FechaConsulta" },
             { "data": "HoraEntrada" },

@@ -34,10 +34,10 @@ namespace ServicioMedico.BLL
             return consultaDAL.Agregar(con);
         }
 
-        public static DataTable TodasLasConsultas(short tipo, short estatus)
+        public static DataTable TodasLasConsultas(short tipo, short estatus, int idDoc)
         {
             ConsultasDAL consultasDAL = new ConsultasDAL();
-            return consultasDAL.GeneralConsultas(tipo, estatus);
+            return consultasDAL.GeneralConsultas(tipo, estatus, idDoc);
         }
 
         public static string ActualizarConsulta(Consultas consulta)

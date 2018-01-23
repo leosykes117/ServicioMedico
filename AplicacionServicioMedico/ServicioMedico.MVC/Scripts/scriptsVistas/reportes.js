@@ -28,10 +28,10 @@ $("#frmReporte").on("submit", function (event) {
             /* Recorremos tu respuesta con each */
             $.each(data, function (index, value) {
                 /* Vamos agregando a nuestra tabla las filas necesarias */
-                $(filaReporte).append("<td>" + value.AlumnosH + "</td><td>" + value.AlumnosM +
-                                       "</td><td>" + value.DocentesH + "</td><td>" + value.DocentesM +
-                                       "</td><td>" + value.PaaesH + "</td><td>" + value.PaaesM +
-                                       "</td><td>" + value.ExternosH + "</td><td>" + value.ExternosM +
+                $(filaReporte).append("<td>" + value.HombresA + "</td><td>" + value.MujeresA +
+                                       "</td><td>" + value.HombresD + "</td><td>" + value.MujeresD +
+                                       "</td><td>" + value.HombresP + "</td><td>" + value.MujeresP +
+                                       "</td><td>" + value.HombresE + "</td><td>" + value.MujeresE +
                                        "</td><td>" + value.SubtotalH + "</td><td>" + value.SubtotalM + "</td><td>" + value.Total + "</td>");
             });
             console.log($("#mesR").val(json.Mes))
