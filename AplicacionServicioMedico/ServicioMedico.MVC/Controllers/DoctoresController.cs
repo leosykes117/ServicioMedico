@@ -33,6 +33,7 @@ namespace ServicioMedico.MVC.Controllers
             }
             ViewBag.Welcome = message;
             ViewBag.Name = doc.NombreDoctor;
+            ViewBag.vistaRep = doc.VistaReporte;
             return View();
         }
 

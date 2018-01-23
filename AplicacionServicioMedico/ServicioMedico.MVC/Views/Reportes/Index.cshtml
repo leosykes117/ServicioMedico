@@ -57,8 +57,16 @@
                 <form id="frmDatosFecha" action="/Reportes/Archivo" method="post" autocomplete="off">
                     @{
                         DateTime now = DateTime.Now;
-                        <input type="hidden" id="txtFechaMes" name="mesR" value="@(now.Month-2)" />
-                        <input type="hidden" id="txtFechaYear" name="yearR" value="@now.Year" />
+                        if (now.Month == 1)
+                        {
+                            <input type="hidden" id="txtFechaMes" name="mesR" value="@(now.AddMonths(-1).Month)" />
+                            <input type="hidden" id="txtFechaYear" name="yearR" value="@now.AddYears(-1).Year" />
+                        }
+                        else
+                        {
+                            <input type="hidden" id="txtFechaMes" name="mesR" value="@(now.AddMonths(-1).Month)" />
+                            <input type="hidden" id="txtFechaYear" name="yearR" value="@now.Year" />
+                        }
                         <button type="submit" class="btn btn-primario btn-block" formtarget="_blank">Descargar Reporte</button>
                     }
                 </form>

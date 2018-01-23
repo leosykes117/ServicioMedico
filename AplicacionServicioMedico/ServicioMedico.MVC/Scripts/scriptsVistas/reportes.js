@@ -34,6 +34,8 @@ $("#frmReporte").on("submit", function (event) {
                                        "</td><td>" + value.ExternosH + "</td><td>" + value.ExternosM +
                                        "</td><td>" + value.SubtotalH + "</td><td>" + value.SubtotalM + "</td><td>" + value.Total + "</td>");
             });
+            console.log($("#mesR").val(json.Mes))
+            $("#yearR").val(json.Year);
         } else {
             $(filaReporte).append("<td colspan='11' class='text-center'><strong>No se atendieron personas en este mes<strong></td>")
         }

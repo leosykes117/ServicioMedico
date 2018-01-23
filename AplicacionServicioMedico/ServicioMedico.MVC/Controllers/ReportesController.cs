@@ -16,7 +16,15 @@ namespace ServicioMedico.MVC.Controllers
         {
             if (Session["user"] == null)
                 return RedirectToAction("Index", "Home");
-            DataTable tb = (DataTable)ReporteLog.ReporteMes();
+            Doctores d = (Doctores)Session["user"];
+            ReporteLog reporteLog = new ReporteLog(d);
+            DataTable tb = (DataTable)reporteLog.ReporteMes();
+            if (DoctoresLog.ModificarVista(d.IdDoctor))
+            {
+                d.VistaReporte = true;
+                Session["user"] = d;
+            }
+            d = null;
             return View(tb);
         }
     
@@ -30,7 +38,8 @@ namespace ServicioMedico.MVC.Controllers
         [HttpPost]
         public JsonResult ReporteAnterior(int Mes, int Year)
         {
-            DataTable tb = (DataTable)ReporteLog.ReporteMes(Mes, Year);
+            Doctores d = (Doctores)Session["user"];
+            DataTable tb = (DataTable)ReporteLog.ReporteMes(Mes, Year, d.IdDoctor);
             List<Dictionary<string, object>> objetoJSON = new List<Dictionary<string, object>>();
             if (tb == null)
                 return Json(objetoJSON);
@@ -50,8 +59,8 @@ namespace ServicioMedico.MVC.Controllers
         [HttpPost]
         public JsonResult ReportePF(string mesR, string yearR)
         {
-            ReporteLog reportelog = new ReporteLog(mesR, yearR);
-            string json = reportelog.GenerarPdf();
+            ReporteLog reportelog = new ReporteLog((Doctores)Session["user"]);
+            string json = reportelog.GenerarPdf(mesR, yearR);
             return Json(json);
         }
 
@@ -59,8 +68,8 @@ namespace ServicioMedico.MVC.Controllers
         public FileContentResult Archivo(int mesR, string yearR)
         {
             string[] meses = new string[12] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" };
-            ReporteLog reportelog = new ReporteLog(meses[mesR], yearR);
-            return File(reportelog.ArchivoBytes() , "application/pdf");
+            ReporteLog reportelog = new ReporteLog((Doctores)Session["user"]);
+            return File(reportelog.ArchivoBytes(meses[mesR-1], yearR) , "application/pdf");
         }
     }
 }

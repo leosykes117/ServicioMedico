@@ -1,33 +1,28 @@
 USE ServicioMedico
 GO
 
-IF OBJECT_ID('Reporte') IS NOT NULL
-DROP TABLE Reporte
+IF OBJECT_ID('tbReportes') IS NOT NULL
+DROP TABLE tbReportes
 GO
 
-CREATE TABLE Reporte
+CREATE TABLE tbReportes
 (
 IdReporte INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
-Propiertario INT NULL,
-Mes INT NULL,
-Año INT NULL,
-AlumHombres INT,
-AlumMujeres INT,
-DocHombres INT,
-DocMujeres INT,
-PaaeHombres INT,
-PaaeMujeres INT,
-ExtHombres INT,
-ExtMujeres INT,
-SubtotalHombres INT,
-SubtotalMujeres INT,
-Total INT,
-Archivo VARBINARY(MAX) NULL
+Pertenece INT NOT NULL,
+FechaReporte DATE NOT NULL,
+HombresA INT NOT NULL,
+MujeresA INT NOT NULL,
+HombresD INT NOT NULL,
+MujeresD INT NOT NULL,
+HombresP INT NOT NULL,
+MujeresP INT NOT NULL,
+HombresE INT NOT NULL,
+MujeresE INT NOT NULL,
+SubtotalH INT NOT NULL,
+SubtotalM INT NOT NULL,
+Total INT NOT NULL,
+CONSTRAINT fk_DocRep FOREIGN KEY (Pertenece) REFERENCES tbDoctores
 )
 GO
 
-INSERT INTO Reporte 
-VALUES (NULL, 7, 2017, 2, 0, 0, 0, 1, 0, )
-
-SELECT AlumHombres, AlumMujeres, DocHombres, DocMujeres, PaaeHombres, PaaeMujeres, ExtHombres, ExtMujeres, SubtotalHombres, SubtotalMujeres, Total 
-FROM Reporte WHERE 
+SELECT * FROM tbReportes

@@ -46,5 +46,7 @@ namespace ServicioMedico.BO
         public DateTime CreadoEl { get; set; }
 
         public DateTime ModificadoEl { get; set; }
+
+        public Boolean VistaReporte { get; set; }
     }
 }

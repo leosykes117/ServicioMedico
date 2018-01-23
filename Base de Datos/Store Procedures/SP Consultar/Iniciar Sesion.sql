@@ -13,7 +13,13 @@ CREATE PROCEDURE selIniciarSesion
 AS
 BEGIN
 	BEGIN TRY
-		SELECT IdDoctor, NombreDoctor, ApellidosDoctor, GeneroDoctor, EmailDoctor, Rol FROM tbDoctores WHERE (EmailDoctor = @Email AND Password_Encriptada = @Password);
+		IF (DAY(GETDATE()) > 7)
+		BEGIN
+			UPDATE tbDoctores
+			SET VistaReporte = 0
+			WHERE EmailDoctor = @Email AND Password_Encriptada = @Password 
+		END
+		SELECT IdDoctor, NombreDoctor, ApellidosDoctor, GeneroDoctor, EmailDoctor, Rol, VistaReporte FROM tbDoctores WHERE (EmailDoctor = @Email AND Password_Encriptada = @Password)
 	END TRY
 	BEGIN CATCH
 		DECLARE @Mensaje NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT;  

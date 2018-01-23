@@ -17,22 +17,26 @@ namespace ServicioMedico.BLL
 {
     public class ReporteLog
     {
-        public string rutaDoctor { get; set; }
+        private string rutaDoctor { get; set; }
+        private Doctores doctor;
+        private DirectoryInfo di;
 
-        public ReporteLog(string mes, string year)
+        public ReporteLog(Doctores doc)
         {
-            rutaDoctor = @"C:\Users\leono\Desktop\Web\" + mes + "-" + year + ".pdf" ;
+            rutaDoctor = @"C:\Users\leono\Desktop\Servicio Medico\" + doc.NombreDoctor + " " + doc.ApellidosDoctor + @"\Reportes";
+            doctor = doc;
         }
 
         //AQUI TENEMOS QUE ARMAR LA URL
-        public string GenerarPdf()
+        public string GenerarPdf(string mes, string year)
         {
-            DataTable tb = (DataTable)ReporteMes();
-            /*if (tb == null)
+            DataTable reporte = (DataTable)ReporteMes();
+            if (reporte == null)
             {
                 return "Error";
             }
-            string Ruta = rutaDoctor;
+            ComprobarRuta();
+            string Ruta = rutaDoctor + @"\Reporte " + mes + " " + year + ".pdf";
             System.IO.FileStream fs = new FileStream(Ruta, FileMode.Create, FileAccess.Write, FileShare.None);
             Document document = new Document();
             document.SetPageSize(iTextSharp.text.PageSize.LETTER.Rotate());
@@ -67,13 +71,16 @@ namespace ServicioMedico.BLL
             DateTime d = DateTime.Now;
             Paragraph prgAuthor = new Paragraph();
             prgAuthor.Alignment = Element.ALIGN_RIGHT;
-            prgAuthor.Add(new Chunk("Mes: " + d.AddMonths(-1).ToString("MMMM", new System.Globalization.CultureInfo("es-ES")) + " " + d.Year));
-            prgAuthor.Add(new Chunk("\nFecha de elaboracion: " + d.ToString("dd/MM/yyyy")));
+            if (d.Month == 1)
+                prgAuthor.Add(new Chunk("Mes: " + d.AddMonths(-1).ToString("MMMM", new System.Globalization.CultureInfo("es-ES")) + " " + d.AddYears(-1).Year));
+            else
+                prgAuthor.Add(new Chunk("Mes: " + d.AddMonths(-1).ToString("MMMM", new System.Globalization.CultureInfo("es-ES")) + " " + d.Year));
+            prgAuthor.Add(new Chunk("\nFecha de elaboracion: " + DateTime.Now.ToString("dd/MM/yyyy")));
             document.Add(prgAuthor);
 
             document.Add(new Paragraph("\n"));
 
-            int columnas = tb.Columns.Count;
+            int columnas = reporte.Columns.Count;
             PdfPTable table = new PdfPTable(columnas);
             PdfPCell headerTabla = new PdfPCell(new Phrase("Servicio Medico"));
             headerTabla.Colspan = columnas - 1;
@@ -104,9 +111,9 @@ namespace ServicioMedico.BLL
             headerSub.Colspan = 2;
             table.AddCell(headerSub);
 
-            for (int i = 0; i < tb.Rows.Count; i++)
+            for (int i = 0; i < reporte.Rows.Count; i++)
             {
-                for (int j = 1; j < tb.Columns.Count; j++)
+                for (int j = 1; j < reporte.Columns.Count; j++)
                 {
                     if ((j - 1) % 2 == 0)
                     {
@@ -118,59 +125,60 @@ namespace ServicioMedico.BLL
                     }
                 }
 
-                for (int j = 0; j < tb.Columns.Count; j++)
+                for (int j = 0; j < reporte.Columns.Count; j++)
                 {
-                    table.AddCell(tb.Rows[i][j].ToString());
+                    table.AddCell(reporte.Rows[i][j].ToString());
                 }
             }
+
 
             document.Add(table);
             document.Close();
             writer.Close();
-            fs.Close();*/
+            fs.Close();
             return "Hare el reporte";
         }
 
-        public byte[] ArchivoBytes()
+        public byte[] ArchivoBytes(string mes, string a)
         {
             byte[] pdfBytes;
-
-            if (!File.Exists(rutaDoctor))
+            string Ruta = rutaDoctor + @"\Reporte " + mes + " " + a + ".pdf";
+            if (!File.Exists(Ruta))
             {
-                GenerarPdf();
+                GenerarPdf(mes, a);
             }
-            return pdfBytes = File.ReadAllBytes(rutaDoctor);
+            return pdfBytes = File.ReadAllBytes(Ruta);
         }
 
-        public static DataTable ReporteMes()
+        public DataTable ReporteMes()
         {
             DateTime fecha = DateTime.Now;
             DataTable tb;
-            /*if (SiCrear(fecha))
-            {*/
+            if (SiCrear(fecha))
+            {
                 ReportesDAL reportesDAL = new ReportesDAL();
                 int mes = fecha.Month;
                 if (mes == 1)
                 {
-                    tb = reportesDAL.Reporte(12, fecha.Year - 1);
+                    tb = reportesDAL.NuevoReporte(12, fecha.Year - 1, doctor.IdDoctor);
                 }
                 else
                 {
-                    tb = reportesDAL.Reporte(fecha.Month - 1, fecha.Year);
+                    tb = reportesDAL.NuevoReporte(fecha.Month - 1, fecha.Year, doctor.IdDoctor);
                 }
 
-            /*}
+            }
             else
             {
                 tb = null;
-            }*/
+            }
             return tb;
         }
 
-        public static DataTable ReporteMes(int mesBuscar, int yearBuscar)
+        public static DataTable ReporteMes(int mesBuscar, int yearBuscar, int id)
         {
             ReportesDAL reporte = new ReportesDAL();
-            return reporte.Reporte(mesBuscar, yearBuscar);
+            return reporte.Reporte(mesBuscar, yearBuscar, id);
         }
 
         private static bool SiCrear(DateTime today)
@@ -187,6 +195,21 @@ namespace ServicioMedico.BLL
              }
 
              return respuesta;
+        }
+
+        private void ComprobarRuta()
+        {
+            try
+            {
+                if (!Directory.Exists(rutaDoctor))
+                {
+                    Directory.CreateDirectory(rutaDoctor);
+                }
+            }
+            catch (Exception)
+            {
+                
+            }
         }
     }
 }

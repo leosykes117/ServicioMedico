@@ -84,6 +84,16 @@
     </div>
 </div>
 
+<div class="row">
+    @using (Html.BeginForm("Archivo", "Reportes", FormMethod.Post, new { id = "frmPdfReporteAnterior", accept_charset = "utf-8" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("mesR")
+        @Html.Hidden("yearR")
+        <button type="submit" class="btn btn-primario btn-block" formtarget="_blank">Descargar Reporte</button>
+    }
+</div>
+
 @section scripts{
     <script src="~/Scripts/scriptsVistas/serializeFormJSON.js"></script>
     <script src="~/Scripts/scriptsVistas/reportes.js"></script>

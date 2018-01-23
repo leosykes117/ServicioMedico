@@ -41,6 +41,39 @@ namespace ServicioMedico.BLL
                 return 4;
         }
 
+        public static List<SelectListItem> ListForRegister()
+        {
+            DoctoresDAL docDAL = new DoctoresDAL();
+            List<SelectListItem> selectLDoc = new List<SelectListItem>(); ;
+            List<Doctores> listDoc = (List<Doctores>)docDAL.ListadoRegistro();
+            if (listDoc.Count != 0 && listDoc != null)
+            {
+                foreach (var item in listDoc)
+                {
+                    selectLDoc.Add(new SelectListItem()
+                    {
+                        Value = item.IdDoctor.ToString(),
+                        Text = item.NombreDoctor
+                    });
+                }
+            }
+            else
+            {
+                selectLDoc.Add(new SelectListItem()
+                {
+                    Value = "0",
+                    Text = "Sin Registros"
+                });
+            }
+            return selectLDoc;
+        }
+
+        public static bool ModificarVista(int id)
+        {
+            DoctoresDAL docDAL = new DoctoresDAL();
+            return docDAL.ModificarVistaReporte(id);
+        }
+
         public static void MessageDoc(Doctores doc)
         {
             string nombre = OneWord(doc.NombreDoctor).ToUpper() + " " + OneWord(doc.ApellidosDoctor.ToUpper());
@@ -69,33 +102,6 @@ namespace ServicioMedico.BLL
                 default:
                     break;
             }
-        }
-
-        public static List<SelectListItem> ListForRegister()
-        {
-            DoctoresDAL docDAL = new DoctoresDAL();
-            List<SelectListItem> selectLDoc = new List<SelectListItem>(); ;
-            List<Doctores> listDoc = (List<Doctores>)docDAL.ListadoRegistro();
-            if (listDoc.Count != 0 && listDoc != null)
-            {
-                foreach (var item in listDoc)
-                {
-                    selectLDoc.Add(new SelectListItem()
-                    {
-                        Value = item.IdDoctor.ToString(),
-                        Text = item.NombreDoctor
-                    });
-                }
-            }
-            else
-            {
-                selectLDoc.Add(new SelectListItem()
-                {
-                    Value = "0",
-                    Text = "Sin Registros"
-                });
-            }
-            return selectLDoc;
         }
 
         private static string OneWord(string word)

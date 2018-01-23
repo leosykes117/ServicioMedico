@@ -21,6 +21,7 @@ Rol SMALLINT NOT NULL,
 Token_Reseteo_Password NVARCHAR(6) NULL,
 Creado_El DATETIME NULL,
 Modificado_El DATETIME NULL,
+VistaReporte BIT NULL,
 CONSTRAINT fk_GnrDoc FOREIGN KEY (GeneroDoctor) REFERENCES tbGeneros (IdGenero),
 CONSTRAINT fk_DocMgr FOREIGN KEY (Responsable) REFERENCES tbDoctores (IdDoctor),
 CONSTRAINT fk_Consul FOREIGN KEY (Consultorio) REFERENCES tbConsultorios (IdConsultorio),
@@ -28,3 +29,7 @@ CONSTRAINT fk_RolD FOREIGN KEY(Rol) REFERENCES tbRoles (IdRol),
 CONSTRAINT uq_email UNIQUE(EmailDoctor)
 )
 GO
+
+/*ALTER TABLE tbDoctores
+ADD VistaReporte BIT NULL
+GO*/

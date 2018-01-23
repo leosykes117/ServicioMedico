@@ -43,6 +43,7 @@ namespace ServicioMedico.DAL
                         docReturn.GeneroDoctor = dr.GetInt16(3);
                         docReturn.EmailDoctor = dr.GetString(4);
                         docReturn.Rol = dr.GetInt16(5);
+                        docReturn.VistaReporte = dr.GetBoolean(6);
                     }
                 }
                 else
@@ -140,6 +141,28 @@ namespace ServicioMedico.DAL
                 conexion.cerrarConexion();
             }
             return all;
+        }
+
+        public bool ModificarVistaReporte(int id)
+        {
+            bool actualizo = false;
+            try
+            {
+                string query = "UPDATE tbDoctores SET VistaReporte = 1 WHERE IdDoctor = " + id;
+                comando = new SqlCommand(query, conexion.getCon());
+                conexion.getCon().Open();
+                if (comando.ExecuteNonQuery() > 0)
+                {
+                    actualizo = true;
+                }
+            }
+            catch (Exception) { }
+            finally
+            {
+                conexion.getCon().Close();
+                conexion.cerrarConexion();
+            }
+            return actualizo;
         }
     }
 }
