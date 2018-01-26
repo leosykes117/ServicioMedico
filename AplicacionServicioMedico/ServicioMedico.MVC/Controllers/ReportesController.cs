@@ -15,7 +15,7 @@ namespace ServicioMedico.MVC.Controllers
         public ActionResult Index()
         {
             if (Session["user"] == null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Doctores");
             Doctores d = (Doctores)Session["user"];
             ReporteLog reporteLog = new ReporteLog(d);
             DataTable tb = (DataTable)reporteLog.ReporteMes();
@@ -31,7 +31,7 @@ namespace ServicioMedico.MVC.Controllers
         public ActionResult Anteriores()
         {
             if (Session["user"] == null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Doctores");
             return View();
         }
 

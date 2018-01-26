@@ -17,14 +17,14 @@ namespace ServicioMedico.MVC.Controllers
         public ActionResult Index()
         {
             if(Session["user"] == null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Doctores");
             return View();
         }
 
         public ActionResult PacientesEliminados()
         {
             if(Session["user"] == null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Doctores");
             return View();
         }
 

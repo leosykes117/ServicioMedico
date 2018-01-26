@@ -21,7 +21,7 @@ namespace ServicioMedico.MVC.Controllers
         {
             if (Session["user"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LogIn", "Doctores");
             }
 
             Doctores doc = (Doctores)Session["user"];
@@ -40,14 +40,16 @@ namespace ServicioMedico.MVC.Controllers
         public ActionResult Consultas()
         {
             if (Session["user"] == null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Doctores");
             return View();
         }
 
-        public ActionResult Registro()
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult LogIn()
         {
-            ViewBag.consRegister = ConsultoriosLog.ListConsultoriosForRegister();
-            ViewBag.docsRegister = DoctoresLog.ListForRegister();
+            if (Session["user"] != null)
+                return RedirectToAction("Index", "Doctores");
             return View();
         }
 
@@ -58,7 +60,7 @@ namespace ServicioMedico.MVC.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.MensajesError = "Ingrese correo electronico y contraseña";
-                return RedirectToAction("Index", "Home");
+                return View(doc);
             }
 
             var result = DoctoresLog.Login(doc);
@@ -68,7 +70,14 @@ namespace ServicioMedico.MVC.Controllers
                 return RedirectToAction("Index", "Doctores", new { @message = DoctoresLog.MessageLog });
             }
             ViewBag.MensajesError = DoctoresLog.MessageLog;
-            return RedirectToAction("Index", "Home");
+            return View(doc);
+        }
+
+        public ActionResult Registro()
+        {
+            ViewBag.consRegister = ConsultoriosLog.ListConsultoriosForRegister();
+            ViewBag.docsRegister = DoctoresLog.ListForRegister();
+            return View();
         }
 
         [HttpPost]
@@ -110,7 +119,7 @@ namespace ServicioMedico.MVC.Controllers
         {
             if (Session["user"] != null)
                 Session["user"] = null;
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Doctores");
         }
     }
 }

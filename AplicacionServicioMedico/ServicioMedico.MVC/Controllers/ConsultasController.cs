@@ -16,7 +16,7 @@ namespace ServicioMedico.MVC.Controllers
         public ActionResult Index(int id, string nom, int edad, string genero)
         {
             if (Session["user"] == null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Doctores");
 
             List<Consultas> lista = (List<Consultas>)ConsultasLog.ConsultasAnteriores(id);
             ViewBag.idpaciente = id;
@@ -30,7 +30,7 @@ namespace ServicioMedico.MVC.Controllers
         public ActionResult VerConsultas()
         {
             if (Session["user"] == null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Doctores");
             return View();
         }
 
@@ -38,7 +38,7 @@ namespace ServicioMedico.MVC.Controllers
         public ActionResult ConsultasEliminadas()
         {
             if(Session["user"] == null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Doctores");
             return View();
         }
 
